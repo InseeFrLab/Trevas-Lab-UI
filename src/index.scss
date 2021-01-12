@@ -1,0 +1,24 @@
+h2 {
+	text-align: center;
+}
+
+.header {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.header-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0;
+}
+.editor-container {
+	height: 31em;
+}
+
+.api-error {
+	color: red;
+	font-weight: bold;
+	font-size: 20px;
+}

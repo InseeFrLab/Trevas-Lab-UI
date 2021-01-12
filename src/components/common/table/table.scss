@@ -1,0 +1,19 @@
+.table {
+	table {
+		border: solid 2px black;
+	}
+	th {
+		text-align: center;
+		font-weight: bold;
+		border-bottom: solid 2px black;
+	}
+	td {
+		border: solid 2px black;
+		input {
+			border: none;
+			padding: 0;
+			margin: 0;
+			border: 0;
+		}
+	}
+}

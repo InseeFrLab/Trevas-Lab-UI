@@ -5,9 +5,9 @@ import { getEnv } from 'utils/env';
 import { IN_MEMORY, SPARK_CLUSTER, SPARK_LOCAL } from 'utils/constants';
 
 const paths = [
-	{ label: 'In Memory', path: IN_MEMORY },
-	{ label: 'Spark - Local', path: SPARK_LOCAL },
-	{ label: 'Spark - Cluster', path: SPARK_CLUSTER },
+	{ label: 'In Memory', path: `/${IN_MEMORY}` },
+	{ label: 'Spark - Local', path: `/${SPARK_LOCAL}` },
+	{ label: 'Spark - Cluster', path: `/${SPARK_CLUSTER}` },
 	{ label: 'In Js', path: '/in-js', alignToRight: true },
 ];
 

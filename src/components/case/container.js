@@ -1,6 +1,6 @@
 import React from 'react';
 import useSWR from 'swr';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import Error from 'components/common/error';
 import { Loading } from '@inseefr/wilco';
 import Case from './component';
@@ -13,9 +13,11 @@ const CaseContainer = () => {
 	if (error) return <Error />;
 	if (!config) return <Loading text="Loading..." />;
 
-	return (
-		<Case config={config.find(({ id }) => id === app)} context={context} />
-	);
+	const caseConfig = config.find(({ id }) => id === app);
+
+	if (!caseConfig) return <Redirect to={`/${context}`} />;
+
+	return <Case config={caseConfig} context={context} />;
 };
 
 export default CaseContainer;

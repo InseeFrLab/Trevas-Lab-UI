@@ -19,7 +19,9 @@ const Menu = () => {
 				? { ...p, className: 'active' }
 				: p
 		)
-		.filter(({ path }) => path !== SPARK_LOCAL || getEnv() !== 'production');
+		.filter(
+			({ path }) => path !== `/${SPARK_LOCAL}` || getEnv() !== 'production'
+		);
 	return <WilcoMenu paths={realPaths} />;
 };
 

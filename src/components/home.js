@@ -15,7 +15,7 @@ const Home = () => {
 	const filteredConfig = config.filter(({ scope }) => scope.includes(context));
 	return (
 		<div className="container">
-			<PageTitle title="POC VTL" />
+			<PageTitle title="VTL Lab" />
 			<SearchableList
 				items={filteredConfig}
 				col={6}

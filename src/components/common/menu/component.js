@@ -13,6 +13,7 @@ const paths = [
 
 const Menu = () => {
 	const { pathname } = useLocation();
+
 	const realPaths = paths
 		.map((p) =>
 			pathname === p.path || pathname.startsWith(`${p.path}/`)

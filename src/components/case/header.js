@@ -7,7 +7,7 @@ const Header = ({ label, errors, getRes }) => (
 			<Button label="Return" action="/" col={12} offset={0} />
 		</div>
 		<div className="col-md-8 header-item">
-			<PageTitle title={`POC VTL: ${label}`} />
+			<PageTitle title={`VTL Lab: ${label}`} />
 		</div>
 		<div className="col-md-2 header-item">
 			<Button

@@ -1,27 +1,24 @@
 import React from 'react';
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Redirect,
-} from 'react-router-dom';
-import Menu from 'components/common/menu';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { secure } from './auth';
+import Menu from './common/menu';
 import Home from './home';
 import Case from './case';
 
-const Root = () => (
-	<Router>
-		<Menu />
-		<Switch>
-			<Route exact path="/:context">
-				<Home />
-			</Route>
-			<Route exact path="/:context/case/:app">
-				<Case />
-			</Route>
-			<Redirect to="/in-memory" />
-		</Switch>
-	</Router>
-);
+const Root = () => {
+	const { pathname } = useLocation();
+	return (
+		<>
+			<Menu />
+			<Switch>
+				<Route exact path="/:context" component={Home} />
+				<Route exact path="/:context/case/:app" component={secure(Case)} />
+				{!pathname.startsWith('/authentication') && (
+					<Redirect to="/in-memory" />
+				)}
+			</Switch>
+		</>
+	);
+};
 
 export default Root;

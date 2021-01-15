@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Loading } from '@inseefr/wilco';
 import { Position } from 'monaco-editor';
 import Header from './header';
@@ -6,10 +6,10 @@ import Editor from '../editor/VtlEditor';
 import Input from './input';
 import Output from './output';
 import { putVTL } from 'api';
+import { useAuthenticatedFetch } from 'utils/hooks';
 import { IN_MEMORY, SPARK_LOCAL } from 'utils/constants';
 
 const Case = ({ config, context }) => {
-	//TODO
 	const {
 		label,
 		inMemoryData,
@@ -18,6 +18,7 @@ const Case = ({ config, context }) => {
 		script,
 		defaultBindings,
 	} = config;
+
 	const [vtl, setVtl] = useState(null);
 	const [errors, setErrors] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -33,10 +34,12 @@ const Case = ({ config, context }) => {
 		setApiError('');
 	};
 
-	const getRes = () => {
+	const authFetch = useAuthenticatedFetch();
+
+	const getRes = useCallback(() => {
 		setRes(null);
 		setLoading(true);
-		putVTL(vtl, bindings, context)
+		authFetch(context, { vtlScript: vtl, bindings }, 'POST')
 			.then((res) => res.json())
 			.then((r) => {
 				if (r.error) setApiError(r.error.chars);
@@ -45,7 +48,7 @@ const Case = ({ config, context }) => {
 			.then(() => {
 				setLoading(false);
 			});
-	};
+	}, [authFetch]);
 
 	useEffect(() => {
 		if (context === IN_MEMORY) {

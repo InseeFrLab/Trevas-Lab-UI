@@ -72,7 +72,13 @@ const Case = ({ config, context }) => {
 			setBindings({ ...sparkClusterData, ...defaultBindings });
 			setLoading(false);
 		}
-	}, [inMemoryData, sparkLocalData, sparkClusterData, defaultBindings]);
+	}, [
+		inMemoryData,
+		sparkLocalData,
+		sparkClusterData,
+		defaultBindings,
+		context,
+	]);
 
 	useEffect(() => {
 		script

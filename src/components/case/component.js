@@ -5,7 +5,6 @@ import Header from './header';
 import Editor from '../editor/VtlEditor';
 import Input from './input';
 import Output from './output';
-import { putVTL } from 'api';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import { IN_MEMORY, SPARK_LOCAL } from 'utils/constants';
 
@@ -49,7 +48,7 @@ const Case = ({ config, context }) => {
 			.then(() => {
 				setLoadingPost(false);
 			});
-	}, [authFetch]);
+	}, [authFetch, bindings, context, vtl]);
 
 	useEffect(() => {
 		if (context === IN_MEMORY) {

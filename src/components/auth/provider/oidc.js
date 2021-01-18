@@ -25,9 +25,9 @@ const AuthProviderOIDC = ({ children }) => {
 			configuration={buildOidcConfiguration(conf).config}
 			isEnabled={conf.isEnabled}
 			UserStore={InMemoryWebStorage}
-			callbackComponentOverride={Loading}
-			authenticating={Loading}
-			sessionLostComponent={Loading}
+			callbackComponentOverride={() => <Loading text="Authentication..." />}
+			authenticating={() => <Loading text="Authentication..." />}
+			sessionLostComponent={() => <Loading text="Authentication..." />}
 		>
 			{children}
 		</AuthenticationProvider>

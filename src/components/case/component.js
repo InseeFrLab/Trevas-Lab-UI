@@ -22,6 +22,7 @@ const Case = ({ config, context }) => {
 	const [vtl, setVtl] = useState(null);
 	const [errors, setErrors] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [loadingPost, setLoadingPost] = useState(false);
 	const [bindings, setBindings] = useState(defaultBindings);
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
@@ -38,7 +39,7 @@ const Case = ({ config, context }) => {
 
 	const getRes = useCallback(() => {
 		setRes(null);
-		setLoading(true);
+		setLoadingPost(true);
 		authFetch(context, { vtlScript: vtl, bindings }, 'POST')
 			.then((res) => res.json())
 			.then((r) => {
@@ -46,7 +47,7 @@ const Case = ({ config, context }) => {
 				else setRes(r);
 			})
 			.then(() => {
-				setLoading(false);
+				setLoadingPost(false);
 			});
 	}, [authFetch]);
 
@@ -87,7 +88,8 @@ const Case = ({ config, context }) => {
 			: setVtl('');
 	}, [script]);
 
-	if (loading) return <Loading text="Ongoing treatments..." />;
+	if (loading) return <Loading text="Loading..." />;
+	if (loadingPost) return <Loading text="Ongoing treatments..." />;
 
 	return (
 		<div className="container">

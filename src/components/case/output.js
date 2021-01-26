@@ -1,13 +1,15 @@
 import React from 'react';
 import JSONEditor from '../common/json-editor';
-import { SPARK_CLUSTER } from 'utils/constants';
+import { SPARK_STATIC, SPARK_KUBE } from 'utils/constants';
 
 const Output = ({ res, context, apiError }) => (
 	<>
 		{res && (
 			<>
 				<h2>{`Results${
-					context === SPARK_CLUSTER ? ' (dataset length)' : ''
+					[SPARK_STATIC, SPARK_KUBE].includes(context)
+						? ' (dataset length)'
+						: ''
 				}`}</h2>
 				<JSONEditor json={res} mode="tree" readOnly />
 			</>

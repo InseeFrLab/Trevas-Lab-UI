@@ -1,6 +1,7 @@
 export const IN_MEMORY = 'in-memory';
 export const SPARK_LOCAL = 'spark';
-export const SPARK_CLUSTER = 'spark-cluster';
+export const SPARK_STATIC = 'spark-static';
+export const SPARK_KUBE = 'spark-kube';
 export const IN_JS = 'in-js';
 
 export const EMPTY_CONFIG = {
@@ -11,5 +12,5 @@ export const EMPTY_CONFIG = {
 	sparkClusterData: [],
 	script: '',
 	defaultBindings: {},
-	scope: ['in-memory', 'spark', 'spark-cluster'],
+	scope: [IN_MEMORY, SPARK_LOCAL, SPARK_STATIC, SPARK_KUBE],
 };

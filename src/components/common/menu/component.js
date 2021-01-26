@@ -2,12 +2,18 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Menu as WilcoMenu } from '@inseefr/wilco';
 import { getEnv } from 'utils/env';
-import { IN_MEMORY, SPARK_CLUSTER, SPARK_LOCAL } from 'utils/constants';
+import {
+	IN_MEMORY,
+	SPARK_LOCAL,
+	SPARK_STATIC,
+	SPARK_KUBE,
+} from 'utils/constants';
 
 const paths = [
 	{ label: 'In Memory', path: `/${IN_MEMORY}` },
 	{ label: 'Spark - Local', path: `/${SPARK_LOCAL}` },
-	{ label: 'Spark - Cluster', path: `/${SPARK_CLUSTER}` },
+	{ label: 'Spark - Static', path: `/${SPARK_STATIC}` },
+	{ label: 'Spark - Kube', path: `/${SPARK_KUBE}` },
 	{ label: 'In Js', path: '/in-js', alignToRight: true },
 ];
 

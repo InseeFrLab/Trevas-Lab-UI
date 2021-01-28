@@ -4,6 +4,7 @@ import { Position } from 'monaco-editor';
 import Header from './header';
 import Editor from '../editor/VtlEditor';
 import Input from './input';
+import ToSave from './to-save';
 import Output from './output';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import { IN_MEMORY, SPARK_LOCAL } from 'utils/constants';
@@ -23,6 +24,7 @@ const Case = ({ config, context }) => {
 	const [loading, setLoading] = useState(true);
 	const [loadingPost, setLoadingPost] = useState(false);
 	const [bindings, setBindings] = useState(defaultBindings);
+	const [toSave, setToSave] = useState({});
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
 	const setCursorPosition = useState(new Position(0, 0))[1];
@@ -43,7 +45,15 @@ const Case = ({ config, context }) => {
 			(acc, [k, v]) => (k && v ? { ...acc, [k]: v } : acc),
 			{}
 		);
-		authFetch(context, { vtlScript: vtl, bindings: updatedBindings }, 'POST')
+		const updatedToSave = Object.entries(toSave).reduce(
+			(acc, [k, v]) => (k && v ? { ...acc, [k]: v } : acc),
+			{}
+		);
+		authFetch(
+			context,
+			{ vtlScript: vtl, bindings: updatedBindings, toSave: updatedToSave },
+			'POST'
+		)
 			.then((res) => res.json())
 			.then((r) => {
 				if (r.error) setApiError(r.error.chars);
@@ -131,6 +141,7 @@ const Case = ({ config, context }) => {
 						setRes={setRes}
 						context={context}
 					/>
+					<ToSave toSave={toSave} setToSave={setToSave} context={context} />
 				</div>
 				<div className="col-md-6">
 					<Output res={res} context={context} apiError={apiError} />

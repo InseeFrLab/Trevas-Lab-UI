@@ -39,7 +39,11 @@ const Case = ({ config, context }) => {
 	const getRes = useCallback(() => {
 		setRes(null);
 		setLoadingPost(true);
-		authFetch(context, { vtlScript: vtl, bindings }, 'POST')
+		const updatedBindings = Object.entries(bindings).reduce(
+			(acc, [k, v]) => (k && v ? { ...acc, [k]: v } : acc),
+			{}
+		);
+		authFetch(context, { vtlScript: vtl, bindings: updatedBindings }, 'POST')
 			.then((res) => res.json())
 			.then((r) => {
 				if (r.error) setApiError(r.error.chars);

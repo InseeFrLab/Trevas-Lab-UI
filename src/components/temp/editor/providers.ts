@@ -1,19 +1,15 @@
 import * as EditorApi from 'monaco-editor';
-import { CancellationToken, editor, Position } from 'monaco-editor';
+import { editor, Position } from 'monaco-editor';
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import grammar from 'raw-loader!../grammar/vtl-2.0-insee/Vtl.g4';
 import { VtlLexer } from '../grammar/vtl-2.0-insee/VtlLexer';
 import { VtlParser } from '../grammar/vtl-2.0-insee/VtlParser';
-import { getSuggestions as getSuggestions2_0 } from '../grammar/vtl-2.0/suggestions';
-import { getSuggestions as getSuggestions2_0_Insee } from '../grammar/vtl-2.0-insee/suggestions';
-import { getSuggestions as getSuggestions3_0 } from '../grammar/vtl-3.0/suggestions';
+import { getSuggestions as getGrammarSuggestions } from '../grammar/vtl-2.0-insee/suggestions';
 import { GrammarGraph } from './grammar-graph/grammarGraph';
-import { createLexer, createParser } from './ParserFacade';
-import * as ParserFacade from './ParserFacade';
-import * as ParserFacadeV2Insee from './ParserFacadeV2Insee';
-import * as ParserFacadeV3 from './ParserFacadeV3';
+import { createLexer, createParser } from './ParserFacadeV2Insee';
+import * as ParserFacade from './ParserFacadeV2Insee';
 import { languageVersions, VTL_VERSION } from './settings';
 import { TokensProvider } from './tokensProvider';
 import { VocabularyPack } from './vocabularyPack';
@@ -91,12 +87,7 @@ const getSuggestions = (
 	monaco: typeof EditorApi,
 	variables: Array<any>
 ): any => {
-	return function (
-		model: editor.ITextModel,
-		position: Position,
-		context: languages.CompletionContext,
-		token: CancellationToken
-	) {
+	return function (model: editor.ITextModel, position: Position) {
 		const textUntilPosition = model.getValueInRange({
 			startLineNumber: 1,
 			startColumn: 1,
@@ -120,7 +111,7 @@ const getSuggestions = (
 					.filter((w) => w !== '')
 			).values()
 		);
-		const suggestionList = getSuggestionsForVersion(version, range);
+		const suggestionList: any = getSuggestionsForVersion(version, range);
 		uniquetext = removeLanguageSyntaxFromList(uniquetext, suggestionList);
 		const array = uniquetext.map((w) => {
 			return {
@@ -151,38 +142,17 @@ const getSuggestions = (
 export const getSuggestionsForVersion = (version: VTL_VERSION, range: any) => {
 	let suggestions: languages.CompletionItem[] | undefined;
 	switch (version) {
-		case VTL_VERSION.VTL_2_0:
-			suggestions = getSuggestions2_0(range);
-			return suggestions.length !== 0
-				? suggestions
-				: grammarGraph.suggestions();
 		case VTL_VERSION.VTL_2_0_Insee:
-			suggestions = getSuggestions2_0_Insee(range);
+			suggestions = getGrammarSuggestions(range);
 			return suggestions.length !== 0
 				? suggestions
 				: grammarGraph.suggestions();
-		case VTL_VERSION.VTL_3_0:
-			suggestions = getSuggestions3_0(range);
-			const su = [
-				...suggestions,
-				{
-					label: 'MY_VAR',
-					kind: VARIABLE,
-					insertText: 'my_var',
-					//range: range,
-				},
-			];
-			return suggestions.length !== 0 ? su : grammarGraph.suggestions();
 	}
 };
 
 export const getParserFacade = (version: VTL_VERSION) => {
 	switch (version) {
-		case VTL_VERSION.VTL_2_0:
-			return { parser: ParserFacade };
 		case VTL_VERSION.VTL_2_0_Insee:
-			return { parser: ParserFacadeV2Insee };
-		case VTL_VERSION.VTL_3_0:
-			return { parser: ParserFacadeV3 };
+			return { parser: ParserFacade };
 	}
 };

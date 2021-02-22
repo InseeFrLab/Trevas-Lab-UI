@@ -8,13 +8,13 @@ import {
 } from 'antlr4ts';
 import { VtlLexer } from '../grammar/vtl-2.0-insee/VtlLexer';
 import { VtlParser } from '../grammar/vtl-2.0-insee/VtlParser';
-import { Log } from '../utility/log';
+import { Log } from '../../utility/log';
 
 // @ts-ignore VALID
 class ConsoleErrorListener implements ANTLRErrorListener {
 	// @ts-ignore TS7006 VALID
 	syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
-		Log.info('ERROR ' + msg, 'ParserFacade');
+		Log.info('ERROR ' + msg, 'ParserFacadeV3');
 	}
 }
 
@@ -108,6 +108,7 @@ class VtlErrorStrategy extends DefaultErrorStrategy {
 
 export function validate(input: string): Error[] {
 	let errors: Error[] = [];
+
 	const lexer = createLexer(input);
 	lexer.removeErrorListeners();
 	lexer.addErrorListener(new ConsoleErrorListener());

@@ -4,8 +4,8 @@ import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import { getEditorWillMount, getParserFacade } from './providers';
-
 import { VTL_VERSION } from './settings';
+import vtlTools from '../grammar/vtl-2.0-insee';
 import './vtlEditor.css';
 
 declare const window: any;
@@ -62,8 +62,8 @@ const VtlEditor = ({
 	}, [tempCursor]);
 
 	useEffect(() => {
-		parserFacade = getParserFacade(languageVersion);
-	}, [languageVersion]);
+		parserFacade = getParserFacade();
+	}, []);
 
 	useEffect(() => {
 		fetch(suggesterURL)
@@ -87,7 +87,8 @@ const VtlEditor = ({
 
 	const didMount = (
 		editor: EditorApi.editor.IStandaloneCodeEditor,
-		monaco: typeof EditorApi
+		monaco: typeof EditorApi,
+		tools: any
 	) => {
 		let to: NodeJS.Timeout;
 		let onDidChangeTimout = (e: any) => {
@@ -95,7 +96,7 @@ const VtlEditor = ({
 		};
 
 		const onDidChange = (e: any) => {
-			// @ts-ignore
+			const { parser } = tools;
 			let syntaxErrors = parserFacade.parser.validate(editor.getValue());
 			let monacoErrors = [];
 			for (let e of syntaxErrors) {
@@ -149,8 +150,8 @@ const VtlEditor = ({
 		<div className="editor-container">
 			<MonacoEditor
 				ref={monacoRef}
-				editorWillMount={getEditorWillMount(vars)}
-				editorDidMount={didMount}
+				editorWillMount={getEditorWillMount(vtlTools)(vars)}
+				editorDidMount={(e, m) => didMount(e, m, vtlTools)}
 				height="100%"
 				language={languageVersion}
 				theme={theme}

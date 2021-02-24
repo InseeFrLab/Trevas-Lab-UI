@@ -8,13 +8,13 @@ import {
 } from 'antlr4ts';
 import { VtlLexer } from '../grammar/vtl-2.0-insee/VtlLexer';
 import { VtlParser } from '../grammar/vtl-2.0-insee/VtlParser';
-import { Log } from '../utility/log';
+import { Log } from '../../utility/log';
 
 // @ts-ignore VALID
 class ConsoleErrorListener implements ANTLRErrorListener {
 	// @ts-ignore TS7006 VALID
 	syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
-		Log.info('ERROR ' + msg, 'ParserFacade');
+		Log.info('ERROR ' + msg, 'ParserFacadeV3');
 	}
 }
 
@@ -96,7 +96,7 @@ export function parseTreeStr(input: string) {
 	return tree.toStringTree(parser.ruleNames);
 }
 
-class VtlErrorStrategy extends DefaultErrorStrategy {
+class ErrorStrategy extends DefaultErrorStrategy {
 	// @ts-ignore MEH
 	singleTokenDeletion(recognizer: Recognizer) {
 		// if (recognizer.inputStream.LA(1) == VtlParser.NL) {
@@ -108,6 +108,7 @@ class VtlErrorStrategy extends DefaultErrorStrategy {
 
 export function validate(input: string): Error[] {
 	let errors: Error[] = [];
+
 	const lexer = createLexer(input);
 	lexer.removeErrorListeners();
 	lexer.addErrorListener(new ConsoleErrorListener());
@@ -116,7 +117,7 @@ export function validate(input: string): Error[] {
 	parser.removeErrorListeners();
 	parser.addErrorListener(new CollectorErrorListener(errors));
 	// @ts-ignore TODO
-	parser._errHandler = new VtlErrorStrategy();
+	parser._errHandler = new ErrorStrategy();
 
 	parser.start();
 	return errors;

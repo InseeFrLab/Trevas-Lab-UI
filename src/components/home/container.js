@@ -21,7 +21,9 @@ const HomeContainer = () => {
 	if (!config) return <Loading text="Loading..." />;
 
 	const filteredConfig = sortArrayByLabel(
-		[...config, EMPTY_CONFIG].filter(({ scope }) => scope.includes(context))
+		[...config, EMPTY_CONFIG]
+			.filter(({ scope }) => scope.includes(context))
+			.map(({ id, label }) => ({ id, label }))
 	);
 
 	return <Home config={filteredConfig} context={context} />;

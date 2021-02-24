@@ -1,14 +1,15 @@
-import monarchDefinition from '../grammar/vtl-2.0-insee/monarchDefinition.json';
-import { VtlLexer } from '../grammar/vtl-2.0-insee/VtlLexer';
 import { keywordRgx } from './vocabularyPack';
+import Tools from './model/tools';
+import { Lexer } from 'antlr4ts';
 
 export class TokensProvider {
 	private readonly definition: any;
 
-	constructor() {
+	constructor(tools: Tools) {
+		const { lexer, monarchDefinition } = tools;
 		this.definition = JSON.parse(JSON.stringify(monarchDefinition), rgxReviver);
 		this.createCategories();
-		this.addTokens();
+		this.addTokens(lexer);
 	}
 
 	private createCategories() {
@@ -27,10 +28,11 @@ export class TokensProvider {
 		}
 	}
 
-	private addTokens() {
-		let vocabulary = VtlLexer.VOCABULARY;
-		let ruleNames = VtlLexer.ruleNames;
-		ruleNames.forEach((token, index) => {
+	private addTokens(lexer: Lexer) {
+		// @ts-ignore
+		let vocabulary = lexer.VOCABULARY;
+		let ruleNames = lexer.ruleNames;
+		ruleNames.forEach((_: any, index: number) => {
 			let tokenName = vocabulary.getLiteralName(++index);
 			if (tokenName) {
 				tokenName = tokenName.replace(/^'+|'+$/g, '');
@@ -45,7 +47,7 @@ export class TokensProvider {
 		});
 	}
 
-	public monarchLanguage(version: string): any {
+	public monarchLanguage(): any {
 		return this.definition;
 	}
 

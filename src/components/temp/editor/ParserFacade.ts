@@ -96,7 +96,7 @@ export function parseTreeStr(input: string) {
 	return tree.toStringTree(parser.ruleNames);
 }
 
-class VtlErrorStrategy extends DefaultErrorStrategy {
+class ErrorStrategy extends DefaultErrorStrategy {
 	// @ts-ignore MEH
 	singleTokenDeletion(recognizer: Recognizer) {
 		// if (recognizer.inputStream.LA(1) == VtlParser.NL) {
@@ -117,7 +117,7 @@ export function validate(input: string): Error[] {
 	parser.removeErrorListeners();
 	parser.addErrorListener(new CollectorErrorListener(errors));
 	// @ts-ignore TODO
-	parser._errHandler = new VtlErrorStrategy();
+	parser._errHandler = new ErrorStrategy();
 
 	parser.start();
 	return errors;

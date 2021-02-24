@@ -4,30 +4,18 @@ import { languages } from 'monaco-editor/esm/vs/editor/editor.api';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import grammar from 'raw-loader!../grammar/vtl-2.0-insee/Vtl.g4';
-import { VtlLexer } from '../grammar/vtl-2.0-insee/VtlLexer';
-import { VtlParser } from '../grammar/vtl-2.0-insee/VtlParser';
 import { getSuggestions as getGrammarSuggestions } from '../grammar/vtl-2.0-insee/suggestions';
 import { GrammarGraph } from './grammar-graph/grammarGraph';
-import { createLexer, createParser } from './ParserFacadeV2Insee';
-import * as ParserFacade from './ParserFacadeV2Insee';
-import { languageVersions, VTL_VERSION } from './settings';
+import * as ParserFacade from './ParserFacade';
 import { TokensProvider } from './tokensProvider';
 import { VocabularyPack } from './vocabularyPack';
 import { VARIABLE } from './constants';
+import Tools from './model/tools';
 
-const lexer = createLexer('');
-const parser = createParser('');
-const tokensProvider: TokensProvider = new TokensProvider();
-const vocabulary: VocabularyPack<VtlLexer, VtlParser> = new VocabularyPack(
-	lexer,
-	parser
-);
-const grammarGraph: GrammarGraph<VtlLexer, VtlParser> = new GrammarGraph(
-	vocabulary,
-	grammar
-);
+const lexer = ParserFacade.createLexer('');
+const parser = ParserFacade.createParser('');
 
-export const getVtlTheme = (): EditorApi.editor.IStandaloneThemeData => {
+export const getTheme = (): EditorApi.editor.IStandaloneThemeData => {
 	return {
 		base: 'vs',
 		inherit: true,
@@ -62,28 +50,38 @@ export const getBracketsConfiguration = (): languages.LanguageConfiguration => {
 	};
 };
 
-export const getEditorWillMount = (variables: any) => {
+export const getEditorWillMount = (tools: Tools) => (variables: any) => {
+	const tokensProvider: TokensProvider = new TokensProvider(tools);
+	const { id } = tools;
 	return (monaco: typeof EditorApi) => {
-		languageVersions.forEach((version) => {
-			monaco.languages.register({ id: version.code });
-			monaco.languages.setMonarchTokensProvider(
-				version.code,
-				tokensProvider.monarchLanguage(version.code)
-			);
-			monaco.editor.defineTheme('vtl', getVtlTheme());
-			monaco.languages.setLanguageConfiguration(
-				version.code,
-				getBracketsConfiguration()
-			);
-			monaco.languages.registerCompletionItemProvider(version.code, {
-				provideCompletionItems: getSuggestions(version.code, monaco, variables),
-			});
+		monaco.languages.register({ id });
+		monaco.languages.setMonarchTokensProvider(
+			id,
+			tokensProvider.monarchLanguage()
+		);
+		monaco.editor.defineTheme(id.replaceAll('.', '-'), getTheme());
+		monaco.languages.setLanguageConfiguration(id, getBracketsConfiguration());
+		monaco.languages.registerCompletionItemProvider(id, {
+			provideCompletionItems: getSuggestions(tools, monaco, variables),
 		});
 	};
 };
 
+const buildGrammarGraph = (tools: any) => {
+	const { lexer: Lexer, parser: Parser } = tools;
+	const vocabulary: VocabularyPack<
+		typeof Lexer,
+		typeof Parser
+	> = new VocabularyPack(lexer, parser);
+	const grammarGraph: GrammarGraph<
+		typeof Lexer,
+		typeof Parser
+	> = new GrammarGraph(vocabulary, grammar);
+	return grammarGraph;
+};
+
 const getSuggestions = (
-	version: VTL_VERSION,
+	tools: any,
 	monaco: typeof EditorApi,
 	variables: Array<any>
 ): any => {
@@ -111,7 +109,12 @@ const getSuggestions = (
 					.filter((w) => w !== '')
 			).values()
 		);
-		const suggestionList: any = getSuggestionsForVersion(version, range);
+		const grammarGraph = buildGrammarGraph(tools);
+		const grammarSuggestions = getGrammarSuggestions(range);
+		const suggestionList: languages.CompletionItem[] | undefined =
+			grammarSuggestions.length !== 0
+				? grammarSuggestions
+				: grammarGraph.suggestions();
 		uniquetext = removeLanguageSyntaxFromList(uniquetext, suggestionList);
 		const array = uniquetext.map((w) => {
 			return {
@@ -139,20 +142,4 @@ const getSuggestions = (
 	}
 };
 
-export const getSuggestionsForVersion = (version: VTL_VERSION, range: any) => {
-	let suggestions: languages.CompletionItem[] | undefined;
-	switch (version) {
-		case VTL_VERSION.VTL_2_0_Insee:
-			suggestions = getGrammarSuggestions(range);
-			return suggestions.length !== 0
-				? suggestions
-				: grammarGraph.suggestions();
-	}
-};
-
-export const getParserFacade = (version: VTL_VERSION) => {
-	switch (version) {
-		case VTL_VERSION.VTL_2_0_Insee:
-			return { parser: ParserFacade };
-	}
-};
+export const getParserFacade = () => ({ parser: ParserFacade });

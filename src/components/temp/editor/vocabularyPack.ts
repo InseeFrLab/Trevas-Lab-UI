@@ -1,5 +1,4 @@
 import { Lexer, Parser } from 'antlr4ts';
-import { VtlLexer } from '../grammar/vtl-2.0-insee/VtlLexer';
 
 export const keywordRgx: RegExp = /[a-zA-Z][\w]*/;
 
@@ -21,37 +20,31 @@ export class VocabularyPack<L extends Lexer, P extends Parser> {
 		this.literalNames = new Array<string | undefined>(count);
 		this.operatorNames = new Array<string | undefined>(count);
 		this.keywordNames = new Array<string | undefined>(count);
-		if (lexer instanceof VtlLexer) {
-			const vtlLexer = lexer as VtlLexer;
-			const vocabulary = vtlLexer.vocabulary;
-			VtlLexer.ruleNames.forEach((ruleName) => {
-				if (ruleName in VtlLexer) {
-					const index = VtlLexer[ruleName as keyof typeof VtlLexer];
-					if (
-						typeof index === 'number' &&
-						Number.isInteger(index) &&
-						index > 0 &&
-						index <= count
-					) {
-						this.symbolicNames[index] = ruleName;
-						this.literalNames[index] = vocabulary.getLiteralName(index);
-						this.operatorNames[index] = this.literalNames[index]?.replace(
-							/^'+|'+$/g,
-							''
-						);
-						this.keywordNames[index] = keywordRgx.test(
-							this.operatorNames[index] ?? ''
-						)
-							? this.operatorNames[index]
-							: undefined;
-						// const operator = this.operatorNames[index];
-						// if (operator && keywordRgx.test(operator)) {
-						//     this.keywordNames[index] = operator;
-						// }
-					}
+
+		const vocabulary = lexer.vocabulary;
+		lexer.ruleNames.forEach((ruleName) => {
+			if (ruleName in lexer) {
+				const index = lexer[ruleName as keyof typeof lexer];
+				if (
+					typeof index === 'number' &&
+					Number.isInteger(index) &&
+					index > 0 &&
+					index <= count
+				) {
+					this.symbolicNames[index] = ruleName;
+					this.literalNames[index] = vocabulary.getLiteralName(index);
+					this.operatorNames[index] = this.literalNames[index]?.replace(
+						/^'+|'+$/g,
+						''
+					);
+					this.keywordNames[index] = keywordRgx.test(
+						this.operatorNames[index] ?? ''
+					)
+						? this.operatorNames[index]
+						: undefined;
 				}
-			});
-		}
+			}
+		});
 	}
 
 	ruleName(index: number): string | undefined {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Loading } from '@inseefr/wilco';
 import { Position } from 'monaco-editor';
 import Header from './header';
-import Editor from '../temp/editor/VtlEditor';
+import Editor from '../temp/editor';
 import Input from './input';
 import ToSave from './to-save';
 import Output from './output';

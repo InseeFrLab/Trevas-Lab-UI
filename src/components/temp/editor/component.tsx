@@ -1,43 +1,40 @@
+import React from 'react';
 import * as EditorApi from 'monaco-editor/esm/vs/editor/editor.api';
 import { Position } from 'monaco-editor/esm/vs/editor/editor.api';
-import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import MonacoEditor from 'react-monaco-editor';
-import { getEditorWillMount, getParserFacade } from './providers';
-import { VTL_VERSION } from './settings';
-import vtlTools from '../grammar/vtl-2.0-insee';
-import './vtlEditor.css';
+import { getEditorWillMount } from './providers';
+import { validate } from './ParserFacade';
+import tools from '../grammar/vtl-2.0-insee';
+import './editor.css';
 
 declare const window: any;
 
-type VtlEditorProps = {
+type EditorProps = {
 	resizeLayout: any[];
 	code: string;
 	setCode: (value: string) => void;
 	setCodeChanged: (value: boolean) => void;
 	theme: string;
-	languageVersion: VTL_VERSION;
 	setCursorPosition: (e: Position) => void;
 	tempCursor: Position;
 	setErrors: (array: EditorApi.editor.IMarkerData[]) => void;
 	suggesterURL: string;
 };
 
-let parserFacade: any = { parser: null };
 let errors: any = { value: '' };
 
-const VtlEditor = ({
+const Editor = ({
 	resizeLayout,
 	code,
 	setCode,
 	setCodeChanged,
 	theme,
-	languageVersion,
 	setCursorPosition,
 	tempCursor,
 	setErrors,
 	suggesterURL,
-}: VtlEditorProps) => {
+}: EditorProps) => {
 	const [vars, setVars] = useState([]);
 	const [ready, setReady] = useState(false);
 
@@ -60,10 +57,6 @@ const VtlEditor = ({
 			);
 		}
 	}, [tempCursor]);
-
-	useEffect(() => {
-		parserFacade = getParserFacade();
-	}, []);
 
 	useEffect(() => {
 		fetch(suggesterURL)
@@ -96,8 +89,8 @@ const VtlEditor = ({
 		};
 
 		const onDidChange = (e: any) => {
-			const { parser } = tools;
-			let syntaxErrors = parserFacade.parser.validate(editor.getValue());
+			const { lexer, parser } = tools;
+			let syntaxErrors = validate({ lexer, parser })(editor.getValue());
 			let monacoErrors = [];
 			for (let e of syntaxErrors) {
 				monacoErrors.push({
@@ -150,10 +143,10 @@ const VtlEditor = ({
 		<div className="editor-container">
 			<MonacoEditor
 				ref={monacoRef}
-				editorWillMount={getEditorWillMount(vtlTools)(vars)}
-				editorDidMount={(e, m) => didMount(e, m, vtlTools)}
+				editorWillMount={getEditorWillMount(tools)(vars)}
+				editorDidMount={(e, m) => didMount(e, m, tools)}
 				height="100%"
-				language={languageVersion}
+				language={tools.id}
 				theme={theme}
 				defaultValue=""
 				options={options}
@@ -164,4 +157,4 @@ const VtlEditor = ({
 	);
 };
 
-export default VtlEditor;
+export default Editor;

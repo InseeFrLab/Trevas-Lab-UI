@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Loading } from '@inseefr/wilco';
 import { Position } from 'monaco-editor';
 import Header from './header';
-import Editor from '../temp/editor';
+import Editor from '../editor-temp';
 import Input from './input';
 import ToSave from './to-save';
 import Output from './output';
@@ -62,7 +62,7 @@ const Case = ({ config, context }) => {
 			.then(() => {
 				setLoadingPost(false);
 			});
-	}, [authFetch, bindings, context, vtl]);
+	}, [authFetch, bindings, context, vtl, toSave]);
 
 	useEffect(() => {
 		if (context === IN_MEMORY) {

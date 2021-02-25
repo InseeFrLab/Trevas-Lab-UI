@@ -4,7 +4,7 @@ import {
 	INSERT_AS_SNIPPET,
 	KEYWORD,
 	SNIPPET,
-} from '../../editor/constants';
+} from '../../editor/utils/constants';
 
 export const getSuggestions = (range: IRange) => {
 	return [

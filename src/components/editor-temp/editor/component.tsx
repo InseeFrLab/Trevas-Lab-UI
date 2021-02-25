@@ -3,8 +3,8 @@ import * as EditorApi from 'monaco-editor/esm/vs/editor/editor.api';
 import { Position } from 'monaco-editor/esm/vs/editor/editor.api';
 import { useState, useEffect, useRef } from 'react';
 import MonacoEditor from 'react-monaco-editor';
-import { getEditorWillMount } from './providers';
-import { validate } from './ParserFacade';
+import { getEditorWillMount } from './utils/providers';
+import { validate } from './utils/ParserFacade';
 import tools from '../grammar/vtl-2.0-insee';
 import './editor.css';
 

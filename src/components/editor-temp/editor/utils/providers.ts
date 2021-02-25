@@ -3,14 +3,14 @@ import { editor, Position } from 'monaco-editor';
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import grammar from 'raw-loader!../grammar/vtl-2.0-insee/Vtl.g4';
-import { getSuggestions as getGrammarSuggestions } from '../grammar/vtl-2.0-insee/suggestions';
-import { GrammarGraph } from './grammar-graph/grammarGraph';
+import grammar from 'raw-loader!../../grammar/vtl-2.0-insee/Vtl.g4';
+import { getSuggestions as getGrammarSuggestions } from '../../grammar/vtl-2.0-insee/suggestions';
+import { GrammarGraph } from '../grammar-graph/grammarGraph';
 import { createLexer, createParser } from './ParserFacade';
 import { TokensProvider } from './tokensProvider';
 import { VocabularyPack } from './vocabularyPack';
 import { VARIABLE } from './constants';
-import Tools from './model/tools';
+import Tools from '../model/tools';
 
 export const getTheme = (): EditorApi.editor.IStandaloneThemeData => {
 	return {

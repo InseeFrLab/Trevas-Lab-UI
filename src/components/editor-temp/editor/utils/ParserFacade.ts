@@ -5,7 +5,7 @@ import {
 	DefaultErrorStrategy,
 	Recognizer,
 } from 'antlr4ts';
-import { Log } from '../../utility/log';
+import { Log } from './log';
 
 // @ts-ignore VALID
 class ConsoleErrorListener implements ANTLRErrorListener {

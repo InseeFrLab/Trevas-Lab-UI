@@ -1,5 +1,5 @@
 import { keywordRgx } from './vocabularyPack';
-import Tools from './model/tools';
+import Tools from '../model/tools';
 import { Lexer } from 'antlr4ts';
 
 export class TokensProvider {

@@ -3,17 +3,14 @@ import { editor, Position } from 'monaco-editor';
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import grammar from 'raw-loader!../grammar/vtl-2.0-insee/Vtl.g4';
-import { getSuggestions as getGrammarSuggestions } from '../grammar/vtl-2.0-insee/suggestions';
-import { GrammarGraph } from './grammar-graph/grammarGraph';
-import * as ParserFacade from './ParserFacade';
+import grammar from 'raw-loader!../../grammar/vtl-2.0-insee/Vtl.g4';
+import { getSuggestions as getGrammarSuggestions } from '../../grammar/vtl-2.0-insee/suggestions';
+import { GrammarGraph } from '../grammar-graph/grammarGraph';
+import { createLexer, createParser } from './ParserFacade';
 import { TokensProvider } from './tokensProvider';
 import { VocabularyPack } from './vocabularyPack';
 import { VARIABLE } from './constants';
-import Tools from './model/tools';
-
-const lexer = ParserFacade.createLexer('');
-const parser = ParserFacade.createParser('');
+import Tools from '../model/tools';
 
 export const getTheme = (): EditorApi.editor.IStandaloneThemeData => {
 	return {
@@ -69,6 +66,8 @@ export const getEditorWillMount = (tools: Tools) => (variables: any) => {
 
 const buildGrammarGraph = (tools: any) => {
 	const { lexer: Lexer, parser: Parser } = tools;
+	const lexer = createLexer(Lexer)('');
+	const parser = createParser({ Lexer, Parser })('');
 	const vocabulary: VocabularyPack<
 		typeof Lexer,
 		typeof Parser
@@ -109,12 +108,12 @@ const getSuggestions = (
 					.filter((w) => w !== '')
 			).values()
 		);
-		const grammarGraph = buildGrammarGraph(tools);
+		buildGrammarGraph(tools);
 		const grammarSuggestions = getGrammarSuggestions(range);
 		const suggestionList: languages.CompletionItem[] | undefined =
 			grammarSuggestions.length !== 0
 				? grammarSuggestions
-				: grammarGraph.suggestions();
+				: buildGrammarGraph(tools).suggestions();
 		uniquetext = removeLanguageSyntaxFromList(uniquetext, suggestionList);
 		const array = uniquetext.map((w) => {
 			return {
@@ -141,5 +140,3 @@ const getSuggestions = (
 		return vars.filter((t) => !suggestionsLabels.includes(t.toLowerCase()));
 	}
 };
-
-export const getParserFacade = () => ({ parser: ParserFacade });

@@ -1,6 +1,6 @@
 import { Lexer, Parser } from 'antlr4ts';
-import { Log } from '../../../utility/log';
-import { VocabularyPack } from '../vocabularyPack';
+import { Log } from '../utils/log';
+import { VocabularyPack } from '../utils/vocabularyPack';
 import { RuleToken } from './ruleToken';
 import { TokenizerContext } from './tokenizerContext';
 import { TokenType } from './tokenType';

@@ -1,4 +1,4 @@
-import { Log } from '../../../utility/log';
+import { Log } from '../utils/log';
 import { mergeMultiplyMode, MultiplyMode } from './multiplyMode';
 import { RuleToken } from './ruleToken';
 import { RuleTokenizer } from './ruleTokenizer';

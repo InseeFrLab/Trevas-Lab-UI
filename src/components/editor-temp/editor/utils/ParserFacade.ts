@@ -4,11 +4,8 @@ import {
 	CommonTokenStream,
 	DefaultErrorStrategy,
 	Recognizer,
-	Token,
 } from 'antlr4ts';
-import { VtlLexer } from '../grammar/vtl-2.0-insee/VtlLexer';
-import { VtlParser } from '../grammar/vtl-2.0-insee/VtlParser';
-import { Log } from '../../utility/log';
+import { Log } from './log';
 
 // @ts-ignore VALID
 class ConsoleErrorListener implements ANTLRErrorListener {
@@ -18,7 +15,7 @@ class ConsoleErrorListener implements ANTLRErrorListener {
 	}
 }
 
-export class Error {
+class Error {
 	startLine: number;
 	endLine: number;
 	startCol: number;
@@ -58,62 +55,39 @@ class CollectorErrorListener implements ANTLRErrorListener {
 	}
 }
 
-export function createLexer(input: string): VtlLexer {
+export const createLexer = (Lexer: any) => (input: string) => {
 	const chars = CharStreams.fromString(input);
-	const lexer = new VtlLexer(chars);
-
-	// lexer.strictMode = false;
-
+	const lexer = new Lexer(chars);
 	return lexer;
-}
+};
 
-export function getTokens(input: string): Token[] {
-	return createLexer(input).getAllTokens();
-}
+export const createParser = ({ Lexer, Parser }: any) => (input: string) => {
+	const lexer = createLexer(Lexer)(input);
+	return createParserFromLexer(Parser)(lexer);
+};
 
-export function createParser(input: string) {
-	const lexer = createLexer(input);
-
-	return createParserFromLexer(lexer);
-}
-
-function createParserFromLexer(lexer: VtlLexer) {
+const createParserFromLexer = (Parser: any) => (lexer: any) => {
 	const tokens = new CommonTokenStream(lexer);
-	return new VtlParser(tokens);
-}
-
-export function parseTreeStr(input: string) {
-	const lexer = createLexer(input);
-	lexer.removeErrorListeners();
-	lexer.addErrorListener(new ConsoleErrorListener());
-
-	const parser = createParserFromLexer(lexer);
-	parser.removeErrorListeners();
-	parser.addErrorListener(new ConsoleErrorListener());
-
-	const tree = parser.start();
-
-	return tree.toStringTree(parser.ruleNames);
-}
+	return new Parser(tokens);
+};
 
 class ErrorStrategy extends DefaultErrorStrategy {
 	// @ts-ignore MEH
 	singleTokenDeletion(recognizer: Recognizer) {
-		// if (recognizer.inputStream.LA(1) == VtlParser.NL) {
-		//     return null;
-		// }
 		return super.singleTokenDeletion(recognizer);
 	}
 }
 
-export function validate(input: string): Error[] {
+export const validate = ({ lexer: Lexer, parser: Parser }: any) => (
+	input: string
+): Error[] => {
 	let errors: Error[] = [];
 
-	const lexer = createLexer(input);
+	const lexer = createLexer(Lexer)(input);
 	lexer.removeErrorListeners();
 	lexer.addErrorListener(new ConsoleErrorListener());
 
-	const parser = createParserFromLexer(lexer);
+	const parser = createParserFromLexer(Parser)(lexer);
 	parser.removeErrorListeners();
 	parser.addErrorListener(new CollectorErrorListener(errors));
 	// @ts-ignore TODO
@@ -121,4 +95,4 @@ export function validate(input: string): Error[] {
 
 	parser.start();
 	return errors;
-}
+};

@@ -39,7 +39,7 @@
 		"test": "react-app-rewired test",
 		"eject": "react-scripts eject",
 		"generate-entrypoint": "node scripts/generate-entrypoint.js",
-		"build-grammar": "antlr4ts -visitor src/components/grammar/vtl-2.0-insee/Vtl.g4",
+		"build-grammar": "antlr4ts -visitor src/components/editor-temp/grammar/vtl-2.0-insee/Vtl.g4",
 		"source-map-explorer": "source-map-explorer 'build/static/js/*.js' --html bundle-report/source-map-explorer.html",
 		"analyze": "npm run build && npm run source-map-explorer"
 	},

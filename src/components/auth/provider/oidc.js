@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import {
 	AuthenticationProvider,
 	InMemoryWebStorage,
@@ -28,7 +27,7 @@ const AuthProviderOIDC = ({ children }) => {
 			UserStore={InMemoryWebStorage}
 			callbackComponentOverride={() => <Loading text="Authentication..." />}
 			authenticating={() => <Loading text="Authentication..." />}
-			sessionLostComponent={() => <Redirect to="/" />}
+			sessionLostComponent={() => <div>error</div>}
 		>
 			{children}
 		</AuthenticationProvider>

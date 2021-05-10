@@ -1,4 +1,4 @@
-// Generated from src/components/grammar/vtl-2.0-insee/Vtl.g4 by ANTLR 4.7.3-SNAPSHOT
+// Generated from src/components/editor-temp/grammar/vtl-2.0-insee/Vtl.g4 by ANTLR 4.7.3-SNAPSHOT
 
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";

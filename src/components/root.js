@@ -4,6 +4,7 @@ import { secure } from './auth';
 import Menu from './common/menu';
 import Home from './home';
 import Case from './case';
+import CsvToParquet from './build-parquet';
 
 const Root = () => {
 	const { pathname } = useLocation();
@@ -11,6 +12,7 @@ const Root = () => {
 		<>
 			<Menu />
 			<Switch>
+				<Route exact path="/build-parquet" component={CsvToParquet} />
 				<Route exact path="/:context" component={Home} />
 				<Route exact path="/:context/case/:app" component={secure(Case)} />
 				{!pathname.startsWith('/authentication') && (

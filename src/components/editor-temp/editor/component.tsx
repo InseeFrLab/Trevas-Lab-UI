@@ -5,10 +5,18 @@ import { useState, useEffect, useRef } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import { getEditorWillMount } from './utils/providers';
 import { validate } from './utils/ParserFacade';
-import tools from '../grammar/vtl-2.0-insee';
+import { VtlLexer, VtlParser } from '../grammar/vtl-2.0-insee';
+import monarchDefinition from '../grammar/vtl-2.0-insee/monarchDefinition.json';
 import './editor.css';
 
 declare const window: any;
+
+const customTools: any = {
+	id: 'vtl-2.0-insee',
+	lexer: VtlLexer,
+	parser: VtlParser,
+	monarchDefinition,
+};
 
 type EditorProps = {
 	resizeLayout: any[];
@@ -89,7 +97,7 @@ const Editor = ({
 		};
 
 		const onDidChange = (e: any) => {
-			const { lexer, parser } = tools;
+			const { lexer, parser } = customTools;
 			let syntaxErrors = validate({ lexer, parser })(editor.getValue());
 			let monacoErrors = [];
 			for (let e of syntaxErrors) {
@@ -143,10 +151,10 @@ const Editor = ({
 		<div className="editor-container">
 			<MonacoEditor
 				ref={monacoRef}
-				editorWillMount={getEditorWillMount(tools)(vars)}
-				editorDidMount={(e, m) => didMount(e, m, tools)}
+				editorWillMount={getEditorWillMount(customTools)(vars)}
+				editorDidMount={(e, m) => didMount(e, m, customTools)}
 				height="100%"
-				language={tools.id}
+				language={customTools.id}
 				theme={theme}
 				defaultValue=""
 				options={options}

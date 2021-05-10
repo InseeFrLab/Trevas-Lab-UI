@@ -16,7 +16,6 @@ const BuildParquet = () => {
 	const getRes = useCallback(() => {
 		setLoading(true);
 		authFetch('build-parquet', { structure, data, target }, 'POST')
-			.then((res) => res.json())
 			// TODO: handle API response
 			.then(() => {
 				setLoading(false);

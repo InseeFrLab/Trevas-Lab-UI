@@ -20,7 +20,7 @@ const BuildParquet = () => {
 			.then(() => {
 				setLoading(false);
 			});
-	}, [authFetch]);
+	}, [authFetch, structure, data, target]);
 
 	if (loading) return <Loading text="Building parquet files..." />;
 

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Loading } from '@inseefr/wilco';
-import { Position } from 'monaco-editor';
 import Header from './header';
-import Editor from '../editor-temp';
+import Editor from 'components/common/editor';
 import Input from './input';
 import ToSave from './to-save';
 import Output from './output';
@@ -12,6 +11,7 @@ import { IN_MEMORY, SPARK_LOCAL } from 'utils/constants';
 const Case = ({ config, context }) => {
 	const {
 		label,
+		metadata,
 		inMemoryData,
 		sparkLocalData,
 		sparkClusterData,
@@ -27,8 +27,6 @@ const Case = ({ config, context }) => {
 	const [toSave, setToSave] = useState({});
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
-	const setCursorPosition = useState(new Position(0, 0))[1];
-	const [tempCursor] = useState(new Position(0, 0));
 
 	const onChange = (e) => {
 		setVtl(e);
@@ -94,6 +92,10 @@ const Case = ({ config, context }) => {
 		context,
 	]);
 
+	const urls = Array.isArray(metadata)
+		? metadata.reduce((acc, { url }) => [...acc, url], [])
+		: [];
+
 	useEffect(() => {
 		script
 			? fetch(script)
@@ -118,17 +120,10 @@ const Case = ({ config, context }) => {
 					<h2>VTL script</h2>
 					{vtl !== null && (
 						<Editor
-							resizeLayout={[false, true, 100]}
-							code={vtl}
-							setCode={onChange}
-							setCodeChanged={() => false}
-							theme="vs-dark"
-							languageVersion="vtl-2.0-insee"
-							setCursorPosition={setCursorPosition}
-							tempCursor={tempCursor}
+							script={vtl}
+							setScript={onChange}
 							setErrors={setErrors}
-							// TODO: enable several dataset suggestions
-							suggesterURL={inMemoryData[0]?.url || ''}
+							variableURLs={urls}
 						/>
 					)}
 				</div>

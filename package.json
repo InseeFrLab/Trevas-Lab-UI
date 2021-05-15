@@ -9,7 +9,7 @@
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.3.2",
 		"@testing-library/user-event": "^7.1.2",
-		"antlr-editor": "^1.0.0",
+		"antlr-editor": "^1.0.1",
 		"antlr4ts": "^0.5.0-alpha.4",
 		"bootstrap": "3.4.1",
 		"classnames": "^2.2.6",

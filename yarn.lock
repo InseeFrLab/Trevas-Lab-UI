@@ -2168,10 +2168,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-antlr-editor@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/antlr-editor/-/antlr-editor-1.0.0.tgz#0dba4dae6cadb1a7cf42e264b3af5416a84a6f58"
-  integrity sha512-9IXZT85frF4NtYPIzXYNUslcraFcq0cKDzJSkaivO0wvDCeC4pe1nECuG0sTLgCNiqQDC7wHBXd0Mtwklgybug==
+antlr-editor@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/antlr-editor/-/antlr-editor-1.0.1.tgz#73d3aaf2e9e43db4105b8ad586b0765f3a8daefe"
+  integrity sha512-UezB/fWFkIZ2pmuHTroBKoQU3JKmyYuz94HXR8LF5vkyvhHhp65hMWCsZslhs6EHfsj0rpALlICEz0E3EgmW9w==
   optionalDependencies:
     "@types/react" "^17.0.5"
 

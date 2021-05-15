@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json yarn.lock .env ./
 RUN yarn install --frozen-lockfile
 COPY . .
-RUN yarn build
+RUN yarn build-gha
 
 # production environment
 FROM nginx:stable-alpine

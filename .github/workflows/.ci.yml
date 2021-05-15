@@ -18,10 +18,6 @@ jobs:
       - uses: actions/setup-node@v1
       - run: yarn --frozen-lockfile
       - run: yarn build-gha
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: build
 
   check_if_version_upgraded:
     name: Check if version upgrade
@@ -72,20 +68,11 @@ jobs:
           fi
           OUT=$(echo "$OUT" | awk '{print tolower($0)}') 
           echo ::set-output name=docker_tags::$OUT
-      - run: echo "{\"version\":\"$VER\"}" > re.json
-        env:
-          VER: ${{ needs.build.outputs.react_envs_version }}
-      - uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-      - run: tar -cvf build.tar ./build
       - uses: docker/build-push-action@v2
         with:
           push: true
           context: .
           tags: ${{ steps.step1.outputs.docker_tags }}
-          file: Dockerfile.ci
 
   update_changelog:
     runs-on: ubuntu-latest

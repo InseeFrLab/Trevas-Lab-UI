@@ -8,21 +8,10 @@ on:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    if: github.event.head_commit.author.name != 'actions'
-    outputs:
-      react_envs_version: ${{ steps.step1.outputs.out2 }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-      - run: yarn --frozen-lockfile
-      - run: yarn build-gha
 
   check_if_version_upgraded:
     name: Check if version upgrade
     runs-on: ubuntu-latest
-    needs: build
     outputs:
       from_version: ${{ steps.step1.outputs.from_version }}
       to_version: ${{ steps.step1.outputs.to_version }}
@@ -34,9 +23,7 @@ jobs:
           action_name: is_package_json_version_upgraded
 
   docker:
-    needs:
-      - check_if_version_upgraded
-      - build
+    needs: check_if_version_upgraded
     runs-on: ubuntu-latest
     # We publish the the docker image only if it's a push on the default branch or if it's a PR from a
     # branch (meaning not a PR from a fork). It would be more straightforward to test if secrets.DOCKERHUB_TOKEN is

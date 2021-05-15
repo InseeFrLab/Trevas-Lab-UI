@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json yarn.lock .env ./
 RUN yarn install --frozen-lockfile
 COPY . .
-RUN yarn build-gha
+RUN yarn build --max_old_space_size=4096 build
 
 # production environment
 FROM nginx:stable-alpine

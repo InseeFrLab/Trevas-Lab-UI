@@ -1,8 +1,8 @@
-import { getEnvVar } from 'utils/env';
+import { getEnv } from 'env';
 
 export const buildOidcConfiguration = (baseConfig) => {
-	const authority = getEnvVar('OIDC_AUTHORITY');
-	const client_id = getEnvVar('OIDC_CLIENT_ID');
+	const authority = getEnv()['OIDC_AUTHORITY'];
+	const client_id = getEnv()['OIDC_CLIENT_ID'];
 
 	const { origin } = window.location;
 	const updatedBaseConfigConfig = Object.entries(baseConfig.config).reduce(

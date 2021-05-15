@@ -1,10 +1,18 @@
-FROM nginx
-COPY build /usr/share/nginx/html
-RUN rm etc/nginx/conf.d/default.conf
-COPY nginx.conf etc/nginx/conf.d/
+# build environment
+FROM node:14.16.0-alpine as build
+WORKDIR /app
+COPY package.json yarn.lock .env ./
+RUN yarn install --frozen-lockfile
+COPY . .
+RUN yarn build --max_old_space_size=4096
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
-
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD ["nginx", "-g", "daemon off;"]
+# production environment
+FROM nginx:stable-alpine
+RUN apk add --update nodejs npm
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf    
+COPY --from=build /app/node_modules/react-envs/package.json ./re.json
+RUN npm i -g react-envs@`node -e 'console.log(require("./re.json")["version"])'`
+WORKDIR /usr/share/nginx
+COPY --from=build /app/build ./html
+COPY --from=build /app/.env .
+ENTRYPOINT sh -c "npx embed-environnement-variables && nginx -g 'daemon off;'"

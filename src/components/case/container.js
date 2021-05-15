@@ -4,14 +4,14 @@ import { useParams, Redirect } from 'react-router-dom';
 import Error from 'components/common/error';
 import { Loading } from '@inseefr/wilco';
 import Case from './component';
-import { getEnvVar } from 'utils/env';
+import { getEnv } from 'env';
 import { EMPTY_CONFIG } from 'utils/constants';
 
 const CaseContainer = () => {
-	const { data: config, error } = useSWR(getEnvVar('CONFIGURATION_URL'));
+	const { data: config, error } = useSWR(getEnv()['CONFIGURATION_URL']);
 	const { app, context } = useParams();
 
-	if (!getEnvVar('CONFIGURATION_URL'))
+	if (!getEnv()['CONFIGURATION_URL'])
 		return <Case config={EMPTY_CONFIG} context={context} />;
 
 	if (error) return <Error />;

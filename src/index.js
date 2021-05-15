@@ -7,11 +7,11 @@ import { BackToTop } from '@inseefr/wilco';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@inseefr/wilco/dist/index.css';
 import './index.scss';
-import { getEnvVar } from 'utils/env';
+import { getEnv } from 'env';
 
 export const AuthTypeContext = React.createContext();
 
-const authType = getEnvVar('AUTH_MODE');
+const authType = getEnv()['AUTH_MODE'];
 
 ReactDOM.render(
 	<React.StrictMode>

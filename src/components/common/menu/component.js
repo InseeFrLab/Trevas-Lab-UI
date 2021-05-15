@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Menu as WilcoMenu } from '@inseefr/wilco';
-import { getEnvVar } from 'utils/env';
+import { getEnv } from 'env';
 import {
 	IN_MEMORY,
 	SPARK_LOCAL,
@@ -23,7 +23,7 @@ const Menu = () => {
 
 	const realPaths = paths
 		.filter(({ path }) =>
-			getEnvVar('MODULES').split(',').includes(path.replace('/', ''))
+			getEnv()['MODULES'].split(',').includes(path.replace('/', ''))
 		)
 		.map((p) =>
 			pathname === p.path || pathname.startsWith(`${p.path}/`)

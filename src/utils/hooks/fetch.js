@@ -1,5 +1,6 @@
 import { useAuth } from './auth';
-import { getEnvVar } from 'utils/env';
+import { getEnv } from 'env';
+
 
 const defaultHeaders = {
 	Accept: 'application/json',
@@ -10,7 +11,7 @@ export const useAuthenticatedFetch = () => {
 	const { authType, oidcUser } = useAuth();
 	if (authType === 'NONE')
 		return (urlPath = '', body = {}, method = 'GET') =>
-			fetch(`${getEnvVar('API_BASE_URL')}/api/vtl/${urlPath}`, {
+			fetch(`${getEnv()['API_BASE_URL']}/api/vtl/${urlPath}`, {
 				method,
 				body: JSON.stringify(body),
 				headers: defaultHeaders,
@@ -18,7 +19,7 @@ export const useAuthenticatedFetch = () => {
 	if (authType === 'OIDC') {
 		const token = oidcUser?.access_token;
 		return (urlPath = '', body = {}, method = 'GET') =>
-			fetch(`${getEnvVar('API_BASE_URL')}/api/vtl/${urlPath}`, {
+			fetch(`${getEnv()['API_BASE_URL']}/api/vtl/${urlPath}`, {
 				method,
 				body: JSON.stringify(body),
 				headers: { ...defaultHeaders, Authorization: `Bearer ${token}` },

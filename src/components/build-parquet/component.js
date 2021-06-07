@@ -1,9 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import { useRecoilState } from 'recoil';
+import { UUID_State } from 'store';
 import { Loading } from '@inseefr/wilco';
 import Header from './header';
 import { useAuthenticatedFetch } from 'utils/hooks';
 
 const BuildParquet = () => {
+	const [, setUUID] = useRecoilState(UUID_State);
 	const [structure, setStructure] = useState(
 		's3a://projet-vtl/build-test/structure.json'
 	);
@@ -15,8 +18,12 @@ const BuildParquet = () => {
 
 	const getRes = useCallback(() => {
 		setLoading(true);
-		authFetch('build-parquet', { structure, data, target }, 'POST')
-			// TODO: handle API response
+		//authFetch('build-parquet', { structure, data, target }, 'POST')
+		// TODO: handle API response
+		Promise.resolve('0356ac58-dd64-44ac-ba31-d8fde40cd468')
+			.then((res) => {
+				setUUID(res);
+			})
 			.then(() => {
 				setLoading(false);
 			});

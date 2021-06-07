@@ -14,3 +14,8 @@ export const EMPTY_CONFIG = {
 	defaultBindings: {},
 	scope: [IN_MEMORY, SPARK_LOCAL, SPARK_STATIC, SPARK_KUBE],
 };
+
+export const READY = 'READY';
+export const RUNNING = 'RUNNING';
+export const DONE = 'DONE';
+export const FAILED = 'FAILED';

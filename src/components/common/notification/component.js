@@ -4,6 +4,7 @@ import { DONE, RUNNING, READY, FAILED } from 'utils/constants';
 import './notification.scss';
 
 const getMessage = (status, location) => {
+	if (!location) return `Job status: ${status}`;
 	switch (status) {
 		case DONE:
 			return `Dataset created at ${location}`;
@@ -23,7 +24,7 @@ const Notification = ({ index, name, location, status, close }) => {
 		<Toast
 			style={{
 				position: 'absolute',
-				top: `${(index + 1) * 50}px`,
+				top: `${(index + 1) * 70 + 100}px`,
 				right: '10px',
 				width: '20%',
 			}}

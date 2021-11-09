@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Loading } from '@inseefr/wilco';
+import { useRecoilState } from 'recoil';
+import { UUID_State } from 'store';
 import Header from './header';
 import Editor from 'components/common/editor';
 import Input from './input';
@@ -27,6 +29,7 @@ const Case = ({ config, context }) => {
 	const [toSave, setToSave] = useState({});
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
+	const [, setUUID] = useRecoilState(UUID_State);
 
 	const onChange = (e) => {
 		setVtl(e);
@@ -48,14 +51,16 @@ const Case = ({ config, context }) => {
 			{}
 		);
 		authFetch(
-			context,
+			'spark-kube-new',
 			{ vtlScript: vtl, bindings: updatedBindings, toSave: updatedToSave },
 			'POST'
 		)
-			.then((res) => res.json())
-			.then((r) => {
-				if (r.error) setApiError(r.error.chars);
-				else setRes(r);
+			.then((res) => res.text())
+			.then((res) => {
+				//TODO: fix
+				const r = res.replace(/"/g, '');
+				if (res.error) setApiError(res.error.chars);
+				setUUID(r);
 			})
 			.then(() => {
 				setLoadingPost(false);

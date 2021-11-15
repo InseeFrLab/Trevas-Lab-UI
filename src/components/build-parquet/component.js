@@ -1,41 +1,29 @@
-import React, { useState, useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import { UUID_State } from 'store';
+import React, { useState } from 'react';
+// import { useRecoilState } from 'recoil';
+// import { UUID_State } from 'store';
 import { Loading } from '@inseefr/wilco';
 import Header from './header';
-import { useAuthenticatedFetch } from 'utils/hooks';
+// import { useAuthenticatedFetch } from 'utils/hooks';
 
 const BuildParquet = () => {
-	const [, setUUID] = useRecoilState(UUID_State);
+	// const [, setUUID] = useRecoilState(UUID_State);
 	const [structure, setStructure] = useState(
 		's3a://projet-vtl/build-test/structure.json'
 	);
 	const [data, setData] = useState('s3a://projet-vtl/build-test/data.csv');
 	const [target, setTarget] = useState('s3a://projet-vtl/build-test/result');
-	const [loading, setLoading] = useState(false);
+	const [loading] = useState(false);
 
-	const authFetch = useAuthenticatedFetch();
-
-	const getRes = useCallback(() => {
-		setLoading(true);
-		//authFetch('build-parquet', { structure, data, target }, 'POST')
-		// TODO: handle API response
-		Promise.resolve('0356ac58-dd64-44ac-ba31-d8fde40cd468')
-			.then((res) => {
-				setUUID(res);
-			})
-			.then(() => {
-				setLoading(false);
-			});
-	}, [authFetch, structure, data, target]);
+	// const authFetch = useAuthenticatedFetch();
 
 	if (loading) return <Loading text="Building parquet files..." />;
 
 	return (
 		<div className="container">
 			<Header
-				getRes={getRes}
-				disabled={structure.length === 0 || data.length === 0}
+				getRes={() => {}}
+				// disabled={structure.length === 0 || data.length === 0}
+				disabled
 			/>
 			<div className="row">
 				<div className="col-md-6">

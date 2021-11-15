@@ -39,14 +39,14 @@ const Notifications = () => {
 				);
 				setToDisplay({ ...toDisplay, ...toAdd });
 			});
-	}, 500);
+	}, 1000);
 
 	useEffect(() => {
 		if (UUID) {
 			start();
 		}
 		if (!UUID && isActive) stop();
-	}, [UUID]);
+	}, [UUID, isActive, stop, start]);
 
 	return (
 		<>

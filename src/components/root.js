@@ -5,6 +5,7 @@ import Menu from './common/menu';
 import Home from './home';
 import Case from './case';
 import CsvToParquet from './build-parquet';
+import { IN_MEMORY } from 'utils/constants';
 
 const Root = () => {
 	const { pathname } = useLocation();
@@ -16,7 +17,7 @@ const Root = () => {
 				<Route exact path="/:context" component={Home} />
 				<Route exact path="/:context/case/:app" component={secure(Case)} />
 				{!pathname.startsWith('/authentication') && (
-					<Redirect to="/in-memory" />
+					<Redirect to={`/${IN_MEMORY}`} />
 				)}
 			</Switch>
 		</>

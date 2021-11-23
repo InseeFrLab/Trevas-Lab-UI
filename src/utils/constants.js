@@ -1,7 +1,9 @@
-export const IN_MEMORY = 'in-memory';
-export const SPARK_LOCAL = 'spark';
-export const SPARK_STATIC = 'spark-static';
-export const SPARK_KUBE = 'spark-kube';
+export const IN_MEMORY = 'MEMORY';
+export const SPARK = 'SPARK';
+export const LOCAL = 'LOCAL';
+export const SPARK_LOCAL = 'LOCAL';
+export const SPARK_STATIC = 'CLUSTER_STATIC';
+export const SPARK_KUBE = 'CLUSTER_KUBERNETES';
 export const IN_JS = 'in-js';
 
 export const EMPTY_CONFIG = {
@@ -14,3 +16,8 @@ export const EMPTY_CONFIG = {
 	defaultBindings: {},
 	scope: [IN_MEMORY, SPARK_LOCAL, SPARK_STATIC, SPARK_KUBE],
 };
+
+export const READY = 'READY';
+export const RUNNING = 'RUNNING';
+export const DONE = 'DONE';
+export const FAILED = 'FAILED';

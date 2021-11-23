@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Loading } from '@inseefr/wilco';
+import { useRecoilState } from 'recoil';
+import { UUID_State } from 'store';
 import Header from './header';
 import Editor from 'components/common/editor';
 import Input from './input';
 import ToSave from './to-save';
 import Output from './output';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { IN_MEMORY, SPARK_LOCAL } from 'utils/constants';
+import { IN_MEMORY, SPARK, SPARK_LOCAL, LOCAL } from 'utils/constants';
 
 const Case = ({ config, context }) => {
 	const {
@@ -27,6 +29,8 @@ const Case = ({ config, context }) => {
 	const [toSave, setToSave] = useState({});
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
+	const [UUID, setUUID] = useRecoilState(UUID_State);
+	const [currentJobId, setCurrentJobId] = useState('');
 
 	const onChange = (e) => {
 		setVtl(e);
@@ -47,20 +51,38 @@ const Case = ({ config, context }) => {
 			(acc, [k, v]) => (k && v ? { ...acc, [k]: v } : acc),
 			{}
 		);
+		const mode = context === IN_MEMORY ? IN_MEMORY : SPARK;
+
 		authFetch(
-			context,
+			`execute?mode=${mode}&type=${context === IN_MEMORY ? LOCAL : context}`,
 			{ vtlScript: vtl, bindings: updatedBindings, toSave: updatedToSave },
 			'POST'
 		)
-			.then((res) => res.json())
-			.then((r) => {
-				if (r.error) setApiError(r.error.chars);
-				else setRes(r);
+			.then((res) => res.text())
+			.then((res) => {
+				//TODO: fix
+				const r = res.replace(/"/g, '');
+				if (res.error) setApiError(res.error.chars);
+				setUUID(r);
+				if (context === IN_MEMORY) setCurrentJobId(r);
 			})
 			.then(() => {
 				setLoadingPost(false);
 			});
-	}, [authFetch, bindings, context, vtl, toSave]);
+	}, [authFetch, bindings, context, vtl, toSave, setUUID]);
+
+	useEffect(() => {
+		if (UUID === null && currentJobId) {
+			authFetch(`job/${currentJobId}/bindings`)
+				.then((r) => r.json())
+				.then((r) => {
+					setRes(r);
+				})
+				.then(() => {
+					setCurrentJobId('');
+				});
+		}
+	}, [UUID, authFetch, currentJobId]);
 
 	useEffect(() => {
 		if (context === IN_MEMORY) {

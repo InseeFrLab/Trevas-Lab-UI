@@ -1,13 +1,14 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Menu as WilcoMenu } from '@inseefr/wilco';
-import { getEnv } from 'env';
+import { getEnv } from 'env';
 import {
 	IN_MEMORY,
 	SPARK_LOCAL,
 	SPARK_STATIC,
 	SPARK_KUBE,
 } from 'utils/constants';
+import './menu.scss';
 
 const paths = [
 	{ label: 'In Memory', path: `/${IN_MEMORY}` },
@@ -30,7 +31,11 @@ const Menu = () => {
 				? { ...p, className: 'active' }
 				: p
 		);
-	return <WilcoMenu paths={realPaths} />;
+	return (
+		<div className="menu-container">
+			<WilcoMenu paths={realPaths} />
+		</div>
+	);
 };
 
 export default Menu;

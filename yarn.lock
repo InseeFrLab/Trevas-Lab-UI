@@ -9810,7 +9810,7 @@ react-dev-utils@^10.2.1:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-dom@^17.0.1, react-dom@^17.0.2:
+react-dom@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
   integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
@@ -9881,7 +9881,7 @@ react-loading@^2.0.3:
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
   integrity sha512-Vdqy79zq+bpeWJqC+xjltUjuGApyoItPgL0vgVfcJHhqwU7bAMKzysfGW/ADu6i0z0JiOCRJjo+IkFNkRNbA3A==
 
-react-modal@^3.11.2:
+react-modal@^3.11.2, react-modal@^3.14.3:
   version "3.14.4"
   resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.14.4.tgz#2ca7e8e9a180955e5c9508c228b73167c1e6f6a3"
   integrity sha512-8surmulejafYCH9wfUmFyj4UfbSJwjcgbS9gf3oOItu4Hwd6ivJyVBETI0yHRhpJKCLZMUtnhzk76wXTsNL6Qg==
@@ -10030,14 +10030,13 @@ react-select@^3.0.4:
     react-input-autosize "^2.2.2"
     react-transition-group "^4.3.0"
 
-react-sliding-side-panel@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-sliding-side-panel/-/react-sliding-side-panel-2.0.3.tgz#c1442ebe3c7e4e8d003f8907c13df430c3648653"
-  integrity sha512-5uujAqwu9XhTPmlvP58TDjHMusFTg3/AE4ROxU8GG+cEUHNq4s43mAiLOZa1gHu39jCLMlSgzHT7fsKQrTutYg==
+react-sliding-pane@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/react-sliding-pane/-/react-sliding-pane-7.1.0.tgz#6f44bfd367a9e8affdfd52a601e64ece53af5cb8"
+  integrity sha512-obzEGcK7/6vew0hvfQWEiaESGD3pUhFVTyeDyxN7BsvYi9DRA46T9RLPjCTAFi8YcnqXq/tjfd0q40AaMZ3m6g==
   dependencies:
-    react "^17.0.1"
-    react-dom "^17.0.1"
-    react-transition-group "^4.4.1"
+    prop-types "^15.7.2"
+    react-modal "^3.14.3"
 
 react-table@^7.6.2:
   version "7.6.2"
@@ -10064,7 +10063,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^17.0.1, react@^17.0.2:
+react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@inseefr/wilco';
 import FileUploader from 'components/common/file-uploader';
 
-const Bindings = ({ setBindings }) => {
+const ConnectBindings = ({ setBindings }) => {
 	const [data, setData] = useState(null);
 
 	const onClick = () => {
@@ -17,4 +17,4 @@ const Bindings = ({ setBindings }) => {
 	);
 };
 
-export default Bindings;
+export default ConnectBindings;

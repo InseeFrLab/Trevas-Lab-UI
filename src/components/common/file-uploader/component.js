@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import './file-uploader.scss';
 
-const FileUploader = ({ text, setter }) => {
+const FileUploader = ({ setter }) => {
 	const onDrop = useCallback(
 		(acceptedFiles) => {
 			acceptedFiles.forEach((file) => {
@@ -10,6 +11,7 @@ const FileUploader = ({ text, setter }) => {
 				reader.onerror = () => console.log('file reading has failed');
 				reader.onload = (f) => {
 					const d = JSON.parse(f.target.result);
+
 					setter(d);
 				};
 				reader.readAsText(file);
@@ -29,14 +31,18 @@ const FileUploader = ({ text, setter }) => {
 
 	return (
 		<section className="container">
-			<div {...getRootProps({ className: 'dropzone' })}>
+			<div
+				{...getRootProps({ className: 'dropzone' })}
+				className="uploader-zone"
+			>
 				<input {...getInputProps()} />
-				<p>{text}</p>
+				<p>Drag 'n' drop some files here, or click to select files</p>
 			</div>
-			<aside>
-				<h4>Files</h4>
-				<ul>{files}</ul>
-			</aside>
+			{Array.isArray(acceptedFiles) && acceptedFiles.length > 0 && (
+				<aside>
+					<p>Active file: {files}</p>
+				</aside>
+			)}
 		</section>
 	);
 };

@@ -25,7 +25,7 @@ const MainBindings = ({ setBindings }) => {
 				title="Connect bindings"
 				open={openConnect}
 				setOpen={setOpenConnect}
-				width={'40%'}
+				width={'60%'}
 			>
 				<ConnectBindings />
 			</SlidingPanel>

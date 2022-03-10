@@ -34,12 +34,17 @@ const FileUploader = ({ file, setData, setFile }) => {
 			{f.path} - {f.size} bytes
 		</li>
 	));
-	console.log(acceptedFiles);
+
+	const status =
+		(Array.isArray(acceptedFiles) && acceptedFiles.length > 0) || file
+			? 'filled'
+			: 'empty';
+
 	return (
 		<section className="container">
 			<div
 				{...getRootProps({ className: 'dropzone' })}
-				className="uploader-zone"
+				className={`uploader-zone ${status}`}
 			>
 				<input {...getInputProps()} />
 				<p>Drag 'n' drop some files here, or click to select files</p>

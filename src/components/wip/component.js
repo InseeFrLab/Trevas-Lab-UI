@@ -29,17 +29,17 @@ const Wip = () => {
 		setRes(null);
 		setLoadingPost(true);
 		const updatedBindings = Object.entries(bindings).reduce(
-			(acc, [k, v]) => (k && v ? { ...acc, [k]: v } : acc),
+			(acc, [k, v]) => (k && v ? { ...acc, [k]: v.value } : acc),
 			{}
 		);
 		// TEMP
 		const mode = IN_MEMORY;
 		const context = LOCAL;
 		// TEMP end
-		debugger;
+
 		authFetch(
 			`execute?mode=${mode}&type=${context}`,
-			{ vtlScript: vtl, bindings: updatedBindings },
+			{ vtlScript: vtl, bindings: updatedBindings, toSave: {} },
 			'POST'
 		)
 			.then((res) => res.text())
@@ -48,7 +48,7 @@ const Wip = () => {
 				const r = res.replace(/"/g, '');
 				if (res.error) setApiError(res.error.chars);
 				setUUID(r);
-				if (context === IN_MEMORY) setCurrentJobId(r);
+				setCurrentJobId(r);
 			})
 			.then(() => {
 				setLoadingPost(false);
@@ -61,6 +61,7 @@ const Wip = () => {
 				.then((r) => r.json())
 				.then((r) => {
 					setRes(r);
+					debugger;
 				})
 				.then(() => {
 					setCurrentJobId('');
@@ -72,7 +73,13 @@ const Wip = () => {
 
 	return (
 		<div className="container">
-			<Header label={'WIP'} errors={errors} getRes={getRes} />
+			<Header
+				label={'WIP'}
+				disableExecution={
+					errors.length > 0 || !vtl || Object.values(bindings).length === 0
+				}
+				getRes={getRes}
+			/>
 			<WipComponent
 				script={vtl}
 				setScript={onChange}

@@ -25,7 +25,7 @@ const BindingList = ({ bindings, setBindings }) => {
 					onClick={() => setView(name)}
 					key={name}
 					label={name}
-					color={getColor(type)}
+					color={name === view ? 'red' : getColor(type)}
 				/>
 			))}
 			<SlidingPanel

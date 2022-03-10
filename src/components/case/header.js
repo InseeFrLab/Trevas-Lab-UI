@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, PageTitle } from '@inseefr/wilco';
 
-const Header = ({ label, errors, getRes }) => {
+const Header = ({ label, disableExecution, getRes }) => {
 	const { goBack } = useHistory();
 	return (
 		<div className="row header">
@@ -17,7 +17,7 @@ const Header = ({ label, errors, getRes }) => {
 					label="Execute"
 					action={getRes}
 					col={12}
-					disabled={errors.length !== 0}
+					disabled={disableExecution}
 				/>
 			</div>
 		</div>

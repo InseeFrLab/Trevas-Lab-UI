@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
 import ConnectBindings from './connect';
+import BindingList from './list';
 
-const MainBindings = ({ setBindings }) => {
+const MainBindings = ({ bindings, setBindings }) => {
 	const [openConnect, setOpenConnect] = useState(false);
 	const [openEdit, setOpenEdit] = useState(false);
 
@@ -17,25 +18,31 @@ const MainBindings = ({ setBindings }) => {
 
 	return (
 		<>
-			<div className="row">
+			<div className="row justify-content-center">
 				<Button label="Connect" action={connectOnClick} />
 				<Button label="Edit" action={editOnClick} />
+			</div>
+			<div className="row">
+				<BindingList bindings={bindings} setBindings={setBindings} />
 			</div>
 			<SlidingPanel
 				title="Connect bindings"
 				open={openConnect}
 				setOpen={setOpenConnect}
-				width={'60%'}
+				width={'70%'}
 			>
-				<ConnectBindings />
+				<ConnectBindings
+					setBindings={setBindings}
+					closePanel={() => setOpenConnect(false)}
+				/>
 			</SlidingPanel>
 			<SlidingPanel
 				title="Edit bindings"
 				open={openEdit}
 				setOpen={setOpenEdit}
-				width={'60%'}
+				width={'50%'}
 			>
-				<div>KO</div>
+				<div>Coming soon...</div>
 			</SlidingPanel>
 		</>
 	);

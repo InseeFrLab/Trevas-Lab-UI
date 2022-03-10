@@ -3,11 +3,11 @@ import { Loading } from '@inseefr/wilco';
 import { useRecoilState } from 'recoil';
 import { UUID_State } from 'store';
 import Header from '../case/header';
-import WipComponent from './body';
+import WipComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import { IN_MEMORY, LOCAL } from 'utils/constants';
 
-const Case = () => {
+const Wip = () => {
 	const [vtl, setVtl] = useState(null);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
@@ -73,16 +73,16 @@ const Case = () => {
 	return (
 		<div className="container">
 			<Header label={'WIP'} errors={errors} getRes={getRes} />
-
 			<WipComponent
 				script={vtl}
 				setScript={onChange}
 				setErrors={setErrors}
 				// variableURLs={urls}
+				bindings={bindings}
 				setBindings={setBindings}
 			/>
 		</div>
 	);
 };
 
-export default Case;
+export default Wip;

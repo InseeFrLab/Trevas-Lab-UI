@@ -22,3 +22,8 @@ export const READY = 'READY';
 export const RUNNING = 'RUNNING';
 export const DONE = 'DONE';
 export const FAILED = 'FAILED';
+
+// Binding types
+
+export const LOCAL_JSON = 'JSON';
+export const JDBC = 'JDBC';

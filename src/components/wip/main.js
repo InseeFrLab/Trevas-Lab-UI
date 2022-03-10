@@ -8,6 +8,7 @@ const WipComponent = ({
 	setScript,
 	setErrors,
 	variableURLs,
+	bindings,
 	setBindings,
 }) => {
 	return (
@@ -20,7 +21,7 @@ const WipComponent = ({
 				</Card.Header>
 				<Accordion.Collapse eventKey="0">
 					<Card.Body>
-						<Bindings setBindings={setBindings} />
+						<Bindings bindings={bindings} setBindings={setBindings} />
 					</Card.Body>
 				</Accordion.Collapse>
 			</Card>

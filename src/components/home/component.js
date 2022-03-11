@@ -7,7 +7,7 @@ const Home = ({ config, context }) => (
 		<SearchableList
 			items={config}
 			col={6}
-			colOff={3}
+			offset={3}
 			childPath={`${context}/case`}
 			autoFocus={true}
 		/>

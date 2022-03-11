@@ -3,30 +3,43 @@
 	z-index: 100;
 	border: 2px black solid;
 	border-radius: 10px;
-	padding: 0.2em;
+	// padding: 0.2em;
 	background-color: red;
 }
+.vtl-notification {
+	.toast.toast-done {
+		.toast-header,
+		.toast-body {
+			color: #155724;
+			background-color: #d4edda;
+			border-color: #c3e6cb;
+		}
+	}
 
-.toast-ready {
-	color: #004085;
-	background-color: #cce5ff;
-	border-color: #b8daff;
-}
+	.toast.toast-ready {
+		.toast-header,
+		.toast-body {
+			color: #004085;
+			background-color: #cce5ff;
+			border-color: #b8daff;
+		}
+	}
 
-.toast-running {
-	color: #856404;
-	background-color: #fff3cd;
-	border-color: #ffeeba;
-}
+	.toast.toast-failed {
+		.toast-header,
+		.toast-body {
+			color: #721c24;
+			background-color: #f8d7da;
+			border-color: #f5c6cb;
+		}
+	}
 
-.toast-failed {
-	color: #721c24;
-	background-color: #f8d7da;
-	border-color: #f5c6cb;
-}
-
-.toast-done {
-	color: #155724;
-	background-color: #d4edda;
-	border-color: #c3e6cb;
+	.toast.toast-running {
+		.toast-header,
+		.toast-body {
+			color: #856404;
+			background-color: #fff3cd;
+			border-color: #ffeeba;
+		}
+	}
 }

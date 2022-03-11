@@ -1,0 +1,12 @@
+.uploader-zone {
+	text-align: center;
+	border: 0.1em grey dashed;
+	padding-top: 0.8em;
+	margin-bottom: 2em;
+	&.filled {
+		background-color: lightgreen;
+	}
+	&.empty {
+		background-color: lightgray;
+	}
+}

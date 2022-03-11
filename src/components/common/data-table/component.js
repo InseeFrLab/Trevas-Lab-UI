@@ -1,8 +1,11 @@
 import React from 'react';
+import Alert from 'components/common/alert';
 import DataTable from 'react-data-table-component';
 
 const Table = ({ vtlJson }) => {
 	const { dataStructure, dataPoints } = vtlJson;
+	if (!dataStructure || !dataPoints)
+		return <Alert label="JSON file content is malformed" variant="danger" />;
 	const columns = dataStructure.map(({ name, type, role }) => ({
 		name: `${name} (${type} - ${role})`,
 		colName: name,

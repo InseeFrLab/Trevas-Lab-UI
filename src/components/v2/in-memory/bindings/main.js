@@ -32,6 +32,7 @@ const MainBindings = ({ bindings, setBindings }) => {
 				width={'70%'}
 			>
 				<ConnectBindings
+					bindings={bindings}
 					setBindings={setBindings}
 					closePanel={() => setOpenConnect(false)}
 				/>

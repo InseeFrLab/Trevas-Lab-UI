@@ -35,6 +35,7 @@ const BindingList = ({ bindings, setBindings }) => {
 				width={'70%'}
 			>
 				<ConnectBindings
+					bindings={bindings}
 					setBindings={setBindings}
 					closePanel={() => setView(false)}
 					init={{ ...bindings[view], name: view }}

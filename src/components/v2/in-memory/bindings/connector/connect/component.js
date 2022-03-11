@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Button, Input } from '@inseefr/wilco';
 import ReactTooltip from 'react-tooltip';
 import FileUploader from 'components/common/file-uploader';
-import { connectExample } from './connect-example';
+import { connectExample } from './example';
 import DataTable from 'components/common/data-table';
 import { LOCAL_JSON } from 'utils/constants';
 
-const DEFAULT_INIT = { name: null, file: null, data: null };
+const DEFAULT_INIT = { name: undefined, file: null, data: null };
 
 const ConnectBindings = ({
 	bindings,

@@ -4,13 +4,22 @@ import { UUID_State } from 'store';
 import Header from '../../case/header';
 import V2InMemoryComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { IN_MEMORY, LOCAL } from 'utils/constants';
+import { LOCAL, IN_MEMORY } from 'utils/constants';
 
 const V2InMemory = () => {
 	const [vtl, setVtl] = useState(null);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
-	const [bindings, setBindings] = useState({});
+	const [bindings, setBindings] = useState({
+		test: {
+			type: 'JDBC',
+			url: 'url',
+			user: 'user',
+			password: 'password',
+			query: 'SELECT * from toto',
+			dbtype: 'postgre',
+		},
+	});
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
 	const [UUID, setUUID] = useRecoilState(UUID_State);
@@ -43,7 +52,7 @@ const V2InMemory = () => {
 		// TEMP end
 
 		authFetch(
-			`execute?mode=${mode}&type=${context}`,
+			`v2/execute?mode=${mode}&type=${context}`,
 			{ vtlScript: vtl, bindings: updatedBindings, toSave: {} },
 			'POST'
 		)
@@ -59,7 +68,7 @@ const V2InMemory = () => {
 
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
-			authFetch(`job/${currentJobId}/bindings`)
+			authFetch(`v2/job/${currentJobId}/bindings`)
 				.then((r) => r.json())
 				.then((r) => {
 					setRes(r);

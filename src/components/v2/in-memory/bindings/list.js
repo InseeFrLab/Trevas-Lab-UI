@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SlidingPanel from 'components/common/sliding-panel';
-import ConnectBindings from './connect';
+import Connector from './connector';
 import Badge from 'components/common/badge';
 import { LOCAL_JSON, JDBC } from 'utils/constants';
 
@@ -34,7 +34,7 @@ const BindingList = ({ bindings, setBindings }) => {
 				setOpen={setView}
 				width={'70%'}
 			>
-				<ConnectBindings
+				<Connector
 					bindings={bindings}
 					setBindings={setBindings}
 					closePanel={() => setView(false)}

@@ -10,7 +10,7 @@ import { sortArray } from 'utils/array';
 
 const sortArrayByLabel = sortArray('label');
 
-const HomeContainer = () => {
+const HomeContainer = ({ v }) => {
 	const { data: config, error } = useSWR(getEnv()['CONFIGURATION_URL']);
 	const { context } = useParams();
 
@@ -21,12 +21,14 @@ const HomeContainer = () => {
 	if (!config) return <Loading text="Loading..." />;
 
 	const filteredConfig = sortArrayByLabel(
-		[...config, EMPTY_CONFIG]
-			.filter(({ scope }) => scope.includes(context))
-			.map(({ id, label }) => ({ id, label }))
+		v
+			? [EMPTY_CONFIG]
+			: [...config, EMPTY_CONFIG]
+					.filter(({ scope }) => scope.includes(context))
+					.map(({ id, label }) => ({ id, label }))
 	);
 
-	return <Home config={filteredConfig} context={context} />;
+	return <Home config={filteredConfig} context={context} v={v} />;
 };
 
 export default HomeContainer;

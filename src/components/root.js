@@ -6,11 +6,7 @@ import Home from './home';
 import { V2InMemory, V2Spark } from './v2';
 import Case from './case';
 import CsvToParquet from './build-parquet';
-import {
-	IN_MEMORY,
-	V2_IN_MEMORY,
-	V2_CLUSTER_KUBERNETES,
-} from 'utils/constants';
+import { IN_MEMORY, SPARK_KUBE } from 'utils/constants';
 
 const Root = () => {
 	const { pathname } = useLocation();
@@ -22,12 +18,17 @@ const Root = () => {
 				<Route exact path="/:context" component={Home} />
 				<Route
 					exact
-					path={`/${V2_IN_MEMORY}/case/:app`}
+					path="/v2/:context"
+					component={(p) => <Home {...p} v={'v2'} />}
+				/>
+				<Route
+					exact
+					path={`/v2/${IN_MEMORY}/case/:app`}
 					component={secure(V2InMemory)}
 				/>
 				<Route
 					exact
-					path={`/${V2_CLUSTER_KUBERNETES}/case/:app`}
+					path={`/v2/${SPARK_KUBE}/case/:app`}
 					component={secure(V2Spark)}
 				/>
 				<Route exact path="/:context/case/:app" component={secure(Case)} />

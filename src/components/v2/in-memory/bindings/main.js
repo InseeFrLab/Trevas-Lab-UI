@@ -42,7 +42,16 @@ const MainBindings = ({ bindings, setBindings }) => {
 				setOpen={setOpenEdit}
 				width={'50%'}
 			>
-				<div>Coming soon...</div>
+				<h3>Coming soon...</h3>
+				<div className="row">
+					<Button
+						label="Cancel"
+						action={() => {
+							setOpenEdit(false);
+						}}
+						col={3}
+					/>
+				</div>
 			</SlidingPanel>
 		</>
 	);

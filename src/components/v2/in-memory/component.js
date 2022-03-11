@@ -2,11 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { UUID_State } from 'store';
 import Header from '../../case/header';
-import WipComponent from './main';
+import V2InMemoryComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import { IN_MEMORY, LOCAL } from 'utils/constants';
 
-const Wip = () => {
+const V2InMemory = () => {
 	const [vtl, setVtl] = useState(null);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
@@ -54,9 +54,6 @@ const Wip = () => {
 				if (res.error) setApiError(res.error.chars);
 				setUUID(r);
 				setCurrentJobId(r);
-			})
-			.then(() => {
-				setLoadingPost(false);
 			});
 	}, [authFetch, bindings, vtl, setUUID]);
 
@@ -66,6 +63,9 @@ const Wip = () => {
 				.then((r) => r.json())
 				.then((r) => {
 					setRes(r);
+				})
+				.then(() => {
+					setLoadingPost(false);
 				})
 				.then(() => {
 					setCurrentJobId('');
@@ -82,7 +82,7 @@ const Wip = () => {
 				}
 				getRes={getRes}
 			/>
-			<WipComponent
+			<V2InMemoryComponent
 				script={vtl}
 				setScript={onChangeScript}
 				setErrors={setErrors}
@@ -97,4 +97,4 @@ const Wip = () => {
 	);
 };
 
-export default Wip;
+export default V2InMemory;

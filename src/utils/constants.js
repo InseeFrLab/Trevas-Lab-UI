@@ -6,6 +6,7 @@ export const SPARK_STATIC = 'CLUSTER_STATIC';
 export const SPARK_KUBE = 'CLUSTER_KUBERNETES';
 export const IN_JS = 'in-js';
 export const V2_IN_MEMORY = 'V2_IN_MEMORY';
+export const V2_CLUSTER_KUBERNETES = 'V2_CLUSTER_KUBERNETES';
 
 export const EMPTY_CONFIG = {
 	id: 'empty',
@@ -15,7 +16,14 @@ export const EMPTY_CONFIG = {
 	sparkClusterData: [],
 	script: '',
 	defaultBindings: {},
-	scope: [IN_MEMORY, SPARK_LOCAL, SPARK_STATIC, SPARK_KUBE, V2_IN_MEMORY],
+	scope: [
+		IN_MEMORY,
+		SPARK_LOCAL,
+		SPARK_STATIC,
+		SPARK_KUBE,
+		V2_IN_MEMORY,
+		V2_CLUSTER_KUBERNETES,
+	],
 };
 
 export const READY = 'READY';

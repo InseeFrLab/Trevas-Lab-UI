@@ -4,7 +4,7 @@ import Bindings from './bindings';
 import Editor from 'components/common/editor';
 import Results from './results';
 
-const WipComponent = ({
+const V2InMemory = ({
 	script,
 	setScript,
 	setErrors,
@@ -95,4 +95,4 @@ const WipComponent = ({
 	);
 };
 
-export default WipComponent;
+export default V2InMemory;

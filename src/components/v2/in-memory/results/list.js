@@ -30,6 +30,7 @@ const ResultList = ({ results, loadingPost, apiError }) => {
 				)}
 			</>
 		);
+
 	if (loadingPost) return <Loading text="Ongoing treatments" />;
 	if (!results) return <div>No results</div>;
 

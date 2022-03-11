@@ -21,21 +21,23 @@ const getMessage = (status, location) => {
 
 const Notification = ({ index, name, location, status, close }) => {
 	return (
-		<Toast
-			style={{
-				position: 'absolute',
-				top: `${(index + 1) * 70 + 100}px`,
-				right: '10px',
-				width: '20%',
-			}}
-			className={`toast-${status.toLowerCase()}`}
-			onClose={() => close(name)}
-		>
-			<Toast.Header>
-				<strong className="mr-auto">{name}</strong>
-			</Toast.Header>
-			<Toast.Body>{getMessage(status, location)}</Toast.Body>
-		</Toast>
+		<div className="vtl-notification">
+			<Toast
+				style={{
+					position: 'absolute',
+					top: `${(index + 1) * 70 + 100}px`,
+					right: '10px',
+					width: '20%',
+				}}
+				className={`toast-${status.toLowerCase()}`}
+				onClose={() => close(name)}
+			>
+				<Toast.Header>
+					<strong className="mr-auto">{name}</strong>
+				</Toast.Header>
+				<Toast.Body>{getMessage(status, location)}</Toast.Body>
+			</Toast>
+		</div>
 	);
 };
 

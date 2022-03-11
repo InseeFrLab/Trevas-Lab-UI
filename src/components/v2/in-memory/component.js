@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Loading } from '@inseefr/wilco';
 import { useRecoilState } from 'recoil';
 import { UUID_State } from 'store';
-import Header from '../case/header';
+import Header from '../../case/header';
 import WipComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import { IN_MEMORY, LOCAL } from 'utils/constants';
@@ -17,8 +16,14 @@ const Wip = () => {
 	const [UUID, setUUID] = useRecoilState(UUID_State);
 	const [currentJobId, setCurrentJobId] = useState('');
 
-	const onChange = (e) => {
+	const onChangeScript = (e) => {
 		setVtl(e);
+		setRes(null);
+		setApiError('');
+	};
+
+	const onChangeBindings = (e) => {
+		setBindings(e);
 		setRes(null);
 		setApiError('');
 	};
@@ -61,15 +66,12 @@ const Wip = () => {
 				.then((r) => r.json())
 				.then((r) => {
 					setRes(r);
-					debugger;
 				})
 				.then(() => {
 					setCurrentJobId('');
 				});
 		}
 	}, [UUID, authFetch, currentJobId]);
-
-	if (loadingPost) return <Loading text="Ongoing treatments..." />;
 
 	return (
 		<div className="container">
@@ -82,11 +84,14 @@ const Wip = () => {
 			/>
 			<WipComponent
 				script={vtl}
-				setScript={onChange}
+				setScript={onChangeScript}
 				setErrors={setErrors}
 				// variableURLs={urls}
 				bindings={bindings}
-				setBindings={setBindings}
+				setBindings={onChangeBindings}
+				res={res}
+				loadingPost={loadingPost}
+				apiError={apiError}
 			/>
 		</div>
 	);

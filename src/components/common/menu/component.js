@@ -7,7 +7,7 @@ import {
 	SPARK_LOCAL,
 	SPARK_STATIC,
 	SPARK_KUBE,
-	WIP,
+	V2_IN_MEMORY,
 } from 'utils/constants';
 import './menu.scss';
 
@@ -18,7 +18,7 @@ const paths = [
 	{ label: 'Spark - Kube', path: `/${SPARK_KUBE}` },
 	{ label: 'Build Parquet', path: '/build-parquet', alignToRight: true },
 	{ label: 'In Js', path: '/in-js', alignToRight: true },
-	{ label: 'WIP', path: `/${WIP}`, alignToRight: true },
+	{ label: 'V2 - In Memory', path: `/${V2_IN_MEMORY}`, alignToRight: true },
 ];
 
 const Menu = () => {
@@ -33,6 +33,7 @@ const Menu = () => {
 				? { ...p, className: 'active' }
 				: p
 		);
+
 	return (
 		<div className="menu-container">
 			<WilcoMenu paths={realPaths} />

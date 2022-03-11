@@ -17,7 +17,7 @@ const FileUploader = ({ file, setData, setFile }) => {
 				reader.readAsText(file);
 			});
 		},
-		[setData]
+		[setData, setFile]
 	);
 	const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
 		onDrop,

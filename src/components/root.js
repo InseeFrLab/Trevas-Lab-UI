@@ -3,10 +3,10 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { secure } from './auth';
 import Menu from './common/menu';
 import Home from './home';
-import WipComponent from './wip';
+import { V2InMemory } from './v2';
 import Case from './case';
 import CsvToParquet from './build-parquet';
-import { IN_MEMORY, WIP } from 'utils/constants';
+import { IN_MEMORY, V2_IN_MEMORY } from 'utils/constants';
 
 const Root = () => {
 	const { pathname } = useLocation();
@@ -18,8 +18,8 @@ const Root = () => {
 				<Route exact path="/:context" component={Home} />
 				<Route
 					exact
-					path={`/${WIP}/case/:app`}
-					component={secure(WipComponent)}
+					path={`/${V2_IN_MEMORY}/case/:app`}
+					component={secure(V2InMemory)}
 				/>
 				<Route exact path="/:context/case/:app" component={secure(Case)} />
 				{!pathname.startsWith('/authentication') && (

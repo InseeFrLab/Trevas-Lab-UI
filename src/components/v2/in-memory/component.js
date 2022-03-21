@@ -4,22 +4,13 @@ import { UUID_State } from 'store';
 import Header from '../../case/header';
 import V2InMemoryComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { LOCAL, IN_MEMORY } from 'utils/constants';
+import { LOCAL, IN_MEMORY, LOCAL_JSON, JDBC } from 'utils/constants';
 
 const V2InMemory = () => {
 	const [vtl, setVtl] = useState(null);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
-	const [bindings, setBindings] = useState({
-		test: {
-			type: 'JDBC',
-			url: 'url',
-			user: 'user',
-			password: 'password',
-			query: 'SELECT * from toto',
-			dbtype: 'postgre',
-		},
-	});
+	const [bindings, setBindings] = useState({});
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
 	const [UUID, setUUID] = useRecoilState(UUID_State);
@@ -42,9 +33,23 @@ const V2InMemory = () => {
 	const getRes = useCallback(() => {
 		setRes(null);
 		setLoadingPost(true);
-		const updatedBindings = Object.entries(bindings).reduce(
-			(acc, [k, v]) => (k && v ? { ...acc, [k]: v.value } : acc),
-			{}
+		const formatedBindings = Object.entries(bindings).reduce(
+			(acc, [k, v]) => {
+				const { type, ...rest } = v;
+				if (type === LOCAL_JSON) {
+					const { bindings } = acc;
+					return { ...acc, bindings: { ...bindings, [k]: v.value } };
+				}
+				if (type === JDBC) {
+					const { queriesForBindings } = acc;
+					return {
+						...acc,
+						queriesForBindings: { ...queriesForBindings, [k]: rest },
+					};
+				}
+				return acc;
+			},
+			{ bindings: {}, queriesForBindings: {} }
 		);
 		// TEMP
 		const mode = IN_MEMORY;
@@ -53,16 +58,24 @@ const V2InMemory = () => {
 
 		authFetch(
 			`v2/execute?mode=${mode}&type=${context}`,
-			{ vtlScript: vtl, bindings: updatedBindings, toSave: {} },
+			{ vtlScript: vtl, toSave: {}, ...formatedBindings },
 			'POST'
 		)
-			.then((res) => res.text())
 			.then((res) => {
-				//TODO: fix
-				const r = res.replace(/"/g, '');
-				if (res.error) setApiError(res.error.chars);
-				setUUID(r);
-				setCurrentJobId(r);
+				if (res.ok) return res.text();
+				return res.json();
+			})
+			.then((res) => {
+				if (res.error) setApiError(res.error);
+				else {
+					//TODO: fix to delete replace
+					const r = res.replace(/"/g, '');
+					setUUID(r);
+					setCurrentJobId(r);
+				}
+			})
+			.catch((e) => {
+				setApiError(e);
 			});
 	}, [authFetch, bindings, vtl, setUUID]);
 

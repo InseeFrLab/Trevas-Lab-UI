@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Input, Select } from '@inseefr/wilco';
 import DataTable from 'components/common/data-table';
+import { JDBC } from 'utils/constants';
 
 const DEFAULT_INIT = {
 	name: undefined,
@@ -68,10 +69,10 @@ const EditBindings = ({
 	const onSave = () => {
 		setBindings((b) => {
 			const { [init.name]: omit, ...others } = b;
-			// return {
-			// 	...others,
-			// 	[name]: { type: LOCAL_JSON, value: data, file },
-			// };
+			return {
+				...others,
+				[name]: { type: JDBC, user, password, url, dbtype, query },
+			};
 		});
 		closePanel();
 	};
@@ -143,12 +144,16 @@ const EditBindings = ({
 					label="Vizualize"
 					action={onVizualize}
 					disabled={
-						name && url && query && user && password && !nameError
-							? false
-							: true
+						// name && url && query && user && password && !nameError
+						// 	? false
+						// 	: true
+						true
 					}
 					col={3}
 				/>
+			</div>
+			<div className="row">
+				<Button label="Save" action={onSave} col={3} />
 			</div>
 			{/* {displayResults && (
 				<>

@@ -4,7 +4,7 @@ import { UUID_State } from 'store';
 import Header from '../../case/header';
 import V2InMemoryComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { IN_MEMORY, LOCAL } from 'utils/constants';
+import { LOCAL, IN_MEMORY, LOCAL_JSON, JDBC } from 'utils/constants';
 
 const V2InMemory = () => {
 	const [vtl, setVtl] = useState(null);
@@ -33,9 +33,23 @@ const V2InMemory = () => {
 	const getRes = useCallback(() => {
 		setRes(null);
 		setLoadingPost(true);
-		const updatedBindings = Object.entries(bindings).reduce(
-			(acc, [k, v]) => (k && v ? { ...acc, [k]: v.value } : acc),
-			{}
+		const formatedBindings = Object.entries(bindings).reduce(
+			(acc, [k, v]) => {
+				const { type, ...rest } = v;
+				if (type === LOCAL_JSON) {
+					const { bindings } = acc;
+					return { ...acc, bindings: { ...bindings, [k]: v.value } };
+				}
+				if (type === JDBC) {
+					const { queriesForBindings } = acc;
+					return {
+						...acc,
+						queriesForBindings: { ...queriesForBindings, [k]: rest },
+					};
+				}
+				return acc;
+			},
+			{ bindings: {}, queriesForBindings: {} }
 		);
 		// TEMP
 		const mode = IN_MEMORY;
@@ -43,23 +57,31 @@ const V2InMemory = () => {
 		// TEMP end
 
 		authFetch(
-			`execute?mode=${mode}&type=${context}`,
-			{ vtlScript: vtl, bindings: updatedBindings, toSave: {} },
+			`v2/execute?mode=${mode}&type=${context}`,
+			{ vtlScript: vtl, toSave: {}, ...formatedBindings },
 			'POST'
 		)
-			.then((res) => res.text())
 			.then((res) => {
-				//TODO: fix
-				const r = res.replace(/"/g, '');
-				if (res.error) setApiError(res.error.chars);
-				setUUID(r);
-				setCurrentJobId(r);
+				if (res.ok) return res.text();
+				return res.json();
+			})
+			.then((res) => {
+				if (res.error) setApiError(res.error);
+				else {
+					//TODO: fix to delete replace
+					const r = res.replace(/"/g, '');
+					setUUID(r);
+					setCurrentJobId(r);
+				}
+			})
+			.catch((e) => {
+				setApiError(e);
 			});
 	}, [authFetch, bindings, vtl, setUUID]);
 
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
-			authFetch(`job/${currentJobId}/bindings`)
+			authFetch(`v2/job/${currentJobId}/bindings`)
 				.then((r) => r.json())
 				.then((r) => {
 					setRes(r);

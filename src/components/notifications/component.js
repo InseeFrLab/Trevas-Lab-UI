@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useInterval } from 'react-interval-hook';
 import Notification from 'components/common/notification';
 import { useRecoilState } from 'recoil';
@@ -7,6 +8,7 @@ import { DONE, FAILED } from 'utils/constants';
 import { useAuthenticatedFetch } from 'utils/hooks';
 
 const Notifications = () => {
+	const { pathname } = useLocation();
 	const [toDisplay, setToDisplay] = useState({});
 	const [UUID, setUUID] = useRecoilState(UUID_State);
 
@@ -23,7 +25,7 @@ const Notifications = () => {
 	const authFetch = useAuthenticatedFetch();
 
 	const { start, stop, isActive } = useInterval(() => {
-		authFetch(`job/${UUID}`)
+		authFetch(`${pathname.includes('v2') ? 'v2/' : ''}job/${UUID}`)
 			.then((res) => res.json())
 			.then(({ status, outputs }) => {
 				if (status === DONE || status === FAILED) {

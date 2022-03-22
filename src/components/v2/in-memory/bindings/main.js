@@ -1,57 +1,40 @@
 import React, { useState } from 'react';
 import { Button } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
-import ConnectBindings from './connect';
+import Connector from './connector';
 import BindingList from './list';
+import { LOCAL_JSON, JDBC } from 'utils/constants';
 
 const MainBindings = ({ bindings, setBindings }) => {
-	const [openConnect, setOpenConnect] = useState(false);
-	const [openEdit, setOpenEdit] = useState(false);
+	const [openConnector, setOpenConnector] = useState(false);
+	const [bindingType, setBindingType] = useState(null);
 
-	const connectOnClick = () => {
-		setOpenConnect(true);
-	};
-
-	const editOnClick = () => {
-		setOpenEdit(true);
+	const onClick = (t) => {
+		setOpenConnector(true);
+		setBindingType(t);
 	};
 
 	return (
 		<>
 			<div className="row justify-content-center">
-				<Button label="Connect" action={connectOnClick} />
-				<Button label="Edit" action={editOnClick} />
+				<Button label="Connect" action={() => onClick(LOCAL_JSON)} />
+				<Button label="Edit" action={() => onClick(JDBC)} />
 			</div>
 			<div className="row">
 				<BindingList bindings={bindings} setBindings={setBindings} />
 			</div>
 			<SlidingPanel
-				title="Connect bindings"
-				open={openConnect}
-				setOpen={setOpenConnect}
+				title="Binding definition"
+				open={openConnector}
+				setOpen={setOpenConnector}
 				width={'70%'}
 			>
-				<ConnectBindings
+				<Connector
+					type={bindingType}
+					bindings={bindings}
 					setBindings={setBindings}
-					closePanel={() => setOpenConnect(false)}
+					closePanel={() => setOpenConnector(false)}
 				/>
-			</SlidingPanel>
-			<SlidingPanel
-				title="Edit bindings"
-				open={openEdit}
-				setOpen={setOpenEdit}
-				width={'50%'}
-			>
-				<h3>Coming soon...</h3>
-				<div className="row">
-					<Button
-						label="Cancel"
-						action={() => {
-							setOpenEdit(false);
-						}}
-						col={3}
-					/>
-				</div>
 			</SlidingPanel>
 		</>
 	);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Select } from '@inseefr/wilco';
-import DataTable from 'components/common/data-table';
+// import DataTable from 'components/common/data-table';
 import { JDBC } from 'utils/constants';
 
 const DEFAULT_INIT = {

@@ -8,17 +8,17 @@ const CustomSlidingPanel = ({
 	setOpen,
 	title,
 	width = '50%',
+	from = 'right',
 }) => {
 	return (
 		<SlidingPane
-			className="some-custom-class"
-			overlayClassName="some-custom-overlay-class"
 			isOpen={open}
 			title={title}
 			width={width}
 			onRequestClose={() => {
 				setOpen(false);
 			}}
+			from={from}
 		>
 			{children}
 		</SlidingPane>

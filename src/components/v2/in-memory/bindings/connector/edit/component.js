@@ -153,7 +153,7 @@ const EditBindings = ({
 				/>
 			</div>
 			<div className="row">
-				<Button label="Save" action={onSave} col={3} />
+				<Button label="Save" action={onSave} col={3} disabled />
 			</div>
 			{/* {displayResults && (
 				<>

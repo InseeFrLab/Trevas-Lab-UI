@@ -7,7 +7,13 @@ import { DownloadIcon, UploadIcon } from 'components/common/icons';
 
 const fileName = 'configuration.json';
 
-const Configuration = ({ script, setScript, bindings, setBindings }) => {
+const Configuration = ({
+	script,
+	setScript,
+	bindings,
+	setBindings,
+	hasScriptErrors,
+}) => {
 	const [openUpload, setOpenUpload] = useState(false);
 	const [file, setFile] = useState(null);
 	const [fileScript, setFileScript] = useState(null);
@@ -38,7 +44,14 @@ const Configuration = ({ script, setScript, bindings, setBindings }) => {
 	return (
 		<>
 			<div className="row">
-				<Button label={<DownloadIcon />} action={onDownload} />
+				<Button
+					label={<DownloadIcon />}
+					action={onDownload}
+					disabled={
+						(Object.keys(bindings).length === 0 && script === '') ||
+						hasScriptErrors
+					}
+				/>
 				<Button
 					label={<UploadIcon />}
 					action={() => {

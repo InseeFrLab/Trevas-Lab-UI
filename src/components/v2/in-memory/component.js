@@ -110,6 +110,7 @@ const V2InMemory = () => {
 				setScript={setVtl}
 				bindings={bindings}
 				setBindings={setBindings}
+				hasScriptErrors={errors.length > 0}
 			/>
 			<V2InMemoryComponent
 				script={vtl}

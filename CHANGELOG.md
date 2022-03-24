@@ -1,3 +1,10 @@
+### **0.2.3** (2022-03-24)  
+  
+- v0.2.3  
+- Temps disable edit save button  
+- Improve configuration buttons  
+- Add configuration component    
+  
 ### **0.2.2** (2022-03-22)  
   
 - Fix edit connector    

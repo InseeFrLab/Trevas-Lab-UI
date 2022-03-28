@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthenticatedFetch } from 'utils/hooks';
 
-const EditResults = (settings) => {
-	const [results, setResults] = useState(null);
+const EditViewResults = (settings) => {
+	// const [results, setResults] = useState(null);
 
 	const authFetch = useAuthenticatedFetch();
 
@@ -11,9 +11,9 @@ const EditResults = (settings) => {
 			if (res.ok) return res.text();
 			return res.json();
 		});
-	}, []);
+	}, [authFetch, settings]);
 
 	return null;
 };
 
-export default EditResults;
+export default EditViewResults;

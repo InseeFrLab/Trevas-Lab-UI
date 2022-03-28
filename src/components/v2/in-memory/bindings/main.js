@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
-import Connector from './connector';
-import BindingList from './list';
+import Connector from 'components/v2/bindings/connector';
+import BindingList from 'components/v2/bindings/list';
 import { LOCAL_JSON, JDBC } from 'utils/constants';
 
 const MainBindings = ({ bindings, setBindings }) => {

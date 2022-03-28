@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { Button, Input, Select } from '@inseefr/wilco';
-import EditViewResults from './results';
-import { JDBC } from 'utils/constants';
+import ConnectS3ViewResults from './results';
+import { S3 } from 'utils/constants';
 
 const DEFAULT_INIT = {
 	name: undefined,
-	dbtype: undefined,
+	filetype: undefined,
 	url: undefined,
-	query: undefined,
-	user: undefined,
-	password: undefined,
 };
 
-const DB_OPTIONS = [{ value: 'postgre', label: 'PostgreSQL' }];
+const FILE_OPTIONS = [{ value: 'parquet', label: 'Apache Parquet' }];
 
-const EditBindings = ({
+const ConnectS3Bindings = ({
 	bindings,
 	setBindings,
 	closePanel,
@@ -22,11 +19,8 @@ const EditBindings = ({
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
-	const [dbtype, setDBType] = useState(init.dbtype);
+	const [filetype, setFiletype] = useState(init.filetype);
 	const [url, setUrl] = useState(init.url);
-	const [query, setQuery] = useState(init.query);
-	const [user, setUser] = useState(init.user);
-	const [password, setPassword] = useState(init.password);
 	const [displayResults, setDisplayResults] = useState(false);
 
 	const handleName = (e) => {
@@ -37,28 +31,13 @@ const EditBindings = ({
 		setDisplayResults(false);
 	};
 
-	const handleDBType = (d) => {
-		setDBType(d);
+	const handleFileType = (d) => {
+		setFiletype(d);
 		setDisplayResults(false);
 	};
 
 	const handleUrl = (d) => {
 		setUrl(d.target.value);
-		setDisplayResults(false);
-	};
-
-	const handleQuery = (d) => {
-		setQuery(d.target.value);
-		setDisplayResults(false);
-	};
-
-	const handleUser = (d) => {
-		setUser(d.target.value);
-		setDisplayResults(false);
-	};
-
-	const handlePassword = (d) => {
-		setPassword(d.target.value);
 		setDisplayResults(false);
 	};
 
@@ -71,7 +50,7 @@ const EditBindings = ({
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: { type: JDBC, user, password, url, dbtype, query },
+				[name]: { type: S3, url, filetype },
 			};
 		});
 		closePanel();
@@ -93,10 +72,10 @@ const EditBindings = ({
 			<div className="row">
 				<div className="col-md-6">
 					<Select
-						label="Database type"
-						value={DB_OPTIONS.find(({ value }) => value === dbtype)}
-						onChange={(e) => handleDBType(e)}
-						options={DB_OPTIONS}
+						label="S3 file type"
+						value={FILE_OPTIONS.find(({ value }) => value === filetype)}
+						onChange={(e) => handleFileType(e)}
+						options={FILE_OPTIONS}
 						col={12}
 					/>
 				</div>
@@ -108,34 +87,8 @@ const EditBindings = ({
 						value={url}
 						onChange={(e) => handleUrl(e)}
 						col={12}
-					/>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col-md-12">
-					<Input
-						label="SQL Query"
-						value={query}
-						onChange={(e) => handleQuery(e)}
-						col={12}
-					/>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col-md-6">
-					<Input
-						label="User"
-						value={user}
-						onChange={(e) => handleUser(e)}
-						col={12}
-					/>
-				</div>
-				<div className="col-md-6">
-					<Input
-						label="Password"
-						value={password}
-						onChange={(e) => handlePassword(e)}
-						col={12}
+						placeholder="s3a://bucket/folder"
+						helpMsg="Folder has to contain a structure.json file & a parquet folder containing data files"
 					/>
 				</div>
 			</div>
@@ -143,11 +96,7 @@ const EditBindings = ({
 				<Button
 					label="Vizualize"
 					action={onVizualize}
-					// disabled={
-					// 	name && url && query && user && password && !nameError
-					// 		? false
-					// 		: true
-					// }
+					// disabled={name && url && filetype && !nameError ? false : true}
 					disabled
 					col={3}
 				/>
@@ -155,15 +104,7 @@ const EditBindings = ({
 			<div className="row">
 				<Button label="Save" action={onSave} col={3} />
 			</div>
-			{displayResults && (
-				<EditViewResults
-					dbtype={dbtype}
-					url={url}
-					query={query}
-					user={user}
-					password={password}
-				/>
-			)}
+			{displayResults && <ConnectS3ViewResults filetype={filetype} url={url} />}
 			<div className="row">
 				<Button label="Cancel" action={closePanel} col={3} />
 			</div>
@@ -171,4 +112,4 @@ const EditBindings = ({
 	);
 };
 
-export default EditBindings;
+export default ConnectS3Bindings;

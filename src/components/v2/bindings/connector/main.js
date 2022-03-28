@@ -1,5 +1,5 @@
 import React from 'react';
-import Connect from './connect';
+import Connect from './connect-json';
 import Edit from './edit';
 import { JDBC, LOCAL_JSON } from 'utils/constants';
 

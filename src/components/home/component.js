@@ -1,14 +1,14 @@
 import React from 'react';
 import { PageTitle, SearchableList } from '@inseefr/wilco';
 
-const Home = ({ config, context, v }) => (
+const Home = ({ config, context }) => (
 	<div className="container">
 		<PageTitle title="VTL Lab" />
 		<SearchableList
 			items={config}
 			col={6}
 			offset={3}
-			childPath={`${v ? 'v2/' : ''}${context}/case`}
+			childPath={`${context}/case`}
 			autoFocus={true}
 		/>
 	</div>

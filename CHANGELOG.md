@@ -1,3 +1,14 @@
+### **0.2.4** (2022-03-28)  
+  
+- Merge pull request #7 from InseeFrLab/v2
+
+V2  
+- v0.2.4  
+- Remove unused home list  
+- Improve connectors  
+- Move files to share  
+- Update Edit component    
+  
 ### **0.2.3** (2022-03-24)  
   
 - v0.2.3  

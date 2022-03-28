@@ -3,7 +3,7 @@ import { Button } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
 import Connector from 'components/v2/bindings/connector';
 import BindingList from 'components/v2/bindings/list';
-import { LOCAL_JSON, JDBC } from 'utils/constants';
+import { JDBC, S3 } from 'utils/constants';
 
 const MainBindings = ({ bindings, setBindings }) => {
 	const [openConnector, setOpenConnector] = useState(false);
@@ -17,7 +17,7 @@ const MainBindings = ({ bindings, setBindings }) => {
 	return (
 		<>
 			<div className="row justify-content-center">
-				<Button label="Connect" action={() => onClick(LOCAL_JSON)} />
+				<Button label="Connect" action={() => onClick(S3)} />
 				<Button label="Edit" action={() => onClick(JDBC)} />
 			</div>
 			<div className="row">

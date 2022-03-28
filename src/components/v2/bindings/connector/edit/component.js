@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Select } from '@inseefr/wilco';
-// import DataTable from 'components/common/data-table';
+import EditViewResults from './results';
 import { JDBC } from 'utils/constants';
 
 const DEFAULT_INIT = {
@@ -143,32 +143,30 @@ const EditBindings = ({
 				<Button
 					label="Vizualize"
 					action={onVizualize}
-					disabled={
-						// name && url && query && user && password && !nameError
-						// 	? false
-						// 	: true
-						true
-					}
+					// disabled={
+					// 	name && url && query && user && password && !nameError
+					// 		? false
+					// 		: true
+					// }
+					disabled
 					col={3}
 				/>
 			</div>
 			<div className="row">
-				<Button label="Save" action={onSave} col={3} disabled />
+				<Button label="Save" action={onSave} col={3} />
 			</div>
-			{/* {displayResults && (
-				<>
-					<DataTable vtlJson={data} />
-					<div className="row">
-						<Button label="Save" action={onSave} col={3} />
-						<Button label="Cancel" action={closePanel} col={3} />
-					</div>
-				</>
-			)} */}
-			{!displayResults && (
-				<div className="row">
-					<Button label="Cancel" action={closePanel} col={3} />
-				</div>
+			{displayResults && (
+				<EditViewResults
+					dbtype={dbtype}
+					url={url}
+					query={query}
+					user={user}
+					password={password}
+				/>
 			)}
+			<div className="row">
+				<Button label="Cancel" action={closePanel} col={3} />
+			</div>
 		</>
 	);
 };

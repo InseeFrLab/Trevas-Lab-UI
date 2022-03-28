@@ -35,3 +35,4 @@ export const FAILED = 'FAILED';
 
 export const LOCAL_JSON = 'JSON';
 export const JDBC = 'JDBC';
+export const S3 = 'S3';

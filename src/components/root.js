@@ -16,21 +16,8 @@ const Root = () => {
 			<Switch>
 				<Route exact path="/build-parquet" component={CsvToParquet} />
 				<Route exact path="/:context" component={Home} />
-				<Route
-					exact
-					path="/v2/:context"
-					component={(p) => <Home {...p} v={'v2'} />}
-				/>
-				<Route
-					exact
-					path={`/v2/${IN_MEMORY}/case/:app`}
-					component={secure(V2InMemory)}
-				/>
-				<Route
-					exact
-					path={`/v2/${SPARK_KUBE}/case/:app`}
-					component={secure(V2Spark)}
-				/>
+				<Route exact path={`/v2/${IN_MEMORY}`} component={secure(V2InMemory)} />
+				<Route exact path={`/v2/${SPARK_KUBE}`} component={secure(V2Spark)} />
 				<Route exact path="/:context/case/:app" component={secure(Case)} />
 				{!pathname.startsWith('/authentication') && (
 					<Redirect to={`/${IN_MEMORY}`} />

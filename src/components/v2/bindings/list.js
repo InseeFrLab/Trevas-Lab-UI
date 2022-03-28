@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import SlidingPanel from 'components/common/sliding-panel';
 import Connector from './connector';
 import Badge from 'components/common/badge';
-import { LOCAL_JSON, JDBC } from 'utils/constants';
+import { LOCAL_JSON, JDBC, S3 } from 'utils/constants';
 
 const getColor = (type) => {
 	switch (type) {
 		case LOCAL_JSON:
 			return '#7e375b';
 		case JDBC:
+			return '#7e375b';
+		case S3:
 			return '#7e375b';
 		default:
 			break;

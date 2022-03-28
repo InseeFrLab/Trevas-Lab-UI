@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { UUID_State } from 'store';
 import Header from '../../case/header';
-import Configuration from './configuration';
+import Configuration from '../configuration';
 import V2InMemoryComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import { LOCAL, IN_MEMORY, LOCAL_JSON, JDBC } from 'utils/constants';
@@ -99,7 +99,7 @@ const V2InMemory = () => {
 	return (
 		<div className="container">
 			<Header
-				label={'WIP'}
+				label={'WIP In Memory'}
 				disableExecution={
 					errors.length > 0 || !vtl || Object.values(bindings).length === 0
 				}

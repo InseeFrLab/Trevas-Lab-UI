@@ -41,6 +41,7 @@ const BindingList = ({ bindings, setBindings }) => {
 					setBindings={setBindings}
 					closePanel={() => setView(false)}
 					init={{ ...bindings[view], name: view }}
+					deletable
 				/>
 			</SlidingPanel>
 		</>

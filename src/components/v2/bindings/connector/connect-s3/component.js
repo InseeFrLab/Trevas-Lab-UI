@@ -16,6 +16,7 @@ const ConnectS3Bindings = ({
 	setBindings,
 	closePanel,
 	init = DEFAULT_INIT,
+	deletable,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
@@ -41,7 +42,7 @@ const ConnectS3Bindings = ({
 		setDisplayResults(false);
 	};
 
-	const onVizualize = () => {
+	const onVisualize = () => {
 		setDisplayResults(true);
 	};
 
@@ -52,6 +53,14 @@ const ConnectS3Bindings = ({
 				...others,
 				[name]: { type: S3, url, filetype },
 			};
+		});
+		closePanel();
+	};
+
+	const onDelete = () => {
+		setBindings((b) => {
+			const { [init.name]: omit, ...others } = b;
+			return others;
 		});
 		closePanel();
 	};
@@ -94,8 +103,8 @@ const ConnectS3Bindings = ({
 			</div>
 			<div className="row">
 				<Button
-					label="Vizualize"
-					action={onVizualize}
+					label="Visualize"
+					action={onVisualize}
 					// disabled={name && url && filetype && !nameError ? false : true}
 					disabled
 					col={3}
@@ -107,6 +116,7 @@ const ConnectS3Bindings = ({
 			{displayResults && <ConnectS3ViewResults filetype={filetype} url={url} />}
 			<div className="row">
 				<Button label="Cancel" action={closePanel} col={3} />
+				{deletable && <Button label="Delete" action={onDelete} col={3} />}
 			</div>
 		</>
 	);

@@ -4,7 +4,14 @@ import Edit from './edit';
 import ConnectS3 from './connect-s3';
 import { JDBC, LOCAL_JSON, S3 } from 'utils/constants';
 
-const Connector = ({ type, init, bindings, setBindings, closePanel }) => {
+const Connector = ({
+	type,
+	init,
+	bindings,
+	setBindings,
+	closePanel,
+	deletable,
+}) => {
 	const updatedType = type || bindings[init.name]?.type;
 	if (updatedType === LOCAL_JSON)
 		return (
@@ -13,6 +20,7 @@ const Connector = ({ type, init, bindings, setBindings, closePanel }) => {
 				bindings={bindings}
 				setBindings={setBindings}
 				closePanel={closePanel}
+				deletable={deletable}
 			/>
 		);
 	if (updatedType === JDBC)
@@ -22,6 +30,7 @@ const Connector = ({ type, init, bindings, setBindings, closePanel }) => {
 				bindings={bindings}
 				setBindings={setBindings}
 				closePanel={closePanel}
+				deletable={deletable}
 			/>
 		);
 	if (updatedType === S3)
@@ -31,6 +40,7 @@ const Connector = ({ type, init, bindings, setBindings, closePanel }) => {
 				bindings={bindings}
 				setBindings={setBindings}
 				closePanel={closePanel}
+				deletable={deletable}
 			/>
 		);
 	return null;

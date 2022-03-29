@@ -19,6 +19,7 @@ const EditBindings = ({
 	setBindings,
 	closePanel,
 	init = DEFAULT_INIT,
+	deletable,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
@@ -62,7 +63,7 @@ const EditBindings = ({
 		setDisplayResults(false);
 	};
 
-	const onVizualize = () => {
+	const onVisualize = () => {
 		setDisplayResults(true);
 	};
 
@@ -73,6 +74,14 @@ const EditBindings = ({
 				...others,
 				[name]: { type: JDBC, user, password, url, dbtype, query },
 			};
+		});
+		closePanel();
+	};
+
+	const onDelete = () => {
+		setBindings((b) => {
+			const { [init.name]: omit, ...others } = b;
+			return others;
 		});
 		closePanel();
 	};
@@ -143,19 +152,15 @@ const EditBindings = ({
 			</div>
 			<div className="row">
 				<Button
-					label="Vizualize"
-					action={onVizualize}
-					// disabled={
-					// 	name && url && query && user && password && !nameError
-					// 		? false
-					// 		: true
-					// }
-					disabled
+					label="Visualize"
+					action={onVisualize}
+					disabled={
+						name && url && query && user && password && !nameError
+							? false
+							: true
+					}
 					col={3}
 				/>
-			</div>
-			<div className="row">
-				<Button label="Save" action={onSave} col={3} />
 			</div>
 			{displayResults && (
 				<EditViewResults
@@ -164,11 +169,18 @@ const EditBindings = ({
 					query={query}
 					user={user}
 					password={password}
+					onSave={onSave}
+					closePanel={closePanel}
+					deletable={deletable}
+					onDelete={onDelete}
 				/>
 			)}
-			<div className="row">
-				<Button label="Cancel" action={closePanel} col={3} />
-			</div>
+			{!displayResults && (
+				<div className="row">
+					<Button label="Cancel" action={closePanel} col={3} />
+					{deletable && <Button label="Delete" action={onDelete} col={3} />}
+				</div>
+			)}
 		</>
 	);
 };

@@ -5,7 +5,7 @@ import Header from '../../case/header';
 import Configuration from '../configuration';
 import V2SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { JDBC, LOCAL, S3, SPARK } from 'utils/constants';
+import { JDBC, SPARK_KUBE, S3, SPARK } from 'utils/constants';
 
 const V2Spark = () => {
 	const [vtl, setVtl] = useState('');
@@ -54,7 +54,7 @@ const V2Spark = () => {
 		);
 		// TEMP
 		const mode = SPARK;
-		const context = LOCAL;
+		const context = SPARK_KUBE;
 		// TEMP end
 
 		authFetch(

@@ -1,3 +1,17 @@
+### **0.2.6** (2022-03-29)  
+  
+- Merge pull request #9 from InseeFrLab/v2
+
+V2  
+- v0.2.6  
+- Replace local spark conf by cluster  
+- Merge pull request #8 from InseeFrLab/v2
+
+V2  
+- v0.2.5  
+- Update menu  
+- Improve s3 connect    
+  
 ### **0.2.4** (2022-03-28)  
   
 - Merge pull request #7 from InseeFrLab/v2

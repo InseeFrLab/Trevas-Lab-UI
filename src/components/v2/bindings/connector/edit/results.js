@@ -1,19 +1,46 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Button, Loading } from '@inseefr/wilco';
+import DataTable from 'components/common/data-table';
 import { useAuthenticatedFetch } from 'utils/hooks';
 
-const EditViewResults = (settings) => {
-	// const [results, setResults] = useState(null);
+const EditViewResults = ({
+	onSave,
+	closePanel,
+	dbtype,
+	url,
+	query,
+	user,
+	password,
+	deletable,
+	onDelete,
+}) => {
+	const [results, setResults] = useState(null);
 
 	const authFetch = useAuthenticatedFetch();
 
 	useEffect(() => {
-		authFetch(`v2/jdbc`, { ...settings }, 'POST').then((res) => {
-			if (res.ok) return res.text();
-			return res.json();
-		});
-	}, [authFetch, settings]);
+		authFetch(`v2/jdbc`, { dbtype, url, query, user, password }, 'POST')
+			.then((res) => {
+				if (res.ok) return res.json();
+				else throw new Error('');
+			})
+			.then((res) => {
+				setResults(res);
+			});
+	}, [dbtype, url, query, user, password]);
 
-	return null;
+	if (!results) return <Loading />;
+
+	return (
+		<>
+			<DataTable vtlJson={results} />
+			<div className="row">
+				<Button label="Save" action={onSave} col={3} />
+				<Button label="Cancel" action={closePanel} col={3} />
+				{deletable && <Button label="Delete" action={onDelete} col={3} />}
+			</div>
+		</>
+	);
 };
 
 export default EditViewResults;

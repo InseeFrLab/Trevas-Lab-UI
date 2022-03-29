@@ -13,6 +13,7 @@ const ConnectBindings = ({
 	setBindings,
 	closePanel,
 	init = DEFAULT_INIT,
+	deletable,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
@@ -33,7 +34,7 @@ const ConnectBindings = ({
 		setDisplayResults(false);
 	};
 
-	const onVizualize = () => {
+	const onVisualize = () => {
 		setDisplayResults(true);
 	};
 
@@ -44,6 +45,14 @@ const ConnectBindings = ({
 				...others,
 				[name]: { type: LOCAL_JSON, value: data, file },
 			};
+		});
+		closePanel();
+	};
+
+	const onDelete = () => {
+		setBindings((b) => {
+			const { [init.name]: omit, ...others } = b;
+			return others;
 		});
 		closePanel();
 	};
@@ -73,8 +82,8 @@ const ConnectBindings = ({
 			</div>
 			<div className="row">
 				<Button
-					label="Vizualize"
-					action={onVizualize}
+					label="Visualize"
+					action={onVisualize}
 					disabled={data && name && !nameError ? false : true}
 					col={3}
 				/>
@@ -85,12 +94,14 @@ const ConnectBindings = ({
 					<div className="row">
 						<Button label="Save" action={onSave} col={3} />
 						<Button label="Cancel" action={closePanel} col={3} />
+						{deletable && <Button label="Delete" action={onDelete} col={3} />}
 					</div>
 				</>
 			)}
 			{!displayResults && (
 				<div className="row">
 					<Button label="Cancel" action={closePanel} col={3} />
+					{deletable && <Button label="Delete" action={onDelete} col={3} />}
 				</div>
 			)}
 			<ReactTooltip place="bottom" id="shape" type="info" effect="solid">

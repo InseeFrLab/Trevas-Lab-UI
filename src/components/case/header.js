@@ -2,12 +2,14 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, PageTitle } from '@inseefr/wilco';
 
-const Header = ({ label, disableExecution, getRes }) => {
+const Header = ({ label, disableExecution, getRes, noReturn }) => {
 	const { goBack } = useHistory();
 	return (
 		<div className="row header">
 			<div className="col-md-3 header-item">
-				<Button label="Return" action={() => goBack()} col={12} />
+				{!noReturn && (
+					<Button label="Return" action={() => goBack()} col={12} />
+				)}
 			</div>
 			<div className="col-md-6 header-item">
 				<PageTitle title={`VTL Lab: ${label}`} />

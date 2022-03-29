@@ -66,13 +66,7 @@ const Configuration = ({
 				width={'60%'}
 				from="left"
 			>
-				<p>
-					Upload your JSON file (
-					<span style={{ color: 'blue' }} data-tip data-for="shape">
-						content shape example
-					</span>
-					)
-				</p>
+				<p>Upload your JSON file</p>
 				<FileUploader file={file} setData={onUpload} setFile={setFile} />
 				<div className="row">
 					<Button label="Import" action={onValidate} col={3} disabled={!file} />

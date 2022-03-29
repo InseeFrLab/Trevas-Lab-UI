@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthenticatedFetch } from 'utils/hooks';
 
 const ConnectS3ViewResults = (settings) => {
-	const [results, setResults] = useState(null);
+	// const [results, setResults] = useState(null);
 
 	const authFetch = useAuthenticatedFetch();
 
@@ -11,7 +11,7 @@ const ConnectS3ViewResults = (settings) => {
 			if (res.ok) return res.text();
 			return res.json();
 		});
-	}, []);
+	}, [authFetch, settings]);
 
 	return null;
 };

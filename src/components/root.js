@@ -6,7 +6,7 @@ import Home from './home';
 import { V2InMemory, V2Spark } from './v2';
 import Case from './case';
 import CsvToParquet from './build-parquet';
-import { IN_MEMORY, SPARK_KUBE } from 'utils/constants';
+import { IN_MEMORY, SPARK_KUBE, V2_MEMORY } from 'utils/constants';
 
 const Root = () => {
 	const { pathname } = useLocation();
@@ -20,7 +20,7 @@ const Root = () => {
 				<Route exact path={`/v2/${SPARK_KUBE}`} component={secure(V2Spark)} />
 				<Route exact path="/:context/case/:app" component={secure(Case)} />
 				{!pathname.startsWith('/authentication') && (
-					<Redirect to={`/${IN_MEMORY}`} />
+					<Redirect to={`/${V2_MEMORY}`} />
 				)}
 			</Switch>
 		</>

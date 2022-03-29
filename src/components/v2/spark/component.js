@@ -5,7 +5,7 @@ import Header from '../../case/header';
 import Configuration from '../configuration';
 import V2SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { JDBC, S3, SPARK, SPARK_KUBE } from 'utils/constants';
+import { JDBC, LOCAL, S3, SPARK } from 'utils/constants';
 
 const V2Spark = () => {
 	const [vtl, setVtl] = useState('');
@@ -39,7 +39,7 @@ const V2Spark = () => {
 				const { type, ...rest } = v;
 				if (type === S3) {
 					const { bindings } = acc;
-					return { ...acc, s3ForBindings: { ...bindings, [k]: v.value } };
+					return { ...acc, s3ForBindings: { ...bindings, [k]: rest } };
 				}
 				if (type === JDBC) {
 					const { queriesForBindings } = acc;
@@ -54,7 +54,7 @@ const V2Spark = () => {
 		);
 		// TEMP
 		const mode = SPARK;
-		const context = SPARK_KUBE;
+		const context = LOCAL;
 		// TEMP end
 
 		authFetch(
@@ -104,6 +104,7 @@ const V2Spark = () => {
 					errors.length > 0 || !vtl || Object.values(bindings).length === 0
 				}
 				getRes={getRes}
+				noReturn
 			/>
 			<Configuration
 				script={vtl}

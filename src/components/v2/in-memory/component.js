@@ -104,6 +104,7 @@ const V2InMemory = () => {
 					errors.length > 0 || !vtl || Object.values(bindings).length === 0
 				}
 				getRes={getRes}
+				noReturn
 			/>
 			<Configuration
 				script={vtl}

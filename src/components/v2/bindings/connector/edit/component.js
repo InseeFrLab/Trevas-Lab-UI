@@ -108,6 +108,7 @@ const EditBindings = ({
 						value={url}
 						onChange={(e) => handleUrl(e)}
 						col={12}
+						placeholder="postgresql://instance:5432/base"
 					/>
 				</div>
 			</div>
@@ -118,6 +119,7 @@ const EditBindings = ({
 						value={query}
 						onChange={(e) => handleQuery(e)}
 						col={12}
+						placeholder="SELECT * FROM t LIMIT 100"
 					/>
 				</div>
 			</div>

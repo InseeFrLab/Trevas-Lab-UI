@@ -1,3 +1,12 @@
+### **0.2.7** (2022-03-29)  
+  
+- Merge pull request #10 from InseeFrLab/v2
+
+V2  
+- v0.2.7  
+- Add delete btn to connectors  
+- Add jdbc view    
+  
 ### **0.2.6** (2022-03-29)  
   
 - Merge pull request #9 from InseeFrLab/v2

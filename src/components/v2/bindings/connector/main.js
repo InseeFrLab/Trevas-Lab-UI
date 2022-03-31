@@ -11,6 +11,7 @@ const Connector = ({
 	setBindings,
 	closePanel,
 	deletable,
+	spark,
 }) => {
 	const updatedType = type || bindings[init.name]?.type;
 	if (updatedType === LOCAL_JSON)
@@ -31,6 +32,7 @@ const Connector = ({
 				setBindings={setBindings}
 				closePanel={closePanel}
 				deletable={deletable}
+				spark={spark}
 			/>
 		);
 	if (updatedType === S3)

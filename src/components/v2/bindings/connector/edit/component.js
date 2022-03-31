@@ -20,6 +20,7 @@ const EditBindings = ({
 	closePanel,
 	init = DEFAULT_INIT,
 	deletable,
+	spark,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
@@ -155,7 +156,7 @@ const EditBindings = ({
 					label="Visualize"
 					action={onVisualize}
 					disabled={
-						name && url && query && user && password && !nameError
+						!spark && name && url && query && user && password && !nameError
 							? false
 							: true
 					}
@@ -175,8 +176,16 @@ const EditBindings = ({
 					onDelete={onDelete}
 				/>
 			)}
-			{!displayResults && (
+			{!displayResults ||
+				(!spark && (
+					<div className="row">
+						<Button label="Cancel" action={closePanel} col={3} />
+						{deletable && <Button label="Delete" action={onDelete} col={3} />}
+					</div>
+				))}
+			{spark && (
 				<div className="row">
+					<Button label="Save" action={onSave} col={3} />
 					<Button label="Cancel" action={closePanel} col={3} />
 					{deletable && <Button label="Delete" action={onDelete} col={3} />}
 				</div>

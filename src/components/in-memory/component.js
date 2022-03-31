@@ -3,14 +3,14 @@ import { useRecoilState } from 'recoil';
 import { UUID_State } from 'store';
 import Header from 'components/common/header';
 import Configuration from '../configuration';
-import V2SparkComponent from './main';
+import InMemoryComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { CLUSTER_KUBERNETES, JDBC, S3 } from 'utils/constants';
+import { IN_MEMORY, LOCAL_JSON, JDBC, LOCAL } from 'utils/constants';
 
-const mode = 'SPARK';
-const context = CLUSTER_KUBERNETES;
+const mode = IN_MEMORY;
+const context = LOCAL;
 
-const V2Spark = () => {
+const InMemory = () => {
 	const [vtl, setVtl] = useState('');
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
@@ -40,9 +40,9 @@ const V2Spark = () => {
 		const formatedBindings = Object.entries(bindings).reduce(
 			(acc, [k, v]) => {
 				const { type, ...rest } = v;
-				if (type === S3) {
+				if (type === LOCAL_JSON) {
 					const { bindings } = acc;
-					return { ...acc, s3ForBindings: { ...bindings, [k]: rest } };
+					return { ...acc, bindings: { ...bindings, [k]: v.value } };
 				}
 				if (type === JDBC) {
 					const { queriesForBindings } = acc;
@@ -53,11 +53,11 @@ const V2Spark = () => {
 				}
 				return acc;
 			},
-			{ bindings: {}, s3ForBindings: {} }
+			{ bindings: {}, queriesForBindings: {} }
 		);
 
 		authFetch(
-			`v2/execute?mode=${mode}&type=${context}`,
+			`execute?mode=${mode}&type=${context}`,
 			{ vtlScript: vtl, toSave: {}, ...formatedBindings },
 			'POST'
 		)
@@ -81,7 +81,7 @@ const V2Spark = () => {
 
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
-			authFetch(`v2/job/${currentJobId}/bindings`)
+			authFetch(`job/${currentJobId}/bindings`)
 				.then((r) => r.json())
 				.then((r) => {
 					setRes(r);
@@ -98,7 +98,7 @@ const V2Spark = () => {
 	return (
 		<div className="container">
 			<Header
-				label={'WIP Spark'}
+				label={'WIP In Memory'}
 				disableExecution={
 					errors.length > 0 || !vtl || Object.values(bindings).length === 0
 				}
@@ -112,7 +112,7 @@ const V2Spark = () => {
 				setBindings={setBindings}
 				hasScriptErrors={errors.length > 0}
 			/>
-			<V2SparkComponent
+			<InMemoryComponent
 				script={vtl}
 				setScript={onChangeScript}
 				setErrors={setErrors}
@@ -127,4 +127,4 @@ const V2Spark = () => {
 	);
 };
 
-export default V2Spark;
+export default InMemory;

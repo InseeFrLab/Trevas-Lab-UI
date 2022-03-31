@@ -19,7 +19,7 @@ const EditViewResults = ({
 	const authFetch = useAuthenticatedFetch();
 
 	useEffect(() => {
-		authFetch(`v2/jdbc`, { dbtype, url, query, user, password }, 'POST')
+		authFetch(`jdbc`, { dbtype, url, query, user, password }, 'POST')
 			.then((res) => {
 				if (res.ok) return res.json();
 				else throw new Error('');
@@ -27,6 +27,7 @@ const EditViewResults = ({
 			.then((res) => {
 				setResults(res);
 			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dbtype, url, query, user, password]);
 
 	if (!results) return <Loading />;

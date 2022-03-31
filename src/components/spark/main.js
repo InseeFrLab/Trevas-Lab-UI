@@ -4,7 +4,7 @@ import Bindings from './bindings';
 import Editor from 'components/common/editor';
 import Results from './results';
 
-const V2InMemory = ({
+const InMemory = ({
 	script,
 	setScript,
 	setErrors,
@@ -112,4 +112,4 @@ const V2InMemory = ({
 	);
 };
 
-export default V2InMemory;
+export default InMemory;

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useAuthenticatedFetch } from 'utils/hooks';
+import { S3 } from 'utils/constants';
 
 const ConnectS3ViewResults = (settings) => {
 	// const [results, setResults] = useState(null);
@@ -7,7 +8,7 @@ const ConnectS3ViewResults = (settings) => {
 	const authFetch = useAuthenticatedFetch();
 
 	useEffect(() => {
-		authFetch(`v2/s3`, { ...settings }, 'POST').then((res) => {
+		authFetch(`${S3}`, { ...settings }, 'POST').then((res) => {
 			if (res.ok) return res.text();
 			return res.json();
 		});

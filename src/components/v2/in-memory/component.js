@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { UUID_State } from 'store';
-import Header from '../../case/header';
+import Header from 'components/common/header';
 import Configuration from '../configuration';
 import V2InMemoryComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { LOCAL, IN_MEMORY, LOCAL_JSON, JDBC } from 'utils/constants';
+import { IN_MEMORY, LOCAL_JSON, JDBC, LOCAL } from 'utils/constants';
+
+const mode = IN_MEMORY;
+const context = LOCAL;
 
 const V2InMemory = () => {
 	const [vtl, setVtl] = useState('');
@@ -52,10 +55,6 @@ const V2InMemory = () => {
 			},
 			{ bindings: {}, queriesForBindings: {} }
 		);
-		// TEMP
-		const mode = IN_MEMORY;
-		const context = LOCAL;
-		// TEMP end
 
 		authFetch(
 			`v2/execute?mode=${mode}&type=${context}`,

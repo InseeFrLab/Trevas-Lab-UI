@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { UUID_State } from 'store';
-import Header from '../../case/header';
+import Header from 'components/common/header';
 import Configuration from '../configuration';
 import V2SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { JDBC, SPARK_KUBE, S3, SPARK } from 'utils/constants';
+import { CLUSTER_KUBERNETES, JDBC, S3 } from 'utils/constants';
+
+const mode = 'SPARK';
+const context = CLUSTER_KUBERNETES;
 
 const V2Spark = () => {
 	const [vtl, setVtl] = useState('');
@@ -52,10 +55,6 @@ const V2Spark = () => {
 			},
 			{ bindings: {}, s3ForBindings: {} }
 		);
-		// TEMP
-		const mode = SPARK;
-		const context = SPARK_KUBE;
-		// TEMP end
 
 		authFetch(
 			`v2/execute?mode=${mode}&type=${context}`,

@@ -1,3 +1,17 @@
+### **0.2.8** (2022-04-01)  
+  
+- Merge pull request #11 from InseeFrLab/v2
+
+V2  
+- v0.2.8  
+- Improve buttons & add spark-ui button  
+- Improve config handling with recoil  
+- Fix minor issues  
+- Improve jdbc enpoint call  
+- Refactoring  
+- Remove unused  
+- Improve spark use case    
+  
 ### **0.2.7** (2022-03-29)  
   
 - Merge pull request #10 from InseeFrLab/v2

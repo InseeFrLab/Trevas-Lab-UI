@@ -42,7 +42,7 @@ const ConnectS3Bindings = ({
 		setDisplayResults(false);
 	};
 
-	const onVisualize = () => {
+	const onView = () => {
 		setDisplayResults(true);
 	};
 
@@ -103,8 +103,8 @@ const ConnectS3Bindings = ({
 			</div>
 			<div className="row">
 				<Button
-					label="Visualize"
-					action={onVisualize}
+					label="View"
+					action={onView}
 					// disabled={name && url && filetype && !nameError ? false : true}
 					disabled
 					col={3}

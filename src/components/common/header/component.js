@@ -12,7 +12,7 @@ const Header = ({ label, disableExecution, getRes, noReturn }) => {
 				)}
 			</div>
 			<div className="col-md-6 header-item">
-				<PageTitle title={`VTL Lab: ${label}`} />
+				<PageTitle title={`${label}`} />
 			</div>
 			<div className="col-md-3 header-item">
 				<Button

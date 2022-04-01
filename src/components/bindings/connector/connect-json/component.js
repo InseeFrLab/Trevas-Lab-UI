@@ -34,7 +34,7 @@ const ConnectBindings = ({
 		setDisplayResults(false);
 	};
 
-	const onVisualize = () => {
+	const onView = () => {
 		setDisplayResults(true);
 	};
 
@@ -82,8 +82,8 @@ const ConnectBindings = ({
 			</div>
 			<div className="row">
 				<Button
-					label="Visualize"
-					action={onVisualize}
+					label="View"
+					action={onView}
 					disabled={data && name && !nameError ? false : true}
 					col={3}
 				/>

@@ -64,7 +64,7 @@ const EditBindings = ({
 		setDisplayResults(false);
 	};
 
-	const onVisualize = () => {
+	const onView = () => {
 		setDisplayResults(true);
 	};
 
@@ -153,8 +153,8 @@ const EditBindings = ({
 			</div>
 			<div className="row">
 				<Button
-					label="Visualize"
-					action={onVisualize}
+					label="View"
+					action={onView}
 					disabled={
 						!spark && name && url && query && user && password && !nameError
 							? false

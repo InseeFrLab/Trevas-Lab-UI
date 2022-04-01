@@ -28,10 +28,7 @@ const Menu = () => {
 
 	return (
 		<div className="menu-container">
-			<WilcoMenu
-				paths={realPaths}
-				home={{ label: 'Home', path: IN_MEMORY_PATH }}
-			/>
+			<WilcoMenu paths={realPaths} home={{ label: 'Home', path: '/home' }} />
 		</div>
 	);
 };

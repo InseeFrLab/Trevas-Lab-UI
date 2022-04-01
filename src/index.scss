@@ -22,3 +22,15 @@ h2 {
 	font-weight: bold;
 	font-size: 20px;
 }
+
+.wilco-btn-red {
+	background-color: red;
+	&:hover:not([disabled]),
+	&:focus {
+		background-color: rgb(218, 72, 133);
+		color: white;
+	}
+	&:hover {
+		color: rgb(218, 72, 133);
+	}
+}

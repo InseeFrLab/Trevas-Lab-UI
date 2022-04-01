@@ -2,21 +2,14 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Menu as WilcoMenu } from '@inseefr/wilco';
 import { getEnv } from 'env';
-import { V2_MEMORY, V2_CLUSTER_KUBERNETES } from 'utils/constants';
+import { IN_MEMORY_PATH, CLUSTER_KUBERNETES_PATH } from 'utils/constants';
 import './menu.scss';
 
 const paths = [
-	// { label: 'In Memory', path: `/${IN_MEMORY}` },
-	// { label: 'Spark - Local', path: `/${SPARK_LOCAL}` },
-	// { label: 'Spark - Static', path: `/${SPARK_STATIC}` },
-	// { label: 'Spark - Kube', path: `/${SPARK_KUBE}` },
-	// { label: 'Build Parquet', path: '/build-parquet', alignToRight: true },
-	// { label: 'In Js', path: '/in-js' , alignToRight: true },
-	{ label: 'V2 - In Memory', path: `/${V2_MEMORY}` /*, alignToRight: true*/ },
+	{ label: 'In Memory', path: `${IN_MEMORY_PATH}` },
 	{
-		label: 'V2 - Spark - Kube',
-		path: `/${V2_CLUSTER_KUBERNETES}`,
-		/*alignToRight: true,*/
+		label: 'Spark - Kube',
+		path: `${CLUSTER_KUBERNETES_PATH}`,
 	},
 ];
 
@@ -35,7 +28,7 @@ const Menu = () => {
 
 	return (
 		<div className="menu-container">
-			<WilcoMenu paths={realPaths} home={{ label: 'Home', path: V2_MEMORY }} />
+			<WilcoMenu paths={realPaths} home={{ label: 'Home', path: '/home' }} />
 		</div>
 	);
 };

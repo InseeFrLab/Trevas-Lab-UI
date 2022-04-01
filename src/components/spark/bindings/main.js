@@ -18,7 +18,7 @@ const MainBindings = ({ bindings, setBindings }) => {
 		<>
 			<div className="row justify-content-center">
 				<Button label="Connect" action={() => onClick(S3)} />
-				<Button label="Edit" action={() => onClick(JDBC)} />
+				<Button label="Edit" action={() => onClick(JDBC)} disabled />
 			</div>
 			<div className="row">
 				<BindingList bindings={bindings} setBindings={setBindings} spark />

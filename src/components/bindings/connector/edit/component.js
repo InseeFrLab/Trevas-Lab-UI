@@ -174,18 +174,11 @@ const EditBindings = ({
 					closePanel={closePanel}
 					deletable={deletable}
 					onDelete={onDelete}
+					spark={spark}
 				/>
 			)}
-			{!displayResults ||
-				(!spark && (
-					<div className="row">
-						<Button label="Cancel" action={closePanel} col={3} />
-						{deletable && <Button label="Delete" action={onDelete} col={3} />}
-					</div>
-				))}
-			{spark && (
+			{!displayResults && (
 				<div className="row">
-					<Button label="Save" action={onSave} col={3} />
 					<Button label="Cancel" action={closePanel} col={3} />
 					{deletable && <Button label="Delete" action={onDelete} col={3} />}
 				</div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Loading } from '@inseefr/wilco';
 import DataTable from 'components/common/data-table';
 import { useAuthenticatedFetch } from 'utils/hooks';
+import { IN_MEMORY, SPARK } from 'utils/constants';
 
 const EditViewResults = ({
 	onSave,
@@ -13,13 +14,18 @@ const EditViewResults = ({
 	password,
 	deletable,
 	onDelete,
+	spark,
 }) => {
 	const [results, setResults] = useState(null);
 
 	const authFetch = useAuthenticatedFetch();
 
 	useEffect(() => {
-		authFetch(`jdbc`, { dbtype, url, query, user, password }, 'POST')
+		authFetch(
+			`jdbc?mode=${spark ? SPARK : IN_MEMORY}`,
+			{ dbtype, url, query, user, password },
+			'POST'
+		)
 			.then((res) => {
 				if (res.ok) return res.json();
 				else throw new Error('');

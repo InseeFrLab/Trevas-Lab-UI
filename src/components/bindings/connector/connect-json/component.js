@@ -94,14 +94,28 @@ const ConnectBindings = ({
 					<div className="row">
 						<Button label="Save" action={onSave} col={3} />
 						<Button label="Cancel" action={closePanel} col={3} />
-						{deletable && <Button label="Delete" action={onDelete} col={3} />}
+						{deletable && (
+							<Button
+								label="Delete"
+								action={onDelete}
+								col={3}
+								classes={['wilco-btn-red']}
+							/>
+						)}
 					</div>
 				</>
 			)}
 			{!displayResults && (
 				<div className="row">
 					<Button label="Cancel" action={closePanel} col={3} />
-					{deletable && <Button label="Delete" action={onDelete} col={3} />}
+					{deletable && (
+						<Button
+							label="Delete"
+							action={onDelete}
+							col={3}
+							classes={['wilco-btn-red']}
+						/>
+					)}
 				</div>
 			)}
 			<ReactTooltip place="bottom" id="shape" type="info" effect="solid">

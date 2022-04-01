@@ -4,8 +4,10 @@ import SlidingPanel from 'components/common/sliding-panel';
 import FileUploader from 'components/common/file-uploader';
 import { saveAs } from 'file-saver';
 import { DownloadIcon, UploadIcon } from 'components/common/icons';
+import { getEnv } from 'env';
 
 const fileName = 'configuration.json';
+const sparkUI = getEnv()['SPARK_UI'];
 
 const Configuration = ({
 	script,
@@ -58,6 +60,12 @@ const Configuration = ({
 						setOpenUpload(true);
 					}}
 				/>
+				{sparkUI && (
+					<>
+						<div className="col-md-6 header-item" />
+						<Button label={'Spark UI'} action={sparkUI} externalLink />
+					</>
+				)}
 			</div>
 			<SlidingPanel
 				title="Binding definition"

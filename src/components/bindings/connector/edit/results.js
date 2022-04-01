@@ -44,7 +44,14 @@ const EditViewResults = ({
 			<div className="row">
 				<Button label="Save" action={onSave} col={3} />
 				<Button label="Cancel" action={closePanel} col={3} />
-				{deletable && <Button label="Delete" action={onDelete} col={3} />}
+				{deletable && (
+					<Button
+						label="Delete"
+						action={onDelete}
+						col={3}
+						classes={['wilco-btn-red']}
+					/>
+				)}
 			</div>
 		</>
 	);

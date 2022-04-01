@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { UUID_State } from 'store';
+import { UUID_State, IN_MEMORY_SCRIPT, IN_MEMORY_BINDINGS } from 'store';
 import Header from 'components/common/header';
 import Configuration from '../configuration';
 import InMemoryComponent from './main';
@@ -11,17 +11,17 @@ const mode = IN_MEMORY;
 const context = LOCAL;
 
 const InMemory = () => {
-	const [vtl, setVtl] = useState('');
+	const [script, setScript] = useRecoilState(IN_MEMORY_SCRIPT);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
-	const [bindings, setBindings] = useState({});
+	const [bindings, setBindings] = useRecoilState(IN_MEMORY_BINDINGS);
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
 	const [UUID, setUUID] = useRecoilState(UUID_State);
 	const [currentJobId, setCurrentJobId] = useState('');
 
 	const onChangeScript = (e) => {
-		setVtl(e);
+		setScript(e);
 		setRes(null);
 		setApiError('');
 	};
@@ -58,7 +58,7 @@ const InMemory = () => {
 
 		authFetch(
 			`execute?mode=${mode}&type=${context}`,
-			{ vtlScript: vtl, toSave: {}, ...formatedBindings },
+			{ vtlScript: script, toSave: {}, ...formatedBindings },
 			'POST'
 		)
 			.then((res) => {
@@ -77,7 +77,7 @@ const InMemory = () => {
 			.catch((e) => {
 				setApiError(e);
 			});
-	}, [authFetch, bindings, vtl, setUUID]);
+	}, [authFetch, bindings, script, setUUID]);
 
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
@@ -98,22 +98,22 @@ const InMemory = () => {
 	return (
 		<div className="container">
 			<Header
-				label={'WIP In Memory'}
+				label={'In Memory execution'}
 				disableExecution={
-					errors.length > 0 || !vtl || Object.values(bindings).length === 0
+					errors.length > 0 || !script || Object.values(bindings).length === 0
 				}
 				getRes={getRes}
 				noReturn
 			/>
 			<Configuration
-				script={vtl}
-				setScript={setVtl}
+				script={script}
+				setScript={setScript}
 				bindings={bindings}
 				setBindings={setBindings}
 				hasScriptErrors={errors.length > 0}
 			/>
 			<InMemoryComponent
-				script={vtl}
+				script={script}
 				setScript={onChangeScript}
 				setErrors={setErrors}
 				// variableURLs={urls}

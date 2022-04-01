@@ -1,27 +1,27 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { UUID_State } from 'store';
+import { UUID_State, SPARK_SCRIPT, SPARK_BINDINGS } from 'store';
 import Header from 'components/common/header';
 import Configuration from '../configuration';
 import SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { CLUSTER_KUBERNETES, JDBC, S3 } from 'utils/constants';
+import { CLUSTER_KUBERNETES, JDBC, S3, SPARK } from 'utils/constants';
 
-const mode = 'SPARK';
+const mode = SPARK;
 const context = CLUSTER_KUBERNETES;
 
 const Spark = () => {
-	const [vtl, setVtl] = useState('');
+	const [script, setScript] = useRecoilState(SPARK_SCRIPT);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
-	const [bindings, setBindings] = useState({});
+	const [bindings, setBindings] = useRecoilState(SPARK_BINDINGS);
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
 	const [UUID, setUUID] = useRecoilState(UUID_State);
 	const [currentJobId, setCurrentJobId] = useState('');
 
 	const onChangeScript = (e) => {
-		setVtl(e);
+		setScript(e);
 		setRes(null);
 		setApiError('');
 	};
@@ -58,7 +58,7 @@ const Spark = () => {
 
 		authFetch(
 			`execute?mode=${mode}&type=${context}`,
-			{ vtlScript: vtl, toSave: {}, ...formatedBindings },
+			{ vtlScript: script, toSave: {}, ...formatedBindings },
 			'POST'
 		)
 			.then((res) => {
@@ -77,7 +77,7 @@ const Spark = () => {
 			.catch((e) => {
 				setApiError(e);
 			});
-	}, [authFetch, bindings, vtl, setUUID]);
+	}, [authFetch, bindings, script, setUUID]);
 
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
@@ -98,22 +98,22 @@ const Spark = () => {
 	return (
 		<div className="container">
 			<Header
-				label={'WIP Spark'}
+				label={'Spark execution'}
 				disableExecution={
-					errors.length > 0 || !vtl || Object.values(bindings).length === 0
+					errors.length > 0 || !script || Object.values(bindings).length === 0
 				}
 				getRes={getRes}
 				noReturn
 			/>
 			<Configuration
-				script={vtl}
-				setScript={setVtl}
+				script={script}
+				setScript={setScript}
 				bindings={bindings}
 				setBindings={setBindings}
 				hasScriptErrors={errors.length > 0}
 			/>
 			<SparkComponent
-				script={vtl}
+				script={script}
 				setScript={onChangeScript}
 				setErrors={setErrors}
 				// variableURLs={urls}

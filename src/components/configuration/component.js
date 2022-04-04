@@ -15,6 +15,7 @@ const Configuration = ({
 	bindings,
 	setBindings,
 	hasScriptErrors,
+	spark,
 }) => {
 	const [openUpload, setOpenUpload] = useState(false);
 	const [file, setFile] = useState(null);
@@ -60,7 +61,7 @@ const Configuration = ({
 						setOpenUpload(true);
 					}}
 				/>
-				{sparkUI && (
+				{spark && sparkUI && (
 					<>
 						<div className="col-md-6 header-item" />
 						<Button label={'Spark UI'} action={sparkUI} externalLink />

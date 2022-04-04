@@ -130,6 +130,11 @@ const EditBindings = ({
 						onChange={(e) => handleQuery(e)}
 						col={12}
 						placeholder="SELECT * FROM t LIMIT 100"
+						helpMsg={
+							spark
+								? 'View results will be automatically limited to 1 000 rows'
+								: ''
+						}
 					/>
 				</div>
 			</div>
@@ -156,7 +161,7 @@ const EditBindings = ({
 					label="View"
 					action={onView}
 					disabled={
-						!spark && name && url && query && user && password && !nameError
+						name && url && query && user && password && !nameError
 							? false
 							: true
 					}

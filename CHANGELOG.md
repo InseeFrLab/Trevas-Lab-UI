@@ -1,3 +1,12 @@
+### **0.2.9** (2022-04-08)  
+  
+- Merge pull request #12 from InseeFrLab/v2
+
+V2  
+- v0.2.9  
+- Improve spark connectors  
+- Improve connectors    
+  
 ### **0.2.8** (2022-04-01)  
   
 - Merge pull request #11 from InseeFrLab/v2

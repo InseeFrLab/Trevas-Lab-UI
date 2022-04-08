@@ -97,7 +97,7 @@ const ConnectS3Bindings = ({
 						onChange={(e) => handleUrl(e)}
 						col={12}
 						placeholder="s3a://bucket/folder"
-						helpMsg="Folder has to contain a structure.json file & a parquet folder containing data files"
+						helpMsg={`View results will automatically be limited to 1 000 rows`}
 					/>
 				</div>
 			</div>
@@ -105,15 +105,23 @@ const ConnectS3Bindings = ({
 				<Button
 					label="View"
 					action={onView}
-					// disabled={name && url && filetype && !nameError ? false : true}
-					disabled
+					disabled={name && url && filetype && !nameError ? false : true}
 					col={3}
 				/>
 			</div>
 			<div className="row">
 				<Button label="Save" action={onSave} col={3} />
 			</div>
-			{displayResults && <ConnectS3ViewResults filetype={filetype} url={url} />}
+			{displayResults && (
+				<ConnectS3ViewResults
+					filetype={filetype}
+					url={url}
+					onSave={onSave}
+					closePanel={closePanel}
+					deletable={deletable}
+					onDelete={onDelete}
+				/>
+			)}
 			<div className="row">
 				<Button label="Cancel" action={closePanel} col={3} />
 				{deletable && (

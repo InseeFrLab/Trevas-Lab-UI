@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button } from '@inseefr/wilco';
+import DataTable from 'components/common/data-table';
 
 const Show = ({ result, onClose }) => {
 	if (!result) return null;
 	return (
 		<>
-			<h3>Coming soon...</h3>
-			{/* <DataTable vtlJson={result} /> */}
+			<DataTable vtlJson={result} />
 			<div className="row">
 				<Button label="Close" action={onClose} col={3} />
 			</div>

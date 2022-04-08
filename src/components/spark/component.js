@@ -111,6 +111,7 @@ const Spark = () => {
 				bindings={bindings}
 				setBindings={setBindings}
 				hasScriptErrors={errors.length > 0}
+				spark
 			/>
 			<SparkComponent
 				script={script}

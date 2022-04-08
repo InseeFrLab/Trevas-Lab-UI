@@ -132,7 +132,7 @@ const EditBindings = ({
 						placeholder="SELECT * FROM t LIMIT 100"
 						helpMsg={
 							spark
-								? 'View results will be automatically limited to 1 000 rows'
+								? 'View results will automatically be limited to 1 000 rows'
 								: ''
 						}
 					/>

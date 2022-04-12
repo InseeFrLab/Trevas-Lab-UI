@@ -1,3 +1,19 @@
+### **0.2.11** (2022-04-12)  
+  
+- Merge pull request #18 from InseeFrLab/v2
+
+V2  
+- v0.2.11  
+- Add favicon  
+- Fix minor issues  
+- Merge pull request #17 from InseeFrLab/v2
+
+V2  
+- v0.2.10  
+- Add home page  
+- Refactoring  
+- Improve execution mode & types    
+  
 ### **0.2.9** (2022-04-08)  
   
 - Merge pull request #12 from InseeFrLab/v2

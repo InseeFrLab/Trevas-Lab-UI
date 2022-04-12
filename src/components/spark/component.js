@@ -1,16 +1,28 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
 import { UUID_State, SPARK_SCRIPT, SPARK_BINDINGS } from 'store';
-import Header from 'components/common/header';
+import Header from './header';
 import Configuration from '../configuration';
 import SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { CLUSTER_KUBERNETES, JDBC, S3, SPARK } from 'utils/constants';
+import * as C from 'utils/constants';
 
-const mode = SPARK;
-const context = CLUSTER_KUBERNETES;
+const getType = (pathname) => {
+	switch (pathname) {
+		case C.SPARK_LOCAL_PATH:
+			return C.LOCAL;
+		case C.SPARK_STATIC_PATH:
+			return C.CLUSTER_STATIC;
+		case C.SPARK_KUBERNETES_PATH:
+			return C.CLUSTER_KUBERNETES;
+		default:
+			return C.LOCAL;
+	}
+};
 
 const Spark = () => {
+	const { pathname } = useLocation();
 	const [script, setScript] = useRecoilState(SPARK_SCRIPT);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
@@ -40,11 +52,11 @@ const Spark = () => {
 		const formatedBindings = Object.entries(bindings).reduce(
 			(acc, [k, v]) => {
 				const { type, ...rest } = v;
-				if (type === S3) {
+				if (type === C.S3) {
 					const { bindings } = acc;
 					return { ...acc, s3ForBindings: { ...bindings, [k]: rest } };
 				}
-				if (type === JDBC) {
+				if (type === C.JDBC) {
 					const { queriesForBindings } = acc;
 					return {
 						...acc,
@@ -57,7 +69,7 @@ const Spark = () => {
 		);
 
 		authFetch(
-			`execute?mode=${mode}&type=${context}`,
+			`execute?mode=SPARK&type=${getType(pathname)}`,
 			{ vtlScript: script, toSave: {}, ...formatedBindings },
 			'POST'
 		)
@@ -98,12 +110,11 @@ const Spark = () => {
 	return (
 		<div className="container">
 			<Header
-				label={'Spark execution'}
-				disableExecution={
-					errors.length > 0 || !script || Object.values(bindings).length === 0
-				}
+				script={script}
+				errors={errors}
+				bindings={bindings}
+				pathname={pathname}
 				getRes={getRes}
-				noReturn
 			/>
 			<Configuration
 				script={script}

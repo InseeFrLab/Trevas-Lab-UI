@@ -4,7 +4,12 @@ import { secure } from './auth';
 import Menu from './common/menu';
 import InMemory from './in-memory';
 import Spark from './spark';
-import { CLUSTER_KUBERNETES_PATH, IN_MEMORY_PATH } from 'utils/constants';
+import {
+	IN_MEMORY_PATH,
+	SPARK_STATIC_PATH,
+	SPARK_KUBERNETES_PATH,
+	SPARK_LOCAL_PATH,
+} from 'utils/constants';
 
 const Root = () => {
 	const { pathname } = useLocation();
@@ -13,9 +18,11 @@ const Root = () => {
 			<Menu />
 			<Switch>
 				<Route exact path={`${IN_MEMORY_PATH}`} component={secure(InMemory)} />
+				<Route exact path={`${SPARK_LOCAL_PATH}`} component={secure(Spark)} />
+				<Route exact path={`${SPARK_STATIC_PATH}`} component={secure(Spark)} />
 				<Route
 					exact
-					path={`${CLUSTER_KUBERNETES_PATH}`}
+					path={`${SPARK_KUBERNETES_PATH}`}
 					component={secure(Spark)}
 				/>
 				{!pathname.startsWith('/authentication') && (

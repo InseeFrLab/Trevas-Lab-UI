@@ -41,7 +41,7 @@ const Menu = () => {
 
 	return (
 		<div className="menu-container">
-			<WilcoMenu paths={realPaths} home={{ label: 'Home', path: '/home' }} />
+			<WilcoMenu paths={realPaths} home={{ label: 'Home', path: '/' }} />
 		</div>
 	);
 };

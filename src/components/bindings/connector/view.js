@@ -37,7 +37,7 @@ const S3View = ({
 				setResults(res);
 				setLoading(false);
 			});
-	}, [configuration]);
+	}, [configuration, authFetch, bodyKey, connectorType, error, pathname]);
 
 	if (loading) return <Loading />;
 

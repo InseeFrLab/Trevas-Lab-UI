@@ -17,7 +17,7 @@ const getColor = (type) => {
 	}
 };
 
-const BindingList = ({ bindings, setBindings, spark }) => {
+const BindingList = ({ bindings, setBindings }) => {
 	const [view, setView] = useState(null);
 
 	return (
@@ -42,7 +42,6 @@ const BindingList = ({ bindings, setBindings, spark }) => {
 					closePanel={() => setView(false)}
 					init={{ ...bindings[view], name: view }}
 					deletable
-					spark={spark}
 				/>
 			</SlidingPanel>
 		</>

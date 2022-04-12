@@ -7,19 +7,7 @@ import Configuration from '../configuration';
 import SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import * as C from 'utils/constants';
-
-const getType = (pathname) => {
-	switch (pathname) {
-		case C.SPARK_LOCAL_PATH:
-			return C.LOCAL;
-		case C.SPARK_STATIC_PATH:
-			return C.CLUSTER_STATIC;
-		case C.SPARK_KUBERNETES_PATH:
-			return C.CLUSTER_KUBERNETES;
-		default:
-			return C.LOCAL;
-	}
-};
+import { getSparkType } from 'utils/spark-type';
 
 const Spark = () => {
 	const { pathname } = useLocation();
@@ -69,7 +57,7 @@ const Spark = () => {
 		);
 
 		authFetch(
-			`execute?mode=SPARK&type=${getType(pathname)}`,
+			`execute?mode=${C.SPARK}&type=${getSparkType(pathname)}`,
 			{ vtlScript: script, toSave: {}, ...formatedBindings },
 			'POST'
 		)

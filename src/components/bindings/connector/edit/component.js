@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Select } from '@inseefr/wilco';
-import EditViewResults from './results';
+import View from '../view';
 import { JDBC } from 'utils/constants';
 
 const DEFAULT_INIT = {
@@ -29,43 +29,32 @@ const EditBindings = ({
 	const [query, setQuery] = useState(init.query);
 	const [user, setUser] = useState(init.user);
 	const [password, setPassword] = useState(init.password);
-	const [displayResults, setDisplayResults] = useState(false);
 
 	const handleName = (e) => {
 		const newName = e.target.value;
 		setName(newName);
 		if (nameError && !bindings[newName]) setNameError(false);
 		if (newName !== init.name && bindings[newName]) setNameError(true);
-		setDisplayResults(false);
 	};
 
 	const handleDBType = (d) => {
 		setDBType(d);
-		setDisplayResults(false);
 	};
 
 	const handleUrl = (d) => {
 		setUrl(d.target.value);
-		setDisplayResults(false);
 	};
 
 	const handleQuery = (d) => {
 		setQuery(d.target.value);
-		setDisplayResults(false);
 	};
 
 	const handleUser = (d) => {
 		setUser(d.target.value);
-		setDisplayResults(false);
 	};
 
 	const handlePassword = (d) => {
 		setPassword(d.target.value);
-		setDisplayResults(false);
-	};
-
-	const onView = () => {
-		setDisplayResults(true);
 	};
 
 	const onSave = () => {
@@ -156,45 +145,28 @@ const EditBindings = ({
 					/>
 				</div>
 			</div>
+			<View
+				dbtype={dbtype}
+				url={url}
+				query={query}
+				user={user}
+				password={password}
+				disabledCondition={url && query && user && password && dbtype}
+				connectorType={JDBC}
+				bodyKey={'queriesForBindings'}
+			/>
 			<div className="row">
-				<Button
-					label="View"
-					action={onView}
-					disabled={
-						name && url && query && user && password && !nameError
-							? false
-							: true
-					}
-					col={3}
-				/>
+				<Button label="Save" action={onSave} col={3} />
+				<Button label="Cancel" action={closePanel} col={3} />
+				{deletable && (
+					<Button
+						label="Delete"
+						action={onDelete}
+						col={3}
+						classes={['wilco-btn-red']}
+					/>
+				)}
 			</div>
-			{displayResults && (
-				<EditViewResults
-					dbtype={dbtype}
-					url={url}
-					query={query}
-					user={user}
-					password={password}
-					onSave={onSave}
-					closePanel={closePanel}
-					deletable={deletable}
-					onDelete={onDelete}
-					spark={spark}
-				/>
-			)}
-			{!displayResults && (
-				<div className="row">
-					<Button label="Cancel" action={closePanel} col={3} />
-					{deletable && (
-						<Button
-							label="Delete"
-							action={onDelete}
-							col={3}
-							classes={['wilco-btn-red']}
-						/>
-					)}
-				</div>
-			)}
 		</>
 	);
 };

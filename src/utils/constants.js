@@ -4,8 +4,8 @@ export const SPARK = 'SPARK';
 
 // Types
 export const LOCAL = 'LOCAL';
-export const CLUSTER_KUBERNETES = 'CLUSTER_KUBERNETES';
 export const CLUSTER_STATIC = 'CLUSTER_STATIC';
+export const CLUSTER_KUBERNETES = 'CLUSTER_KUBERNETES';
 
 // Connectors types
 export const LOCAL_JSON = 'JSON';

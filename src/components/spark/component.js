@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
 import { UUID_State, SPARK_SCRIPT, SPARK_BINDINGS } from 'store';
-import Header from 'components/common/header';
+import Header from './header';
 import Configuration from '../configuration';
 import SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
-import { CLUSTER_KUBERNETES, JDBC, S3, SPARK } from 'utils/constants';
-
-const mode = SPARK;
-const context = CLUSTER_KUBERNETES;
+import * as C from 'utils/constants';
+import { getSparkType } from 'utils/spark-type';
 
 const Spark = () => {
+	const { pathname } = useLocation();
 	const [script, setScript] = useRecoilState(SPARK_SCRIPT);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
@@ -40,11 +40,11 @@ const Spark = () => {
 		const formatedBindings = Object.entries(bindings).reduce(
 			(acc, [k, v]) => {
 				const { type, ...rest } = v;
-				if (type === S3) {
+				if (type === C.S3) {
 					const { bindings } = acc;
 					return { ...acc, s3ForBindings: { ...bindings, [k]: rest } };
 				}
-				if (type === JDBC) {
+				if (type === C.JDBC) {
 					const { queriesForBindings } = acc;
 					return {
 						...acc,
@@ -57,7 +57,7 @@ const Spark = () => {
 		);
 
 		authFetch(
-			`execute?mode=${mode}&type=${context}`,
+			`execute?mode=${C.SPARK}&type=${getSparkType(pathname)}`,
 			{ vtlScript: script, toSave: {}, ...formatedBindings },
 			'POST'
 		)
@@ -98,12 +98,11 @@ const Spark = () => {
 	return (
 		<div className="container">
 			<Header
-				label={'Spark execution'}
-				disableExecution={
-					errors.length > 0 || !script || Object.values(bindings).length === 0
-				}
+				script={script}
+				errors={errors}
+				bindings={bindings}
+				pathname={pathname}
 				getRes={getRes}
-				noReturn
 			/>
 			<Configuration
 				script={script}

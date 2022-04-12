@@ -2,14 +2,27 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Menu as WilcoMenu } from '@inseefr/wilco';
 import { getEnv } from 'env';
-import { IN_MEMORY_PATH, CLUSTER_KUBERNETES_PATH } from 'utils/constants';
+import {
+	IN_MEMORY_PATH,
+	SPARK_LOCAL_PATH,
+	SPARK_STATIC_PATH,
+	SPARK_KUBERNETES_PATH,
+} from 'utils/constants';
 import './menu.scss';
 
 const paths = [
 	{ label: 'In Memory', path: `${IN_MEMORY_PATH}` },
 	{
-		label: 'Spark - Kube',
-		path: `${CLUSTER_KUBERNETES_PATH}`,
+		label: 'Spark - Local',
+		path: `${SPARK_LOCAL_PATH}`,
+	},
+	{
+		label: 'Spark - Static',
+		path: `${SPARK_STATIC_PATH}`,
+	},
+	{
+		label: 'Spark - Kubernetes',
+		path: `${SPARK_KUBERNETES_PATH}`,
 	},
 ];
 
@@ -28,7 +41,7 @@ const Menu = () => {
 
 	return (
 		<div className="menu-container">
-			<WilcoMenu paths={realPaths} home={{ label: 'Home', path: '/home' }} />
+			<WilcoMenu paths={realPaths} home={{ label: 'Home', path: '/' }} />
 		</div>
 	);
 };

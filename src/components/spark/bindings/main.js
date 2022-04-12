@@ -21,7 +21,7 @@ const MainBindings = ({ bindings, setBindings }) => {
 				<Button label="Edit" action={() => onClick(JDBC)} />
 			</div>
 			<div className="row">
-				<BindingList bindings={bindings} setBindings={setBindings} spark />
+				<BindingList bindings={bindings} setBindings={setBindings} />
 			</div>
 			<SlidingPanel
 				title="Binding definition"
@@ -34,7 +34,6 @@ const MainBindings = ({ bindings, setBindings }) => {
 					bindings={bindings}
 					setBindings={setBindings}
 					closePanel={() => setOpenConnector(false)}
-					spark
 				/>
 			</SlidingPanel>
 		</>

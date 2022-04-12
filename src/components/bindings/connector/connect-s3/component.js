@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Select } from '@inseefr/wilco';
-import ConnectS3ViewResults from './results';
+import View from '../view';
 import { S3 } from 'utils/constants';
 
 const DEFAULT_INIT = {
@@ -22,28 +22,20 @@ const ConnectS3Bindings = ({
 	const [nameError, setNameError] = useState(false);
 	const [filetype, setFiletype] = useState(init.filetype);
 	const [url, setUrl] = useState(init.url);
-	const [displayResults, setDisplayResults] = useState(false);
 
 	const handleName = (e) => {
 		const newName = e.target.value;
 		setName(newName);
 		if (nameError && !bindings[newName]) setNameError(false);
 		if (newName !== init.name && bindings[newName]) setNameError(true);
-		setDisplayResults(false);
 	};
 
 	const handleFileType = (d) => {
 		setFiletype(d);
-		setDisplayResults(false);
 	};
 
 	const handleUrl = (d) => {
 		setUrl(d.target.value);
-		setDisplayResults(false);
-	};
-
-	const onView = () => {
-		setDisplayResults(true);
 	};
 
 	const onSave = () => {
@@ -101,28 +93,15 @@ const ConnectS3Bindings = ({
 					/>
 				</div>
 			</div>
-			<div className="row">
-				<Button
-					label="View"
-					action={onView}
-					disabled={name && url && filetype && !nameError ? false : true}
-					col={3}
-				/>
-			</div>
+			<View
+				filetype={filetype}
+				url={url}
+				connectorType={S3}
+				bodyKey={'s3ForBindings'}
+				disabledCondition={url && filetype}
+			/>
 			<div className="row">
 				<Button label="Save" action={onSave} col={3} />
-			</div>
-			{displayResults && (
-				<ConnectS3ViewResults
-					filetype={filetype}
-					url={url}
-					onSave={onSave}
-					closePanel={closePanel}
-					deletable={deletable}
-					onDelete={onDelete}
-				/>
-			)}
-			<div className="row">
 				<Button label="Cancel" action={closePanel} col={3} />
 				{deletable && (
 					<Button

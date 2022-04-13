@@ -101,7 +101,12 @@ const ConnectS3Bindings = ({
 				disabledCondition={url && filetype}
 			/>
 			<div className="row">
-				<Button label="Save" action={onSave} col={3} />
+				<Button
+					label="Save"
+					action={onSave}
+					col={3}
+					disabled={!url || !filetype}
+				/>
 				<Button label="Cancel" action={closePanel} col={3} />
 				{deletable && (
 					<Button

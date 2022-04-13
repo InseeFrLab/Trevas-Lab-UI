@@ -107,7 +107,7 @@ const EditBindings = ({
 						value={url}
 						onChange={(e) => handleUrl(e)}
 						col={12}
-						placeholder="postgresql://instance:5432/base"
+						placeholder="postgresql-instance:5432/base"
 					/>
 				</div>
 			</div>
@@ -156,7 +156,12 @@ const EditBindings = ({
 				bodyKey={'queriesForBindings'}
 			/>
 			<div className="row">
-				<Button label="Save" action={onSave} col={3} />
+				<Button
+					label="Save"
+					action={onSave}
+					col={3}
+					disabled={!(url && query && user && password && dbtype)}
+				/>
 				<Button label="Cancel" action={closePanel} col={3} />
 				{deletable && (
 					<Button

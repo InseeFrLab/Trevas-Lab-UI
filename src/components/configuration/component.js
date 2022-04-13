@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Button } from '@inseefr/wilco';
+import { useLocation } from 'react-router-dom';
+import { Button, Input } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
 import FileUploader from 'components/common/file-uploader';
 import { saveAs } from 'file-saver';
 import { DownloadIcon, UploadIcon } from 'components/common/icons';
 import { getEnv } from 'env';
+import { SPARK_STATIC_PATH, SPARK_KUBERNETES_PATH } from 'utils/constants';
 
-const fileName = 'configuration.json';
 const sparkUI = getEnv()['SPARK_UI'];
 
 const Configuration = ({
@@ -17,12 +18,15 @@ const Configuration = ({
 	hasScriptErrors,
 	spark,
 }) => {
+	const { pathname } = useLocation();
 	const [openUpload, setOpenUpload] = useState(false);
+	const [openDownload, setOpenDownload] = useState(false);
+	const [fileName, setFileName] = useState('');
 	const [file, setFile] = useState(null);
 	const [fileScript, setFileScript] = useState(null);
 	const [fileBindings, setFileBindings] = useState(null);
 
-	const onDownload = () => {
+	const onValidateDownload = () => {
 		const fileToSave = new Blob(
 			[JSON.stringify({ script, bindings }, null, 4)],
 			{
@@ -31,6 +35,7 @@ const Configuration = ({
 			}
 		);
 		saveAs(fileToSave, fileName);
+		setOpenUpload(false);
 	};
 
 	const onUpload = ({ script: s, bindings: b }) => {
@@ -38,18 +43,25 @@ const Configuration = ({
 		setFileBindings(b);
 	};
 
-	const onValidate = () => {
+	const onValidateUpload = () => {
 		setScript(fileScript);
 		setBindings(fileBindings);
 		setOpenUpload(false);
 	};
+
+	const displaySparkUIButton = [
+		SPARK_STATIC_PATH,
+		SPARK_KUBERNETES_PATH,
+	].includes(pathname);
 
 	return (
 		<>
 			<div className="row">
 				<Button
 					label={<DownloadIcon />}
-					action={onDownload}
+					action={() => {
+						setOpenDownload(true);
+					}}
 					disabled={
 						(Object.keys(bindings).length === 0 && script === '') ||
 						hasScriptErrors
@@ -61,7 +73,7 @@ const Configuration = ({
 						setOpenUpload(true);
 					}}
 				/>
-				{spark && sparkUI && (
+				{displaySparkUIButton && sparkUI && (
 					<>
 						<div className="col-md-6 header-item" />
 						<Button label={'Spark UI'} action={sparkUI} externalLink />
@@ -69,7 +81,7 @@ const Configuration = ({
 				)}
 			</div>
 			<SlidingPanel
-				title="Binding definition"
+				title="Upload configuration"
 				open={openUpload}
 				setOpen={setOpenUpload}
 				width={'60%'}
@@ -78,7 +90,41 @@ const Configuration = ({
 				<p>Upload your JSON file</p>
 				<FileUploader file={file} setData={onUpload} setFile={setFile} />
 				<div className="row">
-					<Button label="Import" action={onValidate} col={3} disabled={!file} />
+					<Button
+						label="Import"
+						action={onValidateUpload}
+						col={3}
+						disabled={!file}
+					/>
+				</div>
+			</SlidingPanel>
+			<SlidingPanel
+				title="Download configuration"
+				open={openDownload}
+				setOpen={setOpenDownload}
+				width={'60%'}
+				from="left"
+			>
+				<p>Download your JSON file</p>
+				<div className="row">
+					<div className="col-md-6">
+						<Input
+							label="File name"
+							value={fileName}
+							onChange={(e) => {
+								setFileName(e.target.value);
+							}}
+							col={12}
+						/>
+					</div>
+				</div>
+				<div className="row">
+					<Button
+						label="Export"
+						action={onValidateDownload}
+						col={3}
+						disabled={!file}
+					/>
 				</div>
 			</SlidingPanel>
 		</>

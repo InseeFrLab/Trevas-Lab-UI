@@ -57,6 +57,7 @@ const ResultList = ({ results, loadingPost, apiError }) => {
 					onClose={() => {
 						setView(null);
 					}}
+					name={view}
 				/>
 			</SlidingPanel>
 		</>

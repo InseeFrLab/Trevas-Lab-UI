@@ -78,7 +78,7 @@ const InMemory = ({
 							activeKey === '2' ? setActiveKey(null) : setActiveKey('2');
 						}}
 					>
-						Results
+						Preview results
 					</Accordion.Toggle>
 				</Card.Header>
 				<Accordion.Collapse eventKey="2">

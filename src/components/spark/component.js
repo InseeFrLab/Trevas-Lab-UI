@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
-import { UUID_State, SPARK_SCRIPT, SPARK_BINDINGS } from 'store';
+import { UUID_State, SPARK_SCRIPT, SPARK_BINDINGS, SPARK_TO_SAVE } from 'store';
 import Header from './header';
 import Configuration from '../configuration';
 import SparkComponent from './main';
@@ -15,6 +15,7 @@ const Spark = () => {
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
 	const [bindings, setBindings] = useRecoilState(SPARK_BINDINGS);
+	const [toSave, setToSave] = useRecoilState(SPARK_TO_SAVE);
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
 	const [UUID, setUUID] = useRecoilState(UUID_State);
@@ -41,8 +42,8 @@ const Spark = () => {
 			(acc, [k, v]) => {
 				const { type, ...rest } = v;
 				if (type === C.S3) {
-					const { bindings } = acc;
-					return { ...acc, s3ForBindings: { ...bindings, [k]: rest } };
+					const { s3ForBindings } = acc;
+					return { ...acc, s3ForBindings: { ...s3ForBindings, [k]: rest } };
 				}
 				if (type === C.JDBC) {
 					const { queriesForBindings } = acc;
@@ -53,12 +54,26 @@ const Spark = () => {
 				}
 				return acc;
 			},
-			{ bindings: {}, s3ForBindings: {} }
+			{ queriesForBindings: {}, s3ForBindings: {} }
+		);
+
+		//TODO: refactor to avoid duplication
+		const formatedToSave = Object.entries(toSave).reduce(
+			(acc, [k, v]) => {
+				const { type, ...rest } = v;
+				if (type === C.S3) {
+					const { s3ForBindings } = acc;
+					return { ...acc, s3ForBindings: { ...s3ForBindings, [k]: rest } };
+				}
+				// TODO: JDBC
+				return acc;
+			},
+			{ s3ForBindings: {} }
 		);
 
 		authFetch(
 			`execute?mode=${C.SPARK}&type=${getSparkType(pathname)}`,
-			{ vtlScript: script, toSave: {}, ...formatedBindings },
+			{ vtlScript: script, toSave: formatedToSave, ...formatedBindings },
 			'POST'
 		)
 			.then((res) => {
@@ -122,6 +137,8 @@ const Spark = () => {
 				res={res}
 				loadingPost={loadingPost}
 				apiError={apiError}
+				toSave={toSave}
+				setToSave={setToSave}
 			/>
 		</div>
 	);

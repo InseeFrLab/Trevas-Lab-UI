@@ -21,6 +21,7 @@ const EditBindings = ({
 	init = DEFAULT_INIT,
 	deletable,
 	spark,
+	disableView,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
@@ -145,16 +146,18 @@ const EditBindings = ({
 					/>
 				</div>
 			</div>
-			<View
-				dbtype={dbtype}
-				url={url}
-				query={query}
-				user={user}
-				password={password}
-				disabledCondition={url && query && user && password && dbtype}
-				connectorType={JDBC}
-				bodyKey={'queriesForBindings'}
-			/>
+			{!disableView && (
+				<View
+					dbtype={dbtype}
+					url={url}
+					query={query}
+					user={user}
+					password={password}
+					disabledCondition={url && query && user && password && dbtype}
+					connectorType={JDBC}
+					bodyKey={'queriesForBindings'}
+				/>
+			)}
 			<div className="row">
 				<Button
 					label="Save"

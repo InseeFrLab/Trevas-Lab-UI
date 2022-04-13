@@ -16,7 +16,7 @@ const getColor = (type) => {
 	}
 };
 
-const ResultList = ({ results, loadingPost, apiError }) => {
+const PreviewResultList = ({ results, loadingPost, apiError }) => {
 	const [view, setView] = useState(null);
 
 	if (apiError)
@@ -63,4 +63,4 @@ const ResultList = ({ results, loadingPost, apiError }) => {
 	);
 };
 
-export default ResultList;
+export default PreviewResultList;

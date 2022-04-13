@@ -123,7 +123,7 @@ const Configuration = ({
 						label="Export"
 						action={onValidateDownload}
 						col={3}
-						disabled={!file}
+						disabled={!fileName}
 					/>
 				</div>
 			</SlidingPanel>

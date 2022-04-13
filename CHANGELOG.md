@@ -1,3 +1,12 @@
+### **0.2.14** (2022-04-13)  
+  
+- Merge pull request #21 from InseeFrLab/v2
+
+V2  
+- v0.2.14  
+- Fix spark panel issue  
+- Fix minor issue    
+  
 ### **0.2.13** (2022-04-13)  
   
 - Merge pull request #20 from InseeFrLab/v2

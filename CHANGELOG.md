@@ -1,3 +1,11 @@
+### **0.2.13** (2022-04-13)  
+  
+- Merge pull request #20 from InseeFrLab/v2
+
+V2  
+- v0.2.13  
+- Init saving for spark    
+  
 ### **0.2.12** (2022-04-13)  
   
 - Merge pull request #19 from InseeFrLab/v2

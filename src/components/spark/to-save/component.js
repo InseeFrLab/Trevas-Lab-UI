@@ -30,9 +30,9 @@ const ResultsToSave = ({ toSave, setToSave }) => {
 			<SlidingPanel
 				title={newResult ? 'Define binding to save' : view}
 				open={view || newResult ? true : false}
-				setOpen={(e) => {
-					setView(e);
-					setNewResult(e);
+				setOpen={() => {
+					setView('');
+					setNewResult(false);
 				}}
 				width={'70%'}
 			>
@@ -57,7 +57,7 @@ const ResultsToSave = ({ toSave, setToSave }) => {
 						bindings={toSave}
 						setBindings={setToSave}
 						closePanel={() => {
-							setView(false);
+							setView('');
 							setNewResult(false);
 						}}
 						init={{

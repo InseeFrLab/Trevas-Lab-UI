@@ -11,6 +11,7 @@ const Connector = ({
 	setBindings,
 	closePanel,
 	deletable,
+	disableView,
 }) => {
 	const updatedType = type || bindings[init.name]?.type;
 	if (updatedType === LOCAL_JSON)
@@ -31,6 +32,7 @@ const Connector = ({
 				setBindings={setBindings}
 				closePanel={closePanel}
 				deletable={deletable}
+				disableView={disableView}
 			/>
 		);
 	if (updatedType === S3)
@@ -41,6 +43,7 @@ const Connector = ({
 				setBindings={setBindings}
 				closePanel={closePanel}
 				deletable={deletable}
+				disableView={disableView}
 			/>
 		);
 	return null;

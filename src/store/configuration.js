@@ -19,3 +19,8 @@ export const SPARK_BINDINGS = atom({
 	key: 'SPARK_BINDINGS',
 	default: {},
 });
+
+export const SPARK_TO_SAVE = atom({
+	key: 'SPARK_TO_SAVE',
+	default: {},
+});

@@ -6,7 +6,7 @@ import DataTable from 'components/common/data-table';
 import Alert from 'components/common/alert';
 import { getSparkType, getMode } from 'utils/spark-type';
 
-const S3View = ({
+const View = ({
 	connectorType,
 	disabledCondition,
 	bodyKey,
@@ -57,4 +57,4 @@ const S3View = ({
 	);
 };
 
-export default S3View;
+export default View;

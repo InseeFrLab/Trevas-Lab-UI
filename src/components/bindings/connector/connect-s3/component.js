@@ -17,6 +17,7 @@ const ConnectS3Bindings = ({
 	closePanel,
 	init = DEFAULT_INIT,
 	deletable,
+	disableView,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
@@ -93,13 +94,15 @@ const ConnectS3Bindings = ({
 					/>
 				</div>
 			</div>
-			<View
-				filetype={filetype}
-				url={url}
-				connectorType={S3}
-				bodyKey={'s3ForBindings'}
-				disabledCondition={url && filetype}
-			/>
+			{!disableView && (
+				<View
+					filetype={filetype}
+					url={url}
+					connectorType={S3}
+					bodyKey={'s3ForBindings'}
+					disabledCondition={url && filetype}
+				/>
+			)}
 			<div className="row">
 				<Button
 					label="Save"

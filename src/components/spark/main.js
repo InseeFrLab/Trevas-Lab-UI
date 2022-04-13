@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Accordion, Card, Button } from 'react-bootstrap';
 import Bindings from './bindings';
 import Editor from 'components/common/editor';
-import Results from './results';
+import PreviewResults from './preview';
+import ResultsToSave from './to-save';
 
-const InMemory = ({
+const Spark = ({
 	script,
 	setScript,
 	setErrors,
 	variableURLs,
 	bindings,
 	setBindings,
+	toSave,
+	setToSave,
 	res,
 	loadingPost,
 	apiError,
@@ -54,27 +57,10 @@ const InMemory = ({
 							activeKey === '1' ? setActiveKey(null) : setActiveKey('1');
 						}}
 					>
-						Write data
-					</Accordion.Toggle>
-				</Card.Header>
-				<Accordion.Collapse eventKey="1">
-					<Card.Body>TODO: enable to specify variables to save</Card.Body>
-				</Accordion.Collapse>
-			</Card>
-			<Card>
-				<Card.Header>
-					<Accordion.Toggle
-						as={Button}
-						variant="link"
-						eventKey="2"
-						onClick={() => {
-							activeKey === '2' ? setActiveKey(null) : setActiveKey('2');
-						}}
-					>
 						VTL Script
 					</Accordion.Toggle>
 				</Card.Header>
-				<Accordion.Collapse eventKey="2">
+				<Accordion.Collapse eventKey="1">
 					<Card.Body>
 						<Editor
 							script={script}
@@ -90,17 +76,36 @@ const InMemory = ({
 					<Accordion.Toggle
 						as={Button}
 						variant="link"
+						eventKey="2"
+						onClick={() => {
+							activeKey === '2' ? setActiveKey(null) : setActiveKey('2');
+						}}
+					>
+						Save results
+					</Accordion.Toggle>
+				</Card.Header>
+				<Accordion.Collapse eventKey="2">
+					<Card.Body>
+						<ResultsToSave toSave={toSave} setToSave={setToSave} />
+					</Card.Body>
+				</Accordion.Collapse>
+			</Card>
+			<Card>
+				<Card.Header>
+					<Accordion.Toggle
+						as={Button}
+						variant="link"
 						eventKey="3"
 						onClick={() => {
 							activeKey === '3' ? setActiveKey(null) : setActiveKey('3');
 						}}
 					>
-						Results
+						Preview results
 					</Accordion.Toggle>
 				</Card.Header>
 				<Accordion.Collapse eventKey="3">
 					<Card.Body>
-						<Results
+						<PreviewResults
 							loadingPost={loadingPost}
 							results={res}
 							apiError={apiError}
@@ -112,4 +117,4 @@ const InMemory = ({
 	);
 };
 
-export default InMemory;
+export default Spark;

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Button, Input } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
 import FileUploader from 'components/common/file-uploader';
 import { saveAs } from 'file-saver';
 import { DownloadIcon, UploadIcon } from 'components/common/icons';
 import { getEnv } from 'env';
+import { SPARK_STATIC_PATH, SPARK_KUBERNETES_PATH } from 'utils/constants';
 
 const sparkUI = getEnv()['SPARK_UI'];
 
@@ -16,6 +18,7 @@ const Configuration = ({
 	hasScriptErrors,
 	spark,
 }) => {
+	const { pathname } = useLocation();
 	const [openUpload, setOpenUpload] = useState(false);
 	const [openDownload, setOpenDownload] = useState(false);
 	const [fileName, setFileName] = useState('');
@@ -46,6 +49,11 @@ const Configuration = ({
 		setOpenUpload(false);
 	};
 
+	const displaySparkUIButton = [
+		SPARK_STATIC_PATH,
+		SPARK_KUBERNETES_PATH,
+	].includes(pathname);
+
 	return (
 		<>
 			<div className="row">
@@ -65,7 +73,7 @@ const Configuration = ({
 						setOpenUpload(true);
 					}}
 				/>
-				{spark && sparkUI && (
+				{displaySparkUIButton && sparkUI && (
 					<>
 						<div className="col-md-6 header-item" />
 						<Button label={'Spark UI'} action={sparkUI} externalLink />

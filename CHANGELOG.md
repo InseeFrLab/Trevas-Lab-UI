@@ -1,3 +1,13 @@
+### **0.2.12** (2022-04-13)  
+  
+- Merge pull request #19 from InseeFrLab/v2
+
+V2  
+- v0.2.12  
+- Improve in memory results  
+- Improve UI  
+- Update configuration component    
+  
 ### **0.2.11** (2022-04-12)  
   
 - Merge pull request #18 from InseeFrLab/v2

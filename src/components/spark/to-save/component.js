@@ -19,13 +19,17 @@ const ResultsToSave = ({ toSave, setToSave }) => {
 	const onClick = () => {
 		setNewResult(true);
 	};
+	const handleView = (n) => {
+		setView(n);
+		setTargetType(toSave[n].type);
+	};
 	return (
 		<>
 			<div className="row justify-content-center">
 				<Button label={<AddIcon />} action={onClick} />
 			</div>
 			<div className="row">
-				<ResultsToSaveList toSave={toSave} view={view} setView={setView} />
+				<ResultsToSaveList toSave={toSave} view={view} setView={handleView} />
 			</div>
 			<SlidingPanel
 				title={newResult ? 'Define binding to save' : view}
@@ -33,6 +37,7 @@ const ResultsToSave = ({ toSave, setToSave }) => {
 				setOpen={() => {
 					setView('');
 					setNewResult(false);
+					setTargetType(null);
 				}}
 				width={'70%'}
 			>

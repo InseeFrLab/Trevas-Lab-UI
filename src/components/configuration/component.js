@@ -15,8 +15,9 @@ const Configuration = ({
 	setScript,
 	bindings,
 	setBindings,
+	toSave,
+	setToSave,
 	hasScriptErrors,
-	spark,
 }) => {
 	const { pathname } = useLocation();
 	const [openUpload, setOpenUpload] = useState(false);
@@ -25,10 +26,11 @@ const Configuration = ({
 	const [file, setFile] = useState(null);
 	const [fileScript, setFileScript] = useState(null);
 	const [fileBindings, setFileBindings] = useState(null);
+	const [fileToSave, setFileToSave] = useState(null);
 
 	const onValidateDownload = () => {
 		const fileToSave = new Blob(
-			[JSON.stringify({ script, bindings }, null, 4)],
+			[JSON.stringify({ script, bindings, toSave }, null, 4)],
 			{
 				type: 'application/json',
 				name: fileName,
@@ -38,14 +40,16 @@ const Configuration = ({
 		setOpenUpload(false);
 	};
 
-	const onUpload = ({ script: s, bindings: b }) => {
+	const onUpload = ({ script: s, bindings: b, toSave: t = {} }) => {
 		setFileScript(s);
 		setFileBindings(b);
+		setFileToSave(t);
 	};
 
 	const onValidateUpload = () => {
 		setScript(fileScript);
 		setBindings(fileBindings);
+		setToSave(fileToSave);
 		setOpenUpload(false);
 	};
 

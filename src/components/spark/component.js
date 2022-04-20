@@ -92,7 +92,7 @@ const Spark = () => {
 			.catch((e) => {
 				setApiError(e);
 			});
-	}, [authFetch, bindings, script, setUUID, pathname]);
+	}, [authFetch, bindings, script, setUUID, pathname, toSave]);
 
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
@@ -124,6 +124,8 @@ const Spark = () => {
 				setScript={setScript}
 				bindings={bindings}
 				setBindings={setBindings}
+				toSave={toSave}
+				setToSave={setToSave}
 				hasScriptErrors={errors.length > 0}
 				spark
 			/>

@@ -1,3 +1,13 @@
+### **0.2.15** (2022-04-20)  
+  
+- Merge pull request #22 from InseeFrLab/v2
+
+V2  
+- v0.2.15  
+- Improve toSave view  
+- Improve configuration with toSave field  
+- Update component.js    
+  
 ### **0.2.14** (2022-04-13)  
   
 - Merge pull request #21 from InseeFrLab/v2

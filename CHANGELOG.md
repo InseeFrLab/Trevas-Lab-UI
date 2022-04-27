@@ -1,3 +1,11 @@
+### **0.2.16** (2022-04-27)  
+  
+- Merge pull request #23 from InseeFrLab/v2
+
+V2  
+- Update package.json  
+- Fix minor issues    
+  
 ### **0.2.15** (2022-04-20)  
   
 - Merge pull request #22 from InseeFrLab/v2

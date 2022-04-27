@@ -22,9 +22,7 @@ const getLabel = (pathname) => {
 const SparkHeader = ({ script, pathname, errors, bindings, getRes }) => (
 	<Header
 		label={getLabel(pathname)}
-		disableExecution={
-			errors.length > 0 || !script || Object.values(bindings).length === 0
-		}
+		disableExecution={errors.length > 0 || !script}
 		getRes={getRes}
 		noReturn
 	/>

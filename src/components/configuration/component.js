@@ -49,7 +49,7 @@ const Configuration = ({
 	const onValidateUpload = () => {
 		setScript(fileScript);
 		setBindings(fileBindings);
-		setToSave(fileToSave);
+		if (setToSave) setToSave(fileToSave);
 		setOpenUpload(false);
 	};
 

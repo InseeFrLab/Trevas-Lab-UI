@@ -99,9 +99,7 @@ const InMemory = () => {
 		<div className="container">
 			<Header
 				label={'In Memory execution'}
-				disableExecution={
-					errors.length > 0 || !script || Object.values(bindings).length === 0
-				}
+				disableExecution={errors.length > 0 || !script}
 				getRes={getRes}
 				noReturn
 			/>

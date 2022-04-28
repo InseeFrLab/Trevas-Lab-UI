@@ -126,8 +126,8 @@ const Spark = () => {
 				setBindings={setBindings}
 				toSave={toSave}
 				setToSave={setToSave}
+				setRes={setRes}
 				hasScriptErrors={errors.length > 0}
-				spark
 			/>
 			<SparkComponent
 				script={script}

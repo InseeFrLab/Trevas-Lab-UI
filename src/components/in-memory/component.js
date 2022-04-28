@@ -108,6 +108,7 @@ const InMemory = () => {
 				setScript={setScript}
 				bindings={bindings}
 				setBindings={setBindings}
+				setRes={setRes}
 				hasScriptErrors={errors.length > 0}
 			/>
 			<InMemoryComponent

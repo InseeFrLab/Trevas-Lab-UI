@@ -18,6 +18,7 @@ const Configuration = ({
 	toSave,
 	setToSave,
 	hasScriptErrors,
+	setRes,
 }) => {
 	const { pathname } = useLocation();
 	const [openUpload, setOpenUpload] = useState(false);
@@ -50,6 +51,7 @@ const Configuration = ({
 		setScript(fileScript);
 		setBindings(fileBindings);
 		if (setToSave) setToSave(fileToSave);
+		setRes(null);
 		setOpenUpload(false);
 	};
 

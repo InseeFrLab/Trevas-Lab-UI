@@ -30,6 +30,7 @@ const EditBindings = ({
 	const [query, setQuery] = useState(init.query);
 	const [user, setUser] = useState(init.user);
 	const [password, setPassword] = useState(init.password);
+	const [roleUrl, setRoleUrl] = useState(init.roleUrl);
 
 	const handleName = (e) => {
 		const newName = e.target.value;
@@ -58,12 +59,16 @@ const EditBindings = ({
 		setPassword(d.target.value);
 	};
 
+	const handleRoleUrl = (d) => {
+		setRoleUrl(d.target.value);
+	};
+
 	const onSave = () => {
 		setBindings((b) => {
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: { type: JDBC, user, password, url, dbtype, query },
+				[name]: { type: JDBC, user, password, url, dbtype, query, roleUrl },
 			};
 		});
 		closePanel();
@@ -146,6 +151,17 @@ const EditBindings = ({
 					/>
 				</div>
 			</div>
+			<div className="row">
+				<div className="col-md-12">
+					<Input
+						label="Roles URL"
+						value={roleUrl}
+						onChange={(e) => handleRoleUrl(e)}
+						col={12}
+						placeholder="https://roles.json"
+					/>
+				</div>
+			</div>
 			{!disableView && (
 				<View
 					dbtype={dbtype}
@@ -153,6 +169,7 @@ const EditBindings = ({
 					query={query}
 					user={user}
 					password={password}
+					roleUrl={roleUrl}
 					disabledCondition={url && query && user && password && dbtype}
 					connectorType={JDBC}
 					bodyKey={'queriesForBindings'}

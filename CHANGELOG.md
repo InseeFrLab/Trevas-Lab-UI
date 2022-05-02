@@ -1,3 +1,17 @@
+### **0.2.17** (2022-05-02)  
+  
+- Merge pull request #25 from InseeFrLab/v2
+
+V2  
+- v0.2.17  
+- Add connector to save into jdbc  
+- Handle roles with JDBC connector  
+- Merge pull request #24 from InseeFrLab/v2
+
+V2  
+- Fix typo  
+- Improve config loading    
+  
 ### **0.2.16** (2022-04-27)  
   
 - Merge pull request #23 from InseeFrLab/v2

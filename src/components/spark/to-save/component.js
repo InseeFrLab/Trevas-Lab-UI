@@ -5,14 +5,14 @@ import ResultsToSaveList from './list';
 import { Select } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
 import Connector from 'components/bindings/connector';
-import { S3 } from 'utils/constants';
+import { S3, JDBC_TO_SAVE } from 'utils/constants';
 
 const CONNECTOR_OPTIONS = [
-	// { value: JDBC, label: 'JDBC' },
+	{ value: JDBC_TO_SAVE, label: 'JDBC' },
 	{ value: S3, label: 'S3' },
 ];
 
-const ResultsToSave = ({ toSave, setToSave }) => {
+const ResultsToSave = ({ toSave, setToSave, spark }) => {
 	const [newResult, setNewResult] = useState(null);
 	const [view, setView] = useState('');
 	const [targetType, setTargetType] = useState(null);
@@ -71,6 +71,7 @@ const ResultsToSave = ({ toSave, setToSave }) => {
 						}}
 						deletable={!newResult}
 						disableView
+						spark
 					/>
 				)}
 			</SlidingPanel>

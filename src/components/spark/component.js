@@ -65,10 +65,16 @@ const Spark = () => {
 					const { s3ForBindings } = acc;
 					return { ...acc, s3ForBindings: { ...s3ForBindings, [k]: rest } };
 				}
-				// TODO: JDBC
+				if (type === C.JDBC_TO_SAVE) {
+					const { jdbcForBindingsToSave } = acc;
+					return {
+						...acc,
+						jdbcForBindingsToSave: { ...jdbcForBindingsToSave, [k]: rest },
+					};
+				}
 				return acc;
 			},
-			{ s3ForBindings: {} }
+			{ s3ForBindings: {}, jdbcForBindingsToSave: {} }
 		);
 
 		authFetch(

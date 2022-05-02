@@ -15,13 +15,13 @@ const View = ({
 	const { pathname } = useLocation();
 	const [results, setResults] = useState(null);
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
+	const [error, setError] = useState('');
 
 	const authFetch = useAuthenticatedFetch();
 
 	const onView = useCallback(() => {
 		setLoading(true);
-		if (error) setError(false);
+		if (error) setError('');
 		authFetch(
 			`connect?mode=${getMode(pathname)}&type=${getSparkType(
 				pathname
@@ -30,12 +30,16 @@ const View = ({
 			'POST'
 		)
 			.then((res) => {
-				if (!res.ok) setError(true);
+				if (!res.ok) setError('Bad configuration');
 				return res.json();
 			})
 			.then((res) => {
 				setResults(res);
 				setLoading(false);
+			})
+			.catch(() => {
+				setLoading(false);
+				setError('Error while fetching server');
 			});
 	}, [configuration, authFetch, bodyKey, connectorType, error, pathname]);
 
@@ -44,7 +48,7 @@ const View = ({
 	return (
 		<>
 			{results && !error && <DataTable vtlJson={results} />}
-			{error && <Alert label="Bad configuration" variant="danger" />}
+			{error && <Alert label={error} variant="danger" />}
 			<div className="row">
 				<Button
 					label="View"

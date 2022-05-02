@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Select } from '@inseefr/wilco';
-import View from '../view';
-import { JDBC } from 'utils/constants';
+import { JDBC_TO_SAVE } from 'utils/constants';
 
 const DEFAULT_INIT = {
 	name: undefined,
@@ -15,20 +14,19 @@ const DEFAULT_INIT = {
 
 const DB_OPTIONS = [{ value: 'postgre', label: 'PostgreSQL' }];
 
-const EditBindings = ({
+const EditToSaveBindings = ({
 	bindings,
 	setBindings,
 	closePanel,
 	init = DEFAULT_INIT,
 	deletable,
 	spark,
-	disableView,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
 	const [dbtype, setDBType] = useState(init.dbtype);
 	const [url, setUrl] = useState(init.url);
-	const [query, setQuery] = useState(init.query);
+	const [table, setTable] = useState(init.table);
 	const [user, setUser] = useState(init.user);
 	const [password, setPassword] = useState(init.password);
 	const [roleUrl, setRoleUrl] = useState(init.roleUrl);
@@ -48,8 +46,8 @@ const EditBindings = ({
 		setUrl(d.target.value);
 	};
 
-	const handleQuery = (d) => {
-		setQuery(d.target.value);
+	const handleTable = (d) => {
+		setTable(d.target.value);
 	};
 
 	const handleUser = (d) => {
@@ -69,7 +67,15 @@ const EditBindings = ({
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: { type: JDBC, user, password, url, dbtype, query, roleUrl },
+				[name]: {
+					type: JDBC_TO_SAVE,
+					user,
+					password,
+					url,
+					dbtype,
+					table,
+					roleUrl,
+				},
 			};
 		});
 		closePanel();
@@ -121,16 +127,11 @@ const EditBindings = ({
 			<div className="row">
 				<div className="col-md-12">
 					<Input
-						label="SQL Query"
-						value={query}
-						onChange={(e) => handleQuery(e)}
+						label="Table to push results"
+						value={table}
+						onChange={(e) => handleTable(e)}
 						col={12}
-						placeholder="SELECT * FROM t LIMIT 100"
-						helpMsg={
-							spark
-								? 'View results will automatically be limited to 1 000 rows'
-								: ''
-						}
+						placeholder="my_table"
 					/>
 				</div>
 			</div>
@@ -152,38 +153,25 @@ const EditBindings = ({
 					/>
 				</div>
 			</div>
-			<div className="row">
-				<div className="col-md-12">
-					<Input
-						label={
-							spark ? 'Roles url (folder containing json file(s))' : 'Roles URL'
-						}
-						value={roleUrl}
-						onChange={(e) => handleRoleUrl(e)}
-						col={12}
-						placeholder={spark ? 's3a://bucket/roles' : 'https://my_file.json'}
-					/>
+			{spark && (
+				<div className="row">
+					<div className="col-md-12">
+						<Input
+							label="Roles url (folder will contain json file(s))"
+							value={roleUrl}
+							onChange={(e) => handleRoleUrl(e)}
+							col={12}
+							placeholder="s3a://bucket/test/roles.json"
+						/>
+					</div>
 				</div>
-			</div>
-			{!disableView && (
-				<View
-					dbtype={dbtype}
-					url={url}
-					query={query}
-					user={user}
-					password={password}
-					roleUrl={roleUrl}
-					disabledCondition={url && query && user && password && dbtype}
-					connectorType={JDBC}
-					bodyKey={'queriesForBindings'}
-				/>
 			)}
 			<div className="row">
 				<Button
 					label="Save"
 					action={onSave}
 					col={3}
-					disabled={!(url && query && user && password && dbtype)}
+					disabled={!(url && table && user && password && dbtype)}
 				/>
 				<Button label="Cancel" action={closePanel} col={3} />
 				{deletable && (
@@ -199,4 +187,4 @@ const EditBindings = ({
 	);
 };
 
-export default EditBindings;
+export default EditToSaveBindings;

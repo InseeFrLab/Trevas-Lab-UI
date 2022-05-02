@@ -10,6 +10,7 @@ export const CLUSTER_KUBERNETES = 'CLUSTER_KUBERNETES';
 // Connectors types
 export const LOCAL_JSON = 'JSON';
 export const JDBC = 'JDBC';
+export const JDBC_TO_SAVE = 'JDBC_TO_SAVE';
 export const S3 = 'S3';
 
 // Job status

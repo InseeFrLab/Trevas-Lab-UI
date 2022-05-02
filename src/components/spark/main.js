@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Accordion, Card, Button } from 'react-bootstrap';
 import Bindings from './bindings';
 import Editor from 'components/common/editor';
-import PreviewResults from './preview';
 import ResultsToSave from './to-save';
+import PreviewResults from './preview';
 
 const Spark = ({
 	script,

@@ -67,7 +67,7 @@ const EditToSaveBindings = ({
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: {
+				[name.replace(/ /g, '_')]: {
 					type: JDBC_TO_SAVE,
 					user,
 					password,

@@ -3,7 +3,7 @@ import { Button, Input } from '@inseefr/wilco';
 import ReactTooltip from 'react-tooltip';
 import FileUploader from 'components/common/file-uploader';
 import { connectExample } from './example';
-import DataTable from 'components/common/data-table';
+import ViewTable from 'components/common/view';
 import { LOCAL_JSON } from 'utils/constants';
 
 const DEFAULT_INIT = { name: undefined, file: null, data: null };
@@ -43,7 +43,7 @@ const ConnectBindings = ({
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: { type: LOCAL_JSON, value: data, file },
+				[name.replace(/ /g, '_')]: { type: LOCAL_JSON, value: data, file },
 			};
 		});
 		closePanel();
@@ -90,7 +90,7 @@ const ConnectBindings = ({
 			</div>
 			{displayResults && (
 				<>
-					<DataTable vtlJson={data} />
+					<ViewTable vtlJson={data} />
 					<div className="row">
 						<Button label="Save" action={onSave} col={3} />
 						<Button label="Cancel" action={closePanel} col={3} />

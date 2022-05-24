@@ -44,7 +44,7 @@ const ConnectS3Bindings = ({
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: { type: S3, url, filetype },
+				[name.replace(/ /g, '_')]: { type: S3, url, filetype },
 			};
 		});
 		closePanel();

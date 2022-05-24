@@ -69,7 +69,15 @@ const EditBindings = ({
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: { type: JDBC, user, password, url, dbtype, query, roleUrl },
+				[name.replace(/ /g, '_')]: {
+					type: JDBC,
+					user,
+					password,
+					url,
+					dbtype,
+					query,
+					roleUrl,
+				},
 			};
 		});
 		closePanel();

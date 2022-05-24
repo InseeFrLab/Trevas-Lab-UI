@@ -43,7 +43,7 @@ const ConnectBindings = ({
 			const { [init.name]: omit, ...others } = b;
 			return {
 				...others,
-				[name]: { type: LOCAL_JSON, value: data, file },
+				[name.replace(/ /g, '_')]: { type: LOCAL_JSON, value: data, file },
 			};
 		});
 		closePanel();

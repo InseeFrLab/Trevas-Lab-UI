@@ -1,3 +1,12 @@
+### **0.2.18** (2022-05-24)  
+  
+- Merge pull request #28 from InseeFrLab/v2
+
+V2  
+- v0.2.18  
+- Replace whitespaces into binding names  
+- Improve view    
+  
 ### **0.2.17** (2022-05-02)  
   
 - Merge pull request #25 from InseeFrLab/v2

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import { Button, Loading } from '@inseefr/wilco';
-import DataTable from 'components/common/data-table';
+import ViewTable from 'components/common/view';
 import Alert from 'components/common/alert';
 import { getSparkType, getMode } from 'utils/spark-type';
 
@@ -47,7 +47,7 @@ const View = ({
 
 	return (
 		<>
-			{results && !error && <DataTable vtlJson={results} />}
+			{results && !error && <ViewTable vtlJson={results} />}
 			{error && <Alert label={error} variant="danger" />}
 			<div className="row">
 				<Button

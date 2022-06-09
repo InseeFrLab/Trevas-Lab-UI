@@ -13,7 +13,7 @@ const Table = ({ vtlJson }) => {
 		sortable: true,
 	}));
 	const data = dataPoints.map((line) =>
-		line.reduce((acc, d, i) => ({ ...acc, [columns[i].colName]: d }), {})
+		line.reduce((acc, d, i) => ({ ...acc, [columns[i].colName]: `${d}` }), {})
 	);
 	return (
 		<DataTable

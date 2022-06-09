@@ -1,3 +1,12 @@
+### **0.2.19** (2022-06-09)  
+  
+- Merge pull request #29 from InseeFrLab/v2
+
+V2  
+- v0.2.19  
+- Fix table view  
+- Update README.md    
+  
 ### **0.2.18** (2022-05-24)  
   
 - Merge pull request #28 from InseeFrLab/v2

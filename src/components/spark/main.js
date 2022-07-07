@@ -17,14 +17,17 @@ const Spark = ({
 	res,
 	loadingPost,
 	apiError,
+	bindingLoadingErrors,
 }) => {
 	const [activeKey, setActiveKey] = useState('0');
 
 	useEffect(() => {
-		if (loadingPost || res) {
+		if (bindingLoadingErrors) {
+			setActiveKey('1');
+		} else if (loadingPost || res) {
 			setActiveKey('3');
 		}
-	}, [loadingPost, res]);
+	}, [loadingPost, res, bindingLoadingErrors]);
 
 	return (
 		<Accordion defaultActiveKey="0" activeKey={activeKey}>

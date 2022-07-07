@@ -6,6 +6,16 @@ import ViewTable from 'components/common/view';
 import Alert from 'components/common/alert';
 import { getSparkType, getMode } from 'utils/spark-type';
 
+const buildErrorMessage = ({ error, message, trace }) => {
+	return (
+		<>
+			<p>{error}</p>
+			<p>{message}</p>
+			<p>{trace}</p>
+		</>
+	);
+};
+
 const View = ({
 	connectorType,
 	disabledCondition,
@@ -16,12 +26,13 @@ const View = ({
 	const [results, setResults] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
+	const [status, setStatus] = useState(null);
 
 	const authFetch = useAuthenticatedFetch();
 
 	const onView = useCallback(() => {
 		setLoading(true);
-		if (error) setError('');
+		if (status) setStatus(null);
 		authFetch(
 			`connect?mode=${getMode(pathname)}&type=${getSparkType(
 				pathname
@@ -30,7 +41,7 @@ const View = ({
 			'POST'
 		)
 			.then((res) => {
-				if (!res.ok) setError('Bad configuration');
+				setStatus(res.status);
 				return res.json();
 			})
 			.then((res) => {
@@ -47,8 +58,7 @@ const View = ({
 
 	return (
 		<>
-			{results && !error && <ViewTable vtlJson={results} />}
-			{error && <Alert label={error} variant="danger" />}
+			{results && status === 200 && <ViewTable vtlJson={results} />}
 			<div className="row">
 				<Button
 					label="View"
@@ -57,6 +67,10 @@ const View = ({
 					col={3}
 				/>
 			</div>
+			{error && <Alert label={error} variant="danger" />}
+			{status && status !== 200 && (
+				<Alert label={buildErrorMessage(results)} variant="danger" />
+			)}
 		</>
 	);
 };

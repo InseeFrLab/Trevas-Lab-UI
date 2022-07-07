@@ -11,6 +11,7 @@ const InMemory = ({
 	variableURLs,
 	bindings,
 	setBindings,
+	bindingLoadingErrors,
 	res,
 	loadingPost,
 	apiError,
@@ -18,10 +19,12 @@ const InMemory = ({
 	const [activeKey, setActiveKey] = useState('0');
 
 	useEffect(() => {
-		if (loadingPost || res) {
+		if (bindingLoadingErrors) {
+			setActiveKey('1');
+		} else if (loadingPost || res) {
 			setActiveKey('2');
 		}
-	}, [loadingPost, res]);
+	}, [loadingPost, res, bindingLoadingErrors]);
 
 	return (
 		<Accordion defaultActiveKey="0" activeKey={activeKey}>

@@ -26,6 +26,7 @@
 	}
 
 	.toast.toast-failed {
+		max-width: inherit;
 		.toast-header,
 		.toast-body {
 			color: #721c24;

@@ -64,7 +64,12 @@ const Configuration = ({
 		<>
 			<div className="row">
 				<Button
-					label={<DownloadIcon />}
+					label={
+						<>
+							<DownloadIcon />
+							<span>Dowload</span>
+						</>
+					}
 					action={() => {
 						setOpenDownload(true);
 					}}
@@ -74,7 +79,12 @@ const Configuration = ({
 					}
 				/>
 				<Button
-					label={<UploadIcon />}
+					label={
+						<>
+							<UploadIcon />
+							<span>Upload</span>
+						</>
+					}
 					action={() => {
 						setOpenUpload(true);
 					}}

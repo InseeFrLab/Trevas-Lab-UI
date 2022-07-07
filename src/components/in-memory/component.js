@@ -15,6 +15,7 @@ const InMemory = () => {
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
 	const [bindings, setBindings] = useRecoilState(IN_MEMORY_BINDINGS);
+	const [bindingLoadingErrors, setBindingLoadingErrors] = useState(false);
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
 	const [UUID, setUUID] = useRecoilState(UUID_State);
@@ -24,12 +25,14 @@ const InMemory = () => {
 		setScript(e);
 		setRes(null);
 		setApiError('');
+		setBindingLoadingErrors(false);
 	};
 
 	const onChangeBindings = (e) => {
 		setBindings(e);
 		setRes(null);
 		setApiError('');
+		setBindingLoadingErrors(false);
 	};
 
 	const authFetch = useAuthenticatedFetch();
@@ -82,15 +85,20 @@ const InMemory = () => {
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
 			authFetch(`job/${currentJobId}/bindings`)
-				.then((r) => r.json())
+				.then((r) => {
+					return r.json();
+				})
 				.then((r) => {
 					setRes(r);
 				})
 				.then(() => {
 					setLoadingPost(false);
-				})
-				.then(() => {
 					setCurrentJobId('');
+				})
+				.catch(() => {
+					setLoadingPost(false);
+					setCurrentJobId('');
+					setBindingLoadingErrors(true);
 				});
 		}
 	}, [UUID, authFetch, currentJobId]);
@@ -120,6 +128,7 @@ const InMemory = () => {
 				setBindings={onChangeBindings}
 				res={res}
 				loadingPost={loadingPost}
+				bindingLoadingErrors={bindingLoadingErrors}
 				apiError={apiError}
 			/>
 		</div>

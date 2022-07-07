@@ -15,6 +15,7 @@ const Spark = () => {
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
 	const [bindings, setBindings] = useRecoilState(SPARK_BINDINGS);
+	const [bindingLoadingErrors, setBindingLoadingErrors] = useState(false);
 	const [toSave, setToSave] = useRecoilState(SPARK_TO_SAVE);
 	const [res, setRes] = useState(null);
 	const [apiError, setApiError] = useState('');
@@ -25,12 +26,14 @@ const Spark = () => {
 		setScript(e);
 		setRes(null);
 		setApiError('');
+		setBindingLoadingErrors(false);
 	};
 
 	const onChangeBindings = (e) => {
 		setBindings(e);
 		setRes(null);
 		setApiError('');
+		setBindingLoadingErrors(false);
 	};
 
 	const authFetch = useAuthenticatedFetch();
@@ -109,9 +112,12 @@ const Spark = () => {
 				})
 				.then(() => {
 					setLoadingPost(false);
-				})
-				.then(() => {
 					setCurrentJobId('');
+				})
+				.catch(() => {
+					setLoadingPost(false);
+					setCurrentJobId('');
+					setBindingLoadingErrors(true);
 				});
 		}
 	}, [UUID, authFetch, currentJobId]);
@@ -142,6 +148,7 @@ const Spark = () => {
 				// variableURLs={urls}
 				bindings={bindings}
 				setBindings={onChangeBindings}
+				bindingLoadingErrors={bindingLoadingErrors}
 				res={res}
 				loadingPost={loadingPost}
 				apiError={apiError}

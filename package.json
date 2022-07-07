@@ -1,6 +1,6 @@
 {
 	"name": "vtl-lab-ui",
-	"version": "0.2.19",
+	"version": "0.2.21",
 	"license": "MIT",
 	"dependencies": {
 		"@axa-fr/react-oidc-context": "^3.1.6",

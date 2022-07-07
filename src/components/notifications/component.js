@@ -25,19 +25,14 @@ const Notifications = () => {
 	const { start, stop, isActive } = useInterval(() => {
 		authFetch(`job/${UUID}`)
 			.then((res) => res.json())
-			.then(({ status, outputs }) => {
+			.then((r) => {
+				const { status, outputs, error } = r;
+				const errorMessage = error?.message;
 				if (status === DONE || status === FAILED) {
 					setUUID(null);
 				}
-				const res = { [`Job:${UUID}`]: { status }, ...outputs };
-				const toAdd = Object.entries(res).reduce(
-					(acc, [name, values]) => ({
-						...acc,
-						[name]: values,
-					}),
-					{}
-				);
-				setToDisplay({ ...toDisplay, ...toAdd });
+				const res = { [`Job:${UUID}`]: { status, errorMessage }, ...outputs };
+				setToDisplay({ ...toDisplay, ...res });
 			});
 	}, 1000);
 
@@ -50,16 +45,19 @@ const Notifications = () => {
 
 	return (
 		<>
-			{Object.entries(toDisplay).map(([name, { location, status }], i) => (
-				<Notification
-					key={i}
-					index={i}
-					name={name}
-					location={location}
-					status={status}
-					close={close}
-				/>
-			))}
+			{Object.entries(toDisplay).map(
+				([name, { location, status, errorMessage }], i) => (
+					<Notification
+						key={i}
+						index={i}
+						name={name}
+						location={location}
+						status={status}
+						errorMessage={errorMessage}
+						close={close}
+					/>
+				)
+			)}
 		</>
 	);
 };

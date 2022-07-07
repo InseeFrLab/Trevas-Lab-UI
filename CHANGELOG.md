@@ -1,3 +1,14 @@
+### **0.2.21** (2022-07-07)  
+  
+- Merge pull request #30 from InseeFrLab/v2
+
+V2  
+- v0.2.21  
+- Fix minor issue  
+- v0.2.20  
+- Improve spark error handling  
+- Support exception into in memory page    
+  
 ### **0.2.19** (2022-06-09)  
   
 - Merge pull request #29 from InseeFrLab/v2

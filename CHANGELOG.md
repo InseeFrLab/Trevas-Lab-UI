@@ -1,3 +1,15 @@
+## **0.3.0** (2022-10-03)  
+  
+- Merge pull request #32 from InseeFrLab/v2
+
+Update package.json  
+- Update package.json  
+- Merge pull request #31 from InseeFrLab/v2
+
+V2  
+- Add CSV to connectors  
+- Remove useless    
+  
 ### **0.2.21** (2022-07-07)  
   
 - Merge pull request #30 from InseeFrLab/v2

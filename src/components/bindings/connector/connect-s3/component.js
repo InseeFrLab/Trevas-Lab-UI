@@ -9,7 +9,10 @@ const DEFAULT_INIT = {
 	url: undefined,
 };
 
-const FILE_OPTIONS = [{ value: 'parquet', label: 'Apache Parquet' }];
+const FILE_OPTIONS = [
+	{ value: 'parquet', label: 'Apache Parquet' },
+	{ value: 'csv', label: 'CSV' },
+];
 
 const ConnectS3Bindings = ({
 	bindings,

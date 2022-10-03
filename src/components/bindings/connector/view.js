@@ -52,15 +52,7 @@ const View = ({
 				setLoading(false);
 				setError('Error while fetching server');
 			});
-	}, [
-		configuration,
-		authFetch,
-		bodyKey,
-		connectorType,
-		error,
-		pathname,
-		status,
-	]);
+	}, [configuration, authFetch, bodyKey, connectorType, pathname, status]);
 
 	if (loading) return <Loading />;
 

@@ -67,7 +67,7 @@ const Configuration = ({
 					label={
 						<>
 							<DownloadIcon />
-							<span>Dowload</span>
+							<span>Download</span>
 						</>
 					}
 					action={() => {

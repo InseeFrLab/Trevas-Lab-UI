@@ -1,4 +1,4 @@
-name: VTL Lab UI CI
+name: Trevas Lab UI CI
 
 on:
   push:

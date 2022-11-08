@@ -1,3 +1,7 @@
+### **0.3.1** (2022-11-08)  
+  
+- Rename project to Trevas Lab UI    
+  
 ## **0.3.0** (2022-10-03)  
   
 - Merge pull request #32 from InseeFrLab/v2

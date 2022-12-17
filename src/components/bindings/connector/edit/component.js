@@ -10,7 +10,6 @@ const DEFAULT_INIT = {
 	query: undefined,
 	user: undefined,
 	password: undefined,
-	roleUrl: undefined,
 };
 
 const DB_OPTIONS = [{ value: 'postgre', label: 'PostgreSQL' }];
@@ -71,7 +70,6 @@ const EditBindings = ({
 					url,
 					dbtype,
 					query,
-					roleUrl,
 				},
 			};
 		});
@@ -162,7 +160,6 @@ const EditBindings = ({
 					query={query}
 					user={user}
 					password={password}
-					roleUrl={roleUrl}
 					disabledCondition={url && query && user && password && dbtype}
 					connectorType={JDBC}
 					bodyKey={'queriesForBindings'}

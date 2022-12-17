@@ -31,7 +31,6 @@ const EditBindings = ({
 	const [query, setQuery] = useState(init.query);
 	const [user, setUser] = useState(init.user);
 	const [password, setPassword] = useState(init.password);
-	const [roleUrl, setRoleUrl] = useState(init.roleUrl);
 
 	const handleName = (e) => {
 		const newName = e.target.value;
@@ -58,10 +57,6 @@ const EditBindings = ({
 
 	const handlePassword = (d) => {
 		setPassword(d.target.value);
-	};
-
-	const handleRoleUrl = (d) => {
-		setRoleUrl(d.target.value);
 	};
 
 	const onSave = () => {
@@ -157,19 +152,6 @@ const EditBindings = ({
 						value={password}
 						onChange={(e) => handlePassword(e)}
 						col={12}
-					/>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col-md-12">
-					<Input
-						label={
-							spark ? 'Roles url (folder containing json file(s))' : 'Roles URL'
-						}
-						value={roleUrl}
-						onChange={(e) => handleRoleUrl(e)}
-						col={12}
-						placeholder={spark ? 's3a://bucket/roles' : 'https://my_file.json'}
 					/>
 				</div>
 			</div>

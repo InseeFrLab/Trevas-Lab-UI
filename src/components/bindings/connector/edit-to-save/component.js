@@ -9,7 +9,6 @@ const DEFAULT_INIT = {
 	query: undefined,
 	user: undefined,
 	password: undefined,
-	roleUrl: undefined,
 };
 
 const DB_OPTIONS = [{ value: 'postgre', label: 'PostgreSQL' }];
@@ -29,7 +28,6 @@ const EditToSaveBindings = ({
 	const [table, setTable] = useState(init.table);
 	const [user, setUser] = useState(init.user);
 	const [password, setPassword] = useState(init.password);
-	const [roleUrl, setRoleUrl] = useState(init.roleUrl);
 
 	const handleName = (e) => {
 		const newName = e.target.value;
@@ -58,10 +56,6 @@ const EditToSaveBindings = ({
 		setPassword(d.target.value);
 	};
 
-	const handleRoleUrl = (d) => {
-		setRoleUrl(d.target.value);
-	};
-
 	const onSave = () => {
 		setBindings((b) => {
 			const { [init.name]: omit, ...others } = b;
@@ -74,7 +68,6 @@ const EditToSaveBindings = ({
 					url,
 					dbtype,
 					table,
-					roleUrl,
 				},
 			};
 		});
@@ -153,19 +146,6 @@ const EditToSaveBindings = ({
 					/>
 				</div>
 			</div>
-			{spark && (
-				<div className="row">
-					<div className="col-md-12">
-						<Input
-							label="Roles url (folder will contain json file(s))"
-							value={roleUrl}
-							onChange={(e) => handleRoleUrl(e)}
-							col={12}
-							placeholder="s3a://bucket/test/roles.json"
-						/>
-					</div>
-				</div>
-			)}
 			<div className="row">
 				<Button
 					label="Save"

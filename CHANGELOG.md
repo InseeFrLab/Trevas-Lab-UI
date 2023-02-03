@@ -1,3 +1,15 @@
+### **0.3.4** (2023-02-03)  
+  
+- Merge pull request #34 from InseeFrLab/0.3.4
+
+0.3.4  
+- Merge pull request #33 from Making-Sense-Info/0.3.4
+
+0.3.4  
+- v0.3.4  
+- Fix typo  
+- Update dependencies    
+  
 ### **0.3.3** (2022-12-17)  
   
 - Fix issue  

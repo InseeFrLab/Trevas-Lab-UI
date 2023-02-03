@@ -344,7 +344,7 @@ export const getSuggestions = (range: IRange) => {
 		{
 			label: 'errorlevel',
 			kind: KEYWORD,
-			insertText: 'errorlvel',
+			insertText: 'errorlevel',
 			range: range,
 		},
 		{

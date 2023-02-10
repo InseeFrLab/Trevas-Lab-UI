@@ -10,13 +10,18 @@ const FILE_OPTIONS = [
 const filePathLocation = getEnv()['FILE_PATH_LOCATION'];
 
 const InputFilePath = ({ filetype, setFiletype, url, setUrl }) => {
-	if (filePathLocation === 'LOCAL') return null;
+	const FILE_TYPE_LABEL =
+		filePathLocation === 'LOCAL' ? 'File type' : 'S3 file type';
+	const URL_PLACEHOLDER =
+		filePathLocation === 'LOCAL'
+			? 'file:///folder_path'
+			: 's3a://bucket/folder';
 	return (
 		<>
 			<div className="row">
 				<div className="col-md-6">
 					<Select
-						label="S3 file type"
+						label={FILE_TYPE_LABEL}
 						value={FILE_OPTIONS.find(({ value }) => value === filetype)}
 						onChange={setFiletype}
 						options={FILE_OPTIONS}
@@ -31,7 +36,7 @@ const InputFilePath = ({ filetype, setFiletype, url, setUrl }) => {
 						value={url}
 						onChange={setUrl}
 						col={12}
-						placeholder="s3a://bucket/folder"
+						placeholder={URL_PLACEHOLDER}
 						helpMsg={`View results will automatically be limited to 1 000 rows`}
 					/>
 				</div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Input, Select } from '@inseefr/wilco';
+import { Button, Input } from '@inseefr/wilco';
+import InputFilePath from 'components/common/input-file-path';
 import View from '../view';
 import { S3 } from 'utils/constants';
 
@@ -8,11 +9,6 @@ const DEFAULT_INIT = {
 	filetype: undefined,
 	url: undefined,
 };
-
-const FILE_OPTIONS = [
-	{ value: 'parquet', label: 'Apache Parquet' },
-	{ value: 'csv', label: 'CSV' },
-];
 
 const ConnectS3Bindings = ({
 	bindings,
@@ -32,10 +28,6 @@ const ConnectS3Bindings = ({
 		setName(newName);
 		if (nameError && !bindings[newName]) setNameError(false);
 		if (newName !== init.name && bindings[newName]) setNameError(true);
-	};
-
-	const handleFileType = (d) => {
-		setFiletype(d);
 	};
 
 	const handleUrl = (d) => {
@@ -74,29 +66,12 @@ const ConnectS3Bindings = ({
 					/>
 				</div>
 			</div>
-			<div className="row">
-				<div className="col-md-6">
-					<Select
-						label="S3 file type"
-						value={FILE_OPTIONS.find(({ value }) => value === filetype)}
-						onChange={(e) => handleFileType(e)}
-						options={FILE_OPTIONS}
-						col={12}
-					/>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col-md-12">
-					<Input
-						label="Connection URL"
-						value={url}
-						onChange={(e) => handleUrl(e)}
-						col={12}
-						placeholder="s3a://bucket/folder"
-						helpMsg={`View results will automatically be limited to 1 000 rows`}
-					/>
-				</div>
-			</div>
+			<InputFilePath
+				filetype={filetype}
+				setFiletype={setFiletype}
+				url={url}
+				setUrl={handleUrl}
+			/>
 			{!disableView && (
 				<View
 					filetype={filetype}
@@ -111,7 +86,7 @@ const ConnectS3Bindings = ({
 					label="Save"
 					action={onSave}
 					col={3}
-					disabled={!url || !filetype}
+					disabled={!url || !filetype || nameError || !name}
 				/>
 				<Button label="Cancel" action={closePanel} col={3} />
 				{deletable && (

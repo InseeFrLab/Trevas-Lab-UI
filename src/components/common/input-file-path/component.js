@@ -49,7 +49,7 @@ const InputFilePath = ({
 						onChange={setUrl}
 						col={12}
 						placeholder={URL_PLACEHOLDER}
-						helpMsg={`View results will automatically be limited to 1 000 rows`}
+						helpMsg={`View results will automatically be limited to 100 rows`}
 					/>
 				</div>
 			</div>

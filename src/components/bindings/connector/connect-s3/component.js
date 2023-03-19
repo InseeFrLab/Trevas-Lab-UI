@@ -17,6 +17,7 @@ const ConnectS3Bindings = ({
 	init = DEFAULT_INIT,
 	deletable,
 	disableView,
+	toSave,
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
@@ -71,6 +72,7 @@ const ConnectS3Bindings = ({
 				setFiletype={setFiletype}
 				url={url}
 				setUrl={handleUrl}
+				toSave={toSave}
 			/>
 			{!disableView && (
 				<View

@@ -72,6 +72,7 @@ const ResultsToSave = ({ toSave, setToSave, spark }) => {
 						deletable={!newResult}
 						disableView
 						spark
+						toSave
 					/>
 				)}
 			</SlidingPanel>

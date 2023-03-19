@@ -14,6 +14,7 @@ const Connector = ({
 	deletable,
 	disableView,
 	spark,
+	toSave,
 }) => {
 	const updatedType = type || bindings[init.name]?.type;
 	if (updatedType === LOCAL_JSON)
@@ -59,6 +60,7 @@ const Connector = ({
 				closePanel={closePanel}
 				deletable={deletable}
 				disableView={disableView}
+				toSave={toSave}
 			/>
 		);
 	return null;

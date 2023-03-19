@@ -1,3 +1,38 @@
+## **0.5.0** (2023-03-19)  
+  
+- Merge pull request #41 from InseeFrLab/0.5.0
+
+0.5.0  
+- Merge pull request #42 from Making-Sense-Info/0.5.0
+
+Fix minor UI issue  
+- Fix minor UI issue  
+- Merge pull request #40 from Making-Sense-Info/0.5.0
+
+Add SAS to spark options  
+- Add SAS to spark options  
+- Merge pull request #39 from Making-Sense-Info/master
+
+Update package.json  
+- Update package.json  
+- Merge pull request #38 from InseeFrLab/0.4.2
+
+0.4.2  
+- Merge pull request #37 from Making-Sense-Info/0.4.2
+
+Fix table sorting issue  
+- Fix table sorting issue  
+- Merge pull request #36 from InseeFrLab/0.4.1
+
+0.4.1  
+- Merge pull request #35 from Making-Sense-Info/0.4.1
+
+0.4.1  
+- Sort tables  
+- Handle FILE_PATH_LOCATION  
+- Refactor InputFilePath  
+- Introduce REACT_APP_FILE_PATH_LOCATION    
+  
 ### **0.3.4** (2023-02-03)  
   
 - Merge pull request #34 from InseeFrLab/0.3.4

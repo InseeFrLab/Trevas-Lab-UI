@@ -12,7 +12,10 @@ const DEFAULT_INIT = {
 	password: undefined,
 };
 
-const DB_OPTIONS = [{ value: 'postgre', label: 'PostgreSQL' }];
+const DB_OPTIONS = [
+	{ value: 'mariadb', label: 'MariaDB' },
+	{ value: 'postgre', label: 'PostgreSQL' },
+];
 
 const EditBindings = ({
 	bindings,

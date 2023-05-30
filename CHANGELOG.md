@@ -1,3 +1,11 @@
+### **0.5.1** (2023-05-30)  
+  
+- Merge pull request #43 from Making-Sense-Info/0.5.1
+
+0.5.1  
+- v0.5.1  
+- Support mariadb    
+  
 ## **0.5.0** (2023-03-19)  
   
 - Merge pull request #41 from InseeFrLab/0.5.0

@@ -1,3 +1,14 @@
+### **0.5.2** (2023-06-17)  
+  
+- Merge pull request #46 from InseeFrLab/0.5.2
+
+0.5.2  
+- Merge pull request #45 from Making-Sense-Info/0.5.2
+
+0.5.2  
+- 0.5.2  
+- Fix db name    
+  
 ### **0.5.1** (2023-05-30)  
   
 - Merge pull request #43 from Making-Sense-Info/0.5.1

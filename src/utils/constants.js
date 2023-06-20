@@ -21,6 +21,4 @@ export const FAILED = 'FAILED';
 
 // Routes
 export const IN_MEMORY_PATH = '/in-memory';
-export const SPARK_LOCAL_PATH = '/spark/local';
-export const SPARK_STATIC_PATH = '/spark/static';
-export const SPARK_KUBERNETES_PATH = '/spark/kubernetes';
+export const SPARK_PATH = '/spark';

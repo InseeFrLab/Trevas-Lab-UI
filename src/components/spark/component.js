@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { useLocation } from 'react-router-dom';
 import { UUID_State, SPARK_SCRIPT, SPARK_BINDINGS, SPARK_TO_SAVE } from 'store';
 import Header from './header';
 import Configuration from '../configuration';
 import SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import * as C from 'utils/constants';
-import { getSparkType } from 'utils/spark-type';
 
 const Spark = () => {
-	const { pathname } = useLocation();
 	const [script, setScript] = useRecoilState(SPARK_SCRIPT);
 	const [errors, setErrors] = useState([]);
 	const [loadingPost, setLoadingPost] = useState(false);
@@ -81,7 +78,7 @@ const Spark = () => {
 		);
 
 		authFetch(
-			`execute?mode=${C.SPARK}&type=${getSparkType(pathname)}`,
+			`execute?mode=${C.SPARK}`,
 			{ vtlScript: script, toSave: formatedToSave, ...formatedBindings },
 			'POST'
 		)
@@ -101,7 +98,7 @@ const Spark = () => {
 			.catch((e) => {
 				setApiError(e);
 			});
-	}, [authFetch, bindings, script, setUUID, pathname, toSave]);
+	}, [authFetch, bindings, script, setUUID, toSave]);
 
 	useEffect(() => {
 		if (UUID === null && currentJobId) {
@@ -124,13 +121,7 @@ const Spark = () => {
 
 	return (
 		<div className="container">
-			<Header
-				script={script}
-				errors={errors}
-				bindings={bindings}
-				pathname={pathname}
-				getRes={getRes}
-			/>
+			<Header script={script} errors={errors} getRes={getRes} />
 			<Configuration
 				script={script}
 				setScript={setScript}

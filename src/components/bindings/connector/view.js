@@ -4,7 +4,7 @@ import { useAuthenticatedFetch } from 'utils/hooks';
 import { Button, Loading } from '@inseefr/wilco';
 import ViewTable from 'components/common/view';
 import Alert from 'components/common/alert';
-import { getSparkType, getMode } from 'utils/spark-type';
+import { getMode } from 'utils/spark-type';
 
 const buildErrorMessage = ({ error, message, trace }) => {
 	return (
@@ -34,9 +34,7 @@ const View = ({
 		setLoading(true);
 		if (status) setStatus(null);
 		authFetch(
-			`connect?mode=${getMode(pathname)}&type=${getSparkType(
-				pathname
-			)}&connectorType=${connectorType}`,
+			`connect?mode=${getMode(pathname)}&connectorType=${connectorType}`,
 			{ [bodyKey]: { config: configuration } },
 			'POST'
 		)

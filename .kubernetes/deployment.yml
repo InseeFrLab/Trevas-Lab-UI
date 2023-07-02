@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trevas-lab-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trevas-lab-ui
+  template:
+    metadata:
+      labels:
+        app: trevas-lab-ui
+    spec:
+      containers:
+        - name: trevas-lab-ui
+          image: inseefrlab/trevas-lab-ui:0.6.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MODULES
+              value: 'in-memory,spark'
+            - name: API_BASE_URL
+              value: 'https://trevas-api.example.com'
+            - name: AUTH_MODE
+              value: 'NONE'
+            - name: OIDC_AUTHORITY
+              value: '...'
+            - name: OIDC_CLIENT_ID
+              value: '...'
+            - name: SPARK_UI
+              value: 'https://trevas-spark-ui.example.com'

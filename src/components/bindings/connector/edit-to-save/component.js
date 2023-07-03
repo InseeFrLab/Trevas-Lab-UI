@@ -14,6 +14,7 @@ const DEFAULT_INIT = {
 const DB_OPTIONS = [
 	{ value: 'mysql', label: 'MySQL' },
 	{ value: 'postgre', label: 'PostgreSQL' },
+	{ value: 'sqlserver', label: 'SQL Server' },
 ];
 
 const EditToSaveBindings = ({

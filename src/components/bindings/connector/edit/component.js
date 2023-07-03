@@ -13,8 +13,7 @@ const DEFAULT_INIT = {
 };
 
 const DB_OPTIONS = [
-	//TODO: rename value here and in Trevas Lab
-	{ value: 'mariadb', label: 'MySQL' },
+	{ value: 'mysql', label: 'MySQL' },
 	{ value: 'postgre', label: 'PostgreSQL' },
 ];
 

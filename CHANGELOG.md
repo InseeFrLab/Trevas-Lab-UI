@@ -1,3 +1,26 @@
+## **0.6.1** (2023-09-10)  
+  
+- Merge pull request #51 from InseeFrLab/0.6.1
+
+0.6.1  
+- Merge pull request #50 from Making-Sense-Info/0.6.1
+
+0.6.1  
+- v0.6.1  
+- Add SQL Server for JDBC connectors  
+- Fix mysql id  
+- Merge pull request #49 from Making-Sense-Info/master
+
+Add Kubernetes example  
+- Add Kubernetes example  
+- Merge pull request #48 from InseeFrLab/0.6.0
+
+0.6.0  
+- Merge pull request #47 from Making-Sense-Info/0.6.0
+
+Simplify spark routes  
+- Simplify spark routes    
+  
 ### **0.5.2** (2023-06-17)  
   
 - Merge pull request #46 from InseeFrLab/0.5.2

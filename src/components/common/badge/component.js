@@ -10,7 +10,11 @@ const CustomBadge = ({
 }) => (
 	<div
 		onClick={onClick}
-		style={{ background: backgroundColor, color }}
+		style={{
+			background: backgroundColor,
+			color,
+			border: `1px solid ${backgroundColor}`,
+		}}
 		className="vtl-badge"
 	>
 		{label}

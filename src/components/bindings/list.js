@@ -14,7 +14,6 @@ const BindingList = ({ bindings, setBindings }) => {
 					key={name}
 					label={name}
 					backgroundColor={name === view ? 'red' : '#7e375b'}
-					color={name === view ? 'white' : 'white'}
 				/>
 			))}
 			<SlidingPanel

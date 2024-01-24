@@ -1,3 +1,18 @@
+## **0.7.1** (2024-01-24)  
+  
+- Merge pull request #55 from InseeFrLab/0.7.1
+
+0.7.1  
+- Merge pull request #54 from Making-Sense-Info/0.7.0
+
+0.7.1  
+- Update to save component  
+- v0.7.1  
+- Fix badges  
+- v0.7.0  
+- Improve bindings UX  
+- Move prettier config    
+  
 ## **0.6.1** (2023-09-10)  
   
 - Merge pull request #51 from InseeFrLab/0.6.1

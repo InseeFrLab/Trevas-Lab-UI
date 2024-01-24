@@ -48,14 +48,6 @@
 		"prestart": "generate-env-getter js",
 		"pretest": "generate-env-getter js"
 	},
-	"prettier": {
-		"bracketSpacing": true,
-		"semi": true,
-		"singleQuote": true,
-		"trailingComma": "es5",
-		"useTabs": true,
-		"endOfLine": "auto"
-	},
 	"browserslist": {
 		"production": [
 			">0.2%",

@@ -3,17 +3,20 @@ import { Loading } from '@inseefr/wilco';
 import SlidingPanel from 'components/common/sliding-panel';
 import Show from './show';
 import Badge from 'components/common/badge';
-import { LOCAL_JSON, JDBC } from 'utils/constants';
 
-const getColor = (type) => {
-	switch (type) {
-		case LOCAL_JSON:
-			return '#7e375b';
-		case JDBC:
-			return '#7e375b';
-		default:
-			return '#7e375b';
-	}
+const getColor = (name) => {
+	if (name.includes('$')) return 'white';
+	return '#7e375b';
+};
+
+const getBackgroundColor = (name) => {
+	if (name.includes('$')) return '#7e375b';
+	return 'white';
+};
+
+const getCleanName = (name) => {
+	if (!name.includes('$')) return name;
+	return `${name.split('$')[0]} (persistent)`;
 };
 
 const ResultList = ({ results, loadingPost, apiError }) => {
@@ -37,14 +40,18 @@ const ResultList = ({ results, loadingPost, apiError }) => {
 	return (
 		<>
 			<div className="row">
-				{Object.entries(results).map(([name, { type }]) => (
-					<Badge
-						onClick={() => setView(name)}
-						key={name}
-						label={name}
-						color={name === view ? 'red' : getColor(type)}
-					/>
-				))}
+				{Object.entries(results).map(([name]) => {
+					const updatedName = getCleanName(name);
+					return (
+						<Badge
+							onClick={() => setView(name)}
+							key={name}
+							label={updatedName}
+							backgroundColor={name === view ? 'red' : getBackgroundColor(name)}
+							color={name === view ? 'white' : getColor(name)}
+						/>
+					);
+				})}
 			</div>
 			<SlidingPanel
 				title={view}

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const EyeIcon = () => (
+const EyeIcon = ({ color = 'white' }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="28"
 		height="28"
-		fill="currentColor"
+		fill={color}
 		className="bi bi-eye"
 		viewBox="0 0 16 16"
 	>

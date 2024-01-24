@@ -2,10 +2,19 @@ import React from 'react';
 import { EyeIcon } from 'components/common/icons';
 import './badge.scss';
 
-const CustomBadge = ({ onClick, label, color }) => (
-	<div onClick={onClick} style={{ background: color }} className="vtl-badge">
+const CustomBadge = ({
+	onClick,
+	label,
+	backgroundColor = '#7e375b',
+	color = 'white',
+}) => (
+	<div
+		onClick={onClick}
+		style={{ background: backgroundColor, color }}
+		className="vtl-badge"
+	>
 		{label}
-		<EyeIcon />
+		<EyeIcon color={color} />
 	</div>
 );
 

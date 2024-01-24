@@ -1,6 +1,6 @@
 {
 	"name": "trevas-lab-ui",
-	"version": "0.6.1",
+	"version": "0.7.0",
 	"license": "MIT",
 	"dependencies": {
 		"@axa-fr/react-oidc-context": "^3.1.6",
@@ -47,14 +47,6 @@
 		"postinstall": "generate-env-getter js",
 		"prestart": "generate-env-getter js",
 		"pretest": "generate-env-getter js"
-	},
-	"prettier": {
-		"bracketSpacing": true,
-		"semi": true,
-		"singleQuote": true,
-		"trailingComma": "es5",
-		"useTabs": true,
-		"endOfLine": "auto"
 	},
 	"browserslist": {
 		"production": [

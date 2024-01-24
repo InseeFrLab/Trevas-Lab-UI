@@ -8,7 +8,7 @@ const ResultsToSaveList = ({ toSave, view, setView }) => (
 				onClick={() => setView(name)}
 				key={name}
 				label={name}
-				color={name === view ? 'red' : '#7e375b'}
+				backgroundColor={name === view ? 'red' : '#7e375b'}
 			/>
 		))}
 	</>

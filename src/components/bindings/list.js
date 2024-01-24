@@ -2,32 +2,18 @@ import React, { useState } from 'react';
 import SlidingPanel from 'components/common/sliding-panel';
 import Connector from './connector';
 import Badge from 'components/common/badge';
-import { LOCAL_JSON, JDBC, S3 } from 'utils/constants';
-
-const getColor = (type) => {
-	switch (type) {
-		case LOCAL_JSON:
-			return '#7e375b';
-		case JDBC:
-			return '#7e375b';
-		case S3:
-			return '#7e375b';
-		default:
-			break;
-	}
-};
 
 const BindingList = ({ bindings, setBindings }) => {
 	const [view, setView] = useState(null);
 
 	return (
 		<>
-			{Object.entries(bindings).map(([name, { type }]) => (
+			{Object.entries(bindings).map(([name]) => (
 				<Badge
 					onClick={() => setView(name)}
 					key={name}
 					label={name}
-					color={name === view ? 'red' : getColor(type)}
+					backgroundColor={name === view ? 'red' : '#7e375b'}
 				/>
 			))}
 			<SlidingPanel

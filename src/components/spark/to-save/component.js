@@ -25,6 +25,9 @@ const ResultsToSave = ({ toSave, setToSave, spark }) => {
 	};
 	return (
 		<>
+			<div className="row">
+				<em>Only persistent datasets can be saved</em>
+			</div>
 			<div className="row justify-content-center">
 				<Button label={<AddIcon />} action={onClick} />
 			</div>

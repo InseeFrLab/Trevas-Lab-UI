@@ -1,3 +1,18 @@
+### **0.7.2** (2024-01-28)  
+  
+- Merge pull request #57 from InseeFrLab/0.7.2
+
+Update Dockerfile  
+- Update Dockerfile  
+- Merge pull request #56 from InseeFrLab/0.7.2
+
+0.7.2  
+- v0.7.2  
+- Improve to save bindings names  
+- Add libs  
+- Fix antlr utils  
+- Add getPersistentDatasets utilitary    
+  
 ## **0.7.1** (2024-01-24)  
   
 - Merge pull request #55 from InseeFrLab/0.7.1

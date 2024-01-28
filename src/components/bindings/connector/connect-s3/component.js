@@ -18,6 +18,7 @@ const ConnectS3Bindings = ({
 	deletable,
 	disableView,
 	toSave,
+	enablePersistentDatasets,
 	persistentDatasets = [],
 }) => {
 	const [name, setName] = useState(init.name);
@@ -63,7 +64,7 @@ const ConnectS3Bindings = ({
 		<>
 			<div className="row">
 				<div className="col-md-6">
-					{persistentDatasets ? (
+					{enablePersistentDatasets ? (
 						<Select
 							label="Binding name"
 							value={persistantOptions.find(({ value }) => value === name)}

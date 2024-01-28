@@ -5,7 +5,7 @@ import Connector from 'components/bindings/connector';
 import BindingList from 'components/bindings/list';
 import { JDBC, S3 } from 'utils/constants';
 
-const MainBindings = ({ bindings, setBindings }) => {
+const MainBindings = ({ bindings, setBindings, enablePersistentDatasets }) => {
 	const [openConnector, setOpenConnector] = useState(false);
 	const [bindingType, setBindingType] = useState(null);
 
@@ -34,6 +34,7 @@ const MainBindings = ({ bindings, setBindings }) => {
 					bindings={bindings}
 					setBindings={setBindings}
 					closePanel={() => setOpenConnector(false)}
+					enablePersistentDatasets={enablePersistentDatasets}
 				/>
 			</SlidingPanel>
 		</>

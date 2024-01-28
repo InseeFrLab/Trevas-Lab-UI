@@ -16,6 +16,7 @@ const Connector = ({
 	spark,
 	toSave,
 	persistentDatasets,
+	enablePersistentDatasets,
 }) => {
 	const updatedType = type || bindings[init.name]?.type;
 	if (updatedType === LOCAL_JSON)
@@ -63,6 +64,7 @@ const Connector = ({
 				disableView={disableView}
 				toSave={toSave}
 				persistentDatasets={persistentDatasets}
+				enablePersistentDatasets={enablePersistentDatasets}
 			/>
 		);
 	return null;

@@ -94,6 +94,7 @@ const Spark = ({
 							toSave={toSave}
 							setToSave={setToSave}
 							persistentDatasets={persistentDatasets}
+							enablePersistentDatasets
 						/>
 					</Card.Body>
 				</Accordion.Collapse>

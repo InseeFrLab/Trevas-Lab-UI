@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Input } from '@inseefr/wilco';
+import { Button, Input, Select } from '@inseefr/wilco';
 import InputFilePath from 'components/common/input-file-path';
 import View from '../view';
 import { S3 } from 'utils/constants';
@@ -18,14 +18,14 @@ const ConnectS3Bindings = ({
 	deletable,
 	disableView,
 	toSave,
+	persistentDatasets = [],
 }) => {
 	const [name, setName] = useState(init.name);
 	const [nameError, setNameError] = useState(false);
 	const [filetype, setFiletype] = useState(init.filetype);
 	const [url, setUrl] = useState(init.url);
 
-	const handleName = (e) => {
-		const newName = e.target.value;
+	const handleName = (newName) => {
 		setName(newName);
 		if (nameError && !bindings[newName]) setNameError(false);
 		if (newName !== init.name && bindings[newName]) setNameError(true);
@@ -54,17 +54,34 @@ const ConnectS3Bindings = ({
 		closePanel();
 	};
 
+	const persistantOptions = persistentDatasets.map((p) => ({
+		value: p,
+		label: p,
+	}));
+
 	return (
 		<>
 			<div className="row">
 				<div className="col-md-6">
-					<Input
-						label="Binding name"
-						value={name}
-						onChange={(e) => handleName(e)}
-						col={12}
-						helpMsg={nameError ? `Binding " ${name} " already defined` : ''}
-					/>
+					{persistentDatasets ? (
+						<Select
+							label="Binding name"
+							value={persistantOptions.find(({ value }) => value === name)}
+							onChange={(e) => {
+								handleName(e);
+							}}
+							options={persistantOptions}
+							col={12}
+						/>
+					) : (
+						<Input
+							label="Binding name"
+							value={name}
+							onChange={(e) => handleName(e.target.value)}
+							col={12}
+							helpMsg={nameError ? `Binding " ${name} " already defined` : ''}
+						/>
+					)}
 				</div>
 			</div>
 			<InputFilePath

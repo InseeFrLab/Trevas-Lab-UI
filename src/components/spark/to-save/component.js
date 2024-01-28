@@ -12,7 +12,7 @@ const CONNECTOR_OPTIONS = [
 	{ value: S3, label: 'S3' },
 ];
 
-const ResultsToSave = ({ toSave, setToSave, spark }) => {
+const ResultsToSave = ({ toSave, setToSave, persistentDatasets }) => {
 	const [newResult, setNewResult] = useState(null);
 	const [view, setView] = useState('');
 	const [targetType, setTargetType] = useState(null);
@@ -76,6 +76,7 @@ const ResultsToSave = ({ toSave, setToSave, spark }) => {
 						disableView
 						spark
 						toSave
+						persistentDatasets={persistentDatasets}
 					/>
 				)}
 			</SlidingPanel>

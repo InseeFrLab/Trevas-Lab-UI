@@ -6,6 +6,7 @@ import Configuration from '../configuration';
 import SparkComponent from './main';
 import { useAuthenticatedFetch } from 'utils/hooks';
 import * as C from 'utils/constants';
+import { getPersistentDatasets } from 'utils/antlr';
 
 const Spark = () => {
 	const [script, setScript] = useRecoilState(SPARK_SCRIPT);
@@ -18,9 +19,13 @@ const Spark = () => {
 	const [apiError, setApiError] = useState('');
 	const [UUID, setUUID] = useRecoilState(UUID_State);
 	const [currentJobId, setCurrentJobId] = useState('');
+	const [persistentDatasets, setPersistentDatasets] = useState(() =>
+		getPersistentDatasets(script)
+	);
 
 	const onChangeScript = (e) => {
 		setScript(e);
+		setPersistentDatasets(getPersistentDatasets(e));
 		setRes(null);
 		setApiError('');
 		setBindingLoadingErrors(false);
@@ -136,7 +141,6 @@ const Spark = () => {
 				script={script}
 				setScript={onChangeScript}
 				setErrors={setErrors}
-				// variableURLs={urls}
 				bindings={bindings}
 				setBindings={onChangeBindings}
 				bindingLoadingErrors={bindingLoadingErrors}
@@ -145,6 +149,7 @@ const Spark = () => {
 				apiError={apiError}
 				toSave={toSave}
 				setToSave={setToSave}
+				persistentDatasets={persistentDatasets}
 			/>
 		</div>
 	);

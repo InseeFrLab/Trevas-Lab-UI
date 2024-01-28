@@ -23,9 +23,12 @@ const Spark = () => {
 		getPersistentDatasets(script)
 	);
 
+	useEffect(() => {
+		setPersistentDatasets(getPersistentDatasets(script));
+	}, [script]);
+
 	const onChangeScript = (e) => {
 		setScript(e);
-		setPersistentDatasets(getPersistentDatasets(e));
 		setRes(null);
 		setApiError('');
 		setBindingLoadingErrors(false);

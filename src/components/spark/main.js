@@ -18,6 +18,7 @@ const Spark = ({
 	loadingPost,
 	apiError,
 	bindingLoadingErrors,
+	persistentDatasets,
 }) => {
 	const [activeKey, setActiveKey] = useState('0');
 
@@ -89,7 +90,11 @@ const Spark = ({
 				</Card.Header>
 				<Accordion.Collapse eventKey="2">
 					<Card.Body>
-						<ResultsToSave toSave={toSave} setToSave={setToSave} />
+						<ResultsToSave
+							toSave={toSave}
+							setToSave={setToSave}
+							persistentDatasets={persistentDatasets}
+						/>
 					</Card.Body>
 				</Accordion.Collapse>
 			</Card>
